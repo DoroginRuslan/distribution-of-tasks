@@ -1,15 +1,14 @@
 package ru.era.distributionoftasks.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.era.distributionoftasks.entities.Employee;
 import ru.era.distributionoftasks.repositories.EmployeeRepository;
 
-import java.util.stream.Stream;
 
 @RestController
 public class HelloWorldController {
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
@@ -35,5 +34,16 @@ public class HelloWorldController {
             sb.append(employee.toString()).append("<br>");
         }
         return sb.toString();
+    }
+
+    @PostMapping(value = "/process")
+//    @JsonManagedReference
+    public String processFormData(@RequestBody Dattt dat) {
+        System.out.println(dat);
+        // Process the data or perform any backend tasks
+        // ...
+
+        // Return a response back to the frontend
+        return "{\"status\": \"success\", \"message\": \"Data received successfully!\"}";
     }
 }
