@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Страничка соотрудника</title>
+</head>
+<body>
+<h2 th:inline="text">Выездной соотрудник <span th:remove="tag" sec:authentication="name">thymeleaf</span>!</h2>
+Список контрольных точек с задачами
+<br>
+Карта
+<br>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+</body>
+</html>
