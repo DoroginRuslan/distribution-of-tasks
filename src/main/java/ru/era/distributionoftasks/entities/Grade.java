@@ -7,13 +7,10 @@ import lombok.experimental.Accessors;
 @Entity
 @Data
 @Accessors(chain = true)
-public class Employee {
+public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String fio;
-    private String address;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "GRADE_ID")
-    private Grade grade;
+    private int rank;
+    private String name;
 }
