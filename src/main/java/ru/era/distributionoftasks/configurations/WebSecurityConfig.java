@@ -18,12 +18,12 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/getEmployers").permitAll()
+                        .requestMatchers("/").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/hello")
+                        .defaultSuccessUrl("/hello", true)
                         .permitAll()
                 )
                 .logout((logout) -> logout.permitAll());
@@ -39,7 +39,13 @@ public class WebSecurityConfig {
                         .password("password")
                         .roles("USER")
                         .build();
+        UserDetails manager =
+                User.withDefaultPasswordEncoder()
+                        .username("manager")
+                        .password("password")
+                        .roles("MANAGER")
+                        .build();
 
-        return new InMemoryUserDetailsManager(user);
+        return new InMemoryUserDetailsManager(user, manager);
     }
 }
