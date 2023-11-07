@@ -2,16 +2,21 @@ package ru.era.distributionoftasks.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import ru.era.distributionoftasks.entities.*;
 import ru.era.distributionoftasks.repositories.*;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @RestController
+@CrossOrigin
 public class HelloWorldController {
     @Autowired private EmployeeRepository employeeRepository;
     @Autowired private GradeRepository gradeRepository;
@@ -34,9 +39,10 @@ public class HelloWorldController {
         return employee.toString();
     }
 
+
     @GetMapping("/getEmployers")
-    public String getEmployers() {
-        return getDataFromRepoByLines(employeeRepository);
+    public List<Employee> getEmployees() {
+        return (List<Employee>) employeeRepository.findAll();
     }
 
     @GetMapping("/addGrade")
@@ -87,6 +93,7 @@ public class HelloWorldController {
     }
 
     @GetMapping("/addTaskLog")
+    @ResponseBody
     public String addTaskLog() {
         TaskLog taskLog = new TaskLog()
                 .setEmployee(employeeRepository.findById(1L).orElse(null))
