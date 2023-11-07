@@ -13,6 +13,7 @@ import { BankListComponent } from './bank-list/bank-list.component';
 import { BankService } from './bank-service.service';
 import { TaskTypeListComponent } from './task-type-list/task-type-list.component';
 import { TaskTypeService } from './task-type-service.service';
+import { BankFormComponent } from './bank-form/bank-form.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { TaskTypeService } from './task-type-service.service';
     LoginFormComponent,
     BankListComponent,
     TaskTypeListComponent,
+    BankFormComponent,
   ],
   imports: [
     BrowserModule,

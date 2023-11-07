@@ -1,13 +1,6 @@
 <div class="topper">
-  <img class = "topper_image" src = "https://kreditkin.su/wp-content/uploads/2022/12/sovcom.png"/></div>
-
-<div class="main_area">
-  <router-outlet></router-outlet>
-    <div [hidden]="!authenticated()">
-      <p>Login to see your greeting</p>
-    </div>
+  <img class = "topper_image" src = "https://kreditkin.su/wp-content/uploads/2022/12/sovcom.png"/>
 </div>
-
 <nav class="main-menu">
   <ul>
     <li>
@@ -55,3 +48,9 @@
     </li>
   </ul>
 </nav>
+<div class="main_area">
+  <router-outlet></router-outlet>
+  <div [hidden]="!authenticated()">
+    <p>Login to see your greeting</p>
+  </div>
+</div>
