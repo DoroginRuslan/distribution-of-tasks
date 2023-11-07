@@ -16,6 +16,7 @@ import { TaskTypeService } from './task-type-service.service';
 import { BankFormComponent } from './bank-form/bank-form.component';
 import { TaskLogListComponent } from './task-log-list/task-log-list.component';
 import { TaskLogService } from './task-log-service.service';
+import { TaskTypeFormComponent } from './task-type-form/task-type-form.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TaskLogService } from './task-log-service.service';
     TaskTypeListComponent,
     BankFormComponent,
     TaskLogListComponent,
+    TaskTypeFormComponent,
   ],
   imports: [
     BrowserModule,
