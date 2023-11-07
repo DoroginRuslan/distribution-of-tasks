@@ -20,4 +20,11 @@ export class BankListComponent{
       this.banks = data;
     });
   }
+  removeBank(id) {
+    this.bankService.removeBank(id);
+  };
+  editBank(id) {
+    this.bankService.editBank(id);
+  };
+
 }

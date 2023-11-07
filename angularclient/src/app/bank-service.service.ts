@@ -19,4 +19,13 @@ export class BankService {
   public save(banks: Bank) {
     return this.http.post<Bank>(this.banksUrl, banks);
   }
+
+    public removeBank(id) {
+      console.log("remove bank");
+      return ;
+    }
+    public editBank(id) {
+      console.log("edit bank");
+      return ;
+    }
 }

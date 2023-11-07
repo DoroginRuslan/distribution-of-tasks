@@ -15,6 +15,11 @@ export class EmployeeService {
   public findAll(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.employeesUrl);
   }
+
+  public save(employees: Employee) {
+    return this.http.post<Employee>(this.employeesUrl, employees);
+  }
+
   public removeEmployee(id) {
     console.log("remove employee");
     return ;
@@ -22,9 +27,5 @@ export class EmployeeService {
   public editEmployee(id, fio, address, grade) {
     console.log("edit employee");
     return ;
-  }
-
-  public save(employees: Employee) {
-    return this.http.post<Employee>(this.employeesUrl, employees);
   }
 }

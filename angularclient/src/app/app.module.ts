@@ -19,7 +19,7 @@ import { TaskTypeService } from './task-type-service.service';
     AppComponent,
     EmployeeListComponent,
     EmployeeFormComponent,
-    LoginFormComponent
+    LoginFormComponent,
     BankListComponent,
     TaskTypeListComponent,
   ],

@@ -9,7 +9,7 @@ import { TaskTypeListComponent } from './task-type-list/task-type-list.component
 const routes: Routes = [
   { path: 'employees', component: EmployeeListComponent },
   { path: 'addemployee', component: EmployeeFormComponent },
-  { path: 'login', component: LoginFormComponent }
+  { path: 'login', component: LoginFormComponent },
   { path: 'banks', component: BankListComponent },
   { path: 'tasksType', component: TaskTypeListComponent }
 ];

@@ -10,6 +10,8 @@
         <th scope="col">Last card issued</th>
         <th scope="col">Approved application num</th>
         <th scope="col">Card issued num</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Remove</th>
       </tr>
       </thead>
       <tbody>
@@ -21,8 +23,17 @@
         <td>{{ bank.last_card_issued }}</td>
         <td>{{ bank.approved_application_num }}</td>
         <td>{{ bank.card_issued_num }}</td>
+        <td>
+          <button class="nav-text" (click)="editBank(bank.id)">EDIT</button>
+        </td>
+        <td>
+          <button class="nav-text" (click)="removeBank(bank.id)"> REMOVE</button>
+        </td>
       </tr>
       </tbody>
     </table>
+    <a routerLink="/addbank">
+      <span class="nav-text">Add employee</span>
+    </a>
   </div>
 </div>
