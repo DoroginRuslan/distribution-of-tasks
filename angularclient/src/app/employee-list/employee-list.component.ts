@@ -18,5 +18,12 @@ export class EmployeeListComponent implements OnInit {
     this.employeeService.findAll().subscribe(data => {
       this.employees = data;
     });
+
   }
+  removeEmployee(id) {
+    this.employeeService.removeEmployee(id);
+  };
+  editEmployee(id) {
+    this.employeeService.editEmployee(id, "af", "af", "af");
+  };
 }

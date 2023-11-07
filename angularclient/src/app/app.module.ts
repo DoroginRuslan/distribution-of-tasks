@@ -7,12 +7,15 @@ import { AppComponent } from './app.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeFormComponent } from './employee-form/employee-form.component';
 import { EmployeeService } from './employee-service.service';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { AppService } from './app-service.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeListComponent,
-    EmployeeFormComponent
+    EmployeeFormComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +23,10 @@ import { EmployeeService } from './employee-service.service';
     HttpClientModule,
     FormsModule
   ],
-  providers: [EmployeeService],
+  providers: [
+    EmployeeService,
+    AppService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

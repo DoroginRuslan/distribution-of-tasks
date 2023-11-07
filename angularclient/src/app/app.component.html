@@ -1,20 +1,127 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card bg-dark my-5">
-        <div class="card-body">
-          <h2 class="card-title text-center text-white py-3">{{ title }}</h2>
-          <ul class="text-center list-inline py-3">
-            <li class="list-inline-item">
-              <a routerLink="/employees" class="btn btn-info">List employees</a>
-            </li>
-            <li class="list-inline-item">
-              <a routerLink="/addemployee" class="btn btn-info">Add employee</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <router-outlet></router-outlet>
+<div class="topper">
+  <img class = "topper_image" src = "https://kreditkin.su/wp-content/uploads/2022/12/sovcom.png"/></div>
+
+<div class="main_area">
+  <router-outlet></router-outlet>
+    <div [hidden]="!authenticated()">
+      <p>Login to see your greeting</p>
     </div>
-  </div>
 </div>
+
+<nav class="main-menu">
+  <ul>
+    <li>
+      <a href="#">
+        <i class="fa fa-home fa-2x"></i>
+        <span class="nav-text">Главная</span>
+      </a>
+
+    </li>
+    <li>
+      <a routerLink="/employees">
+        <i class="fa fa-users fa-2x"></i>
+        <span class="nav-text">Сотрудники</span>
+      </a>
+    </li>
+
+    <li>
+      <a >
+        <i class="fa fa-book fa-2x"></i>
+        <span class="nav-text">Задачи</span>
+      </a>
+    </li>
+    <li>
+      <a >
+        <i class="fa fa-map-marker fa-2x"></i>
+        <span class="nav-text">Точки</span>
+      </a>
+    </li>
+  </ul>
+
+  <ul class="logout" [hidden]="!authenticated()">
+    <li>
+      <a href="#">
+        <i class="fa fa-power-off fa-2x"></i>
+        <span class="nav-text">Logout</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="logout" [hidden]="authenticated()">
+    <li>
+      <a>
+        <i class="fa fa-power-off fa-2x"></i>
+        <span class="nav-text">Login</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
+<!--<div class="container">-->
+<!--  <div class="row">-->
+<!--    <div class="col-md-12">-->
+<!--      <div class="card bg-dark my-5">-->
+<!--        <div class="main-menu">-->
+<!--          <h2 class="card-title text-center text-white py-3">{{ title }}</h2>-->
+<!--          <ul class="text-center list-inline py-3">-->
+<!--&lt;!&ndash;            <li class="list-inline-item">&ndash;&gt;-->
+<!--&lt;!&ndash;              <a routerLink="/employees" class="btn btn-info">List employees</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="list-inline-item">&ndash;&gt;-->
+<!--&lt;!&ndash;              <a routerLink="/addemployee" class="btn btn-info">Add employee</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="list-inline-item">&ndash;&gt;-->
+<!--&lt;!&ndash;              <a routerLink="/login" class="btn btn-info">Login</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            <li class="list-inline-item">&ndash;&gt;-->
+<!--&lt;!&ndash;              <a (click)="logout()" class="btn btn-info">Logout</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+
+<!--            <li>-->
+<!--              <a href=#>-->
+<!--                <i class="fa fa-home fa-2x"></i>-->
+<!--                <span class="nav-text">-->
+<!--                           Главная-->
+<!--                        </span>-->
+<!--              </a>-->
+
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a routerLink="/employees">-->
+<!--                <i class="fa fa-users fa-2x"></i>-->
+<!--                <span class="nav-text">-->
+<!--                           Сотрудники-->
+<!--                        </span>-->
+<!--              </a>-->
+<!--            </li>-->
+
+<!--            <li>-->
+<!--              <a >-->
+<!--                <i class="fa fa-book fa-2x"></i>-->
+<!--                <span class="nav-text">-->
+<!--                          Задачи-->
+<!--                        </span>-->
+<!--              </a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <a >-->
+<!--                <i class="fa fa-map-marker fa-2x"></i>-->
+<!--                <span class="nav-text">-->
+<!--                           Точки-->
+<!--                        </span>-->
+<!--              </a>-->
+<!--            </li>-->
+
+
+<!--          </ul>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <router-outlet></router-outlet>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div [hidden]="authenticated()">-->
+<!--    <p>Login to see your greeting</p>-->
+<!--  </div>-->
+<!--</div>-->
+
+
