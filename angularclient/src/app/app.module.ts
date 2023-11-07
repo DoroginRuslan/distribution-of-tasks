@@ -29,6 +29,7 @@ import { TaskTypeFormComponent } from './task-type-form/task-type-form.component
     BankFormComponent,
     TaskLogListComponent,
     TaskTypeFormComponent,
+    BankFormComponent,
   ],
   imports: [
     BrowserModule,

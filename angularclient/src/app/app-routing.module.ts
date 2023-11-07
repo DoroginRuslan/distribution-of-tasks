@@ -7,6 +7,7 @@ import { BankListComponent } from './bank-list/bank-list.component';
 import { TaskTypeListComponent } from './task-type-list/task-type-list.component';
 import { TaskLogListComponent } from './task-log-list/task-log-list.component';
 import { TaskTypeFormComponent } from './task-type-form/task-type-form.component';
+import { BankFormComponent } from './bank-form/bank-form.component';
 
 const routes: Routes = [
   { path: 'taskLogList', component: TaskLogListComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
   { path: 'banks', component: BankListComponent },
   { path: 'tasksType', component: TaskTypeListComponent },
-  { path: 'addTaskType', component: TaskTypeFormComponent }
+  { path: 'addTaskType', component: TaskTypeFormComponent },
+  { path: 'addbank', component: BankFormComponent }
 ];
 
 @NgModule({
