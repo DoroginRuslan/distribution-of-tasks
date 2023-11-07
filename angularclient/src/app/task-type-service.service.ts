@@ -19,4 +19,13 @@ export class TaskTypeService {
   public save(tasksType: TaskType) {
     return this.http.post<TaskType>(this.tasksTypeUrl, tasksType);
   }
+
+    public removeTaskType(id) {
+      console.log("remove task type");
+      return ;
+    }
+    public editTaskType(id) {
+      console.log("edit task type");
+      return ;
+    }
 }

@@ -7,6 +7,8 @@
         <th scope="col">Name</th>
         <th scope="col">Priority</th>
         <th scope="col">Time req</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Remove</th>
       </tr>
       </thead>
       <tbody>
@@ -15,8 +17,17 @@
         <td>{{ taskType.name }}</td>
         <td>{{ taskType.priority }}</td>
         <td>{{ taskType.time_req }}</td>
+        <td>
+          <button class="nav-text" (click)="editTaskType(taskType.id)">EDIT</button>
+        </td>
+        <td>
+          <button class="nav-text" (click)="removeTaskType(taskType.id)"> REMOVE</button>
+        </td>
       </tr>
       </tbody>
     </table>
+    <a routerLink="/addTaskType">
+      <span class="nav-text">Add task type</span>
+    </a>
   </div>
 </div>

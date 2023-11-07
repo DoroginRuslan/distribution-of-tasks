@@ -20,4 +20,10 @@ export class TaskTypeListComponent{
       this.tasksType = data;
     });
   }
+  removeTaskType(id) {
+    this.taskTypeService.removeTaskType(id);
+  };
+  editTaskType(id) {
+    this.taskTypeService.editTaskType(id);
+  };
 }
