@@ -29,7 +29,6 @@ public class EmployeeService {
     }
 
     public Employee addEmployer(Employee employee) {
-        System.out.println(employee);
         Grade grade = gradeRepository.findById(employee.getGrade().getId()).orElseThrow();
         employee.setGrade(grade);
         return employeeRepository.save(employee);
