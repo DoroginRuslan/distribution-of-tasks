@@ -1,0 +1,28 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Address</th>
+        <th scope="col">Registration</th>
+        <th scope="col">Card materials</th>
+        <th scope="col">Last card issued</th>
+        <th scope="col">Approved application num</th>
+        <th scope="col">Card issued num</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let bank of banks">
+        <td>{{ bank.id }}</td>
+        <td>{{ bank.address }}</td>
+        <td>{{ bank.registration }}</td>
+        <td>{{ bank.card_materials }}</td>
+        <td>{{ bank.last_card_issued }}</td>
+        <td>{{ bank.approved_application_num }}</td>
+        <td>{{ bank.card_issued_num }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -8,8 +8,9 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeFormComponent } from './employee-form/employee-form.component';
 import { EmployeeService } from './employee-service.service';
 import { BankListComponent } from './bank-list/bank-list.component';
-import { BankFormComponent } from './bank-form/bank-form.component';
 import { BankService } from './bank-service.service';
+import { TaskTypeListComponent } from './task-type-list/task-type-list.component';
+import { TaskTypeService } from './task-type-service.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { BankService } from './bank-service.service';
     EmployeeListComponent,
     EmployeeFormComponent,
     BankListComponent,
-    BankFormComponent
+    TaskTypeListComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +26,7 @@ import { BankService } from './bank-service.service';
     HttpClientModule,
     FormsModule
   ],
-  providers: [EmployeeService, BankService],
+  providers: [EmployeeService, BankService, TaskTypeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
