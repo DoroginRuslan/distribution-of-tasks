@@ -16,4 +16,5 @@ public class Employee {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "GRADE_ID")
     private Grade grade;
+    private boolean isActive;
 }

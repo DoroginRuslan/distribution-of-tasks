@@ -8,23 +8,43 @@ import ru.era.distributionoftasks.services.EmployeeService;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping("api/employees")
 public class employerApiController {
     @Autowired
     EmployeeService employeeService;
 
-    @GetMapping(value = "/employers")
+    @GetMapping(value = "")
     public List<Employee> getEmployers() {
         return employeeService.getAllEmployers();
     }
 
-    @GetMapping(value = "/employee/{employeeId}")
+    @PostMapping("")
+    public Employee createEmployee(@RequestBody Employee employee) {
+        return employeeService.addEmployer(employee);
+    }
+
+    @PutMapping("")
+    public List<Employee> updateEmployers(@RequestBody List<Employee> employees) {
+        return employeeService.updateEmployers(employees);
+    }
+
+    @DeleteMapping("")
+    public void deleteAllEmployees() {
+        employeeService.deleteAllEmployees();
+    }
+
+    @GetMapping("/{employeeId}")
     public Employee getEmployee(@PathVariable Long employeeId) {
         return employeeService.getEmployee(employeeId);
     }
 
-    @PostMapping(value = "/employee/add")
-    public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeService.addEmployer(employee);
+    @PutMapping("/{employeeId}")
+    public Employee updateEmployer(@RequestBody Employee employee, @PathVariable Long employeeId) {
+        return employeeService.updateEmployer(employee, employeeId);
+    }
+
+    @DeleteMapping("/{employeeId}")
+    public void deleteEmployee(@PathVariable Long employeeId) {
+        employeeService.deleteEmployee(employeeId);
     }
 }

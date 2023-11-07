@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 public class DefaultAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<Response> handleException(NoSuchElementException e) {
+        e.printStackTrace();
         Response response = new Response(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
