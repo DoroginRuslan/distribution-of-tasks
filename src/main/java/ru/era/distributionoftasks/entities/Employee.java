@@ -13,7 +13,7 @@ public class Employee {
     private long id;
     private String fio;
     private String address;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "GRADE_ID")
     private Grade grade;
 }
