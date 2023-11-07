@@ -1,0 +1,28 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">FIO</th>
+        <th scope="col">Task</th>
+        <th scope="col">Address</th>
+        <th scope="col">Date</th>
+        <th scope="col">Result</th>
+        <th scope="col">Data</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let taskLog of taskLogs">
+        <td>{{ taskLog.id }}</td>
+        <td>{{ taskLog.fio }}</td>
+        <td>{{ taskLog.task }}</td>
+        <td>{{ taskLog.address }}</td>
+        <td>{{ taskLog.date }}</td>
+        <td>{{ taskLog.result }}</td>
+        <td>{{ taskLog.data }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
