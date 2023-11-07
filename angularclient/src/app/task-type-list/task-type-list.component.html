@@ -1,0 +1,22 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Priority</th>
+        <th scope="col">Time req</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let taskType of tasksType">
+        <td>{{ taskType.id }}</td>
+        <td>{{ taskType.name }}</td>
+        <td>{{ taskType.priority }}</td>
+        <td>{{ taskType.time_req }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

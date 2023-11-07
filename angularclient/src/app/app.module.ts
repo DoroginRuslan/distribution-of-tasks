@@ -9,6 +9,10 @@ import { EmployeeFormComponent } from './employee-form/employee-form.component';
 import { EmployeeService } from './employee-service.service';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { AppService } from './app-service.service';
+import { BankListComponent } from './bank-list/bank-list.component';
+import { BankService } from './bank-service.service';
+import { TaskTypeListComponent } from './task-type-list/task-type-list.component';
+import { TaskTypeService } from './task-type-service.service';
 
 @NgModule({
   declarations: [
@@ -16,6 +20,8 @@ import { AppService } from './app-service.service';
     EmployeeListComponent,
     EmployeeFormComponent,
     LoginFormComponent
+    BankListComponent,
+    TaskTypeListComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +31,9 @@ import { AppService } from './app-service.service';
   ],
   providers: [
     EmployeeService,
-    AppService
+    AppService,
+    BankService,
+    TaskTypeService
   ],
   bootstrap: [AppComponent]
 })
