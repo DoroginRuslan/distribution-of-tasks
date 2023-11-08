@@ -30,7 +30,6 @@ export class EmployeeService {
     employee.fio = fio;
     employee.address = address;
     employee.grade = grade;
-    console.log("edit employee");
     return this.http.put<Employee>(this.employeesUrl+'/${employee.id}', employee);
   }
 }
