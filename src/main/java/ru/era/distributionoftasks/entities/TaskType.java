@@ -1,9 +1,6 @@
 package ru.era.distributionoftasks.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -19,4 +16,10 @@ public class TaskType {
     private String name;
     private int priority;
     private LocalTime timeReq;
+
+    @Column(name = "CONDITION_1")
+    private String condition1;
+
+    @Column(name = "CONDITION_2")
+    private String condition2;
 }
