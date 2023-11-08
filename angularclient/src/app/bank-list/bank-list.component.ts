@@ -24,7 +24,7 @@ export class BankListComponent{
     this.bankService.removeBank(id);
   };
   editBank(id) {
-    this.bankService.editBank(id);
+    this.bankService.editBank(id,"af", "af", "af","af", "af", "af");
   };
 
 }

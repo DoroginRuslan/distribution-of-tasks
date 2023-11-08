@@ -10,6 +10,7 @@ import { TaskLogListComponent } from './task-log-list/task-log-list.component';
 import { TaskTypeFormComponent } from './task-type-form/task-type-form.component';
 import { TaskTypeEditFormComponent } from './task-type-edit-form/task-type-edit-form.component';
 import { BankFormComponent } from './bank-form/bank-form.component';
+import { BankEditFormComponent } from './bank-edit-form/bank-edit-form.component';
 
 const routes: Routes = [
   { path: 'taskLogList', component: TaskLogListComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'tasksType', component: TaskTypeListComponent },
   { path: 'addTaskType', component: TaskTypeFormComponent },
   { path: 'editTaskType/:id', component: TaskTypeEditFormComponent },
-  { path: 'addbank', component: BankFormComponent }
+  { path: 'addbank', component: BankFormComponent },
+  { path: 'editBank/:id', component: BankEditFormComponent }
 ];
 
 @NgModule({

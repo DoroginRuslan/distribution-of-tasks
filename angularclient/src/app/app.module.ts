@@ -19,6 +19,7 @@ import { TaskLogService } from './task-log-service.service';
 import { TaskTypeFormComponent } from './task-type-form/task-type-form.component';
 import { EmployeeEditFormComponent } from './employee-edit-form/employee-edit-form.component';
 import { TaskTypeEditFormComponent } from './task-type-edit-form/task-type-edit-form.component';
+import { BankEditFormComponent } from './bank-edit-form/bank-edit-form.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { TaskTypeEditFormComponent } from './task-type-edit-form/task-type-edit-
     BankFormComponent,
     EmployeeEditFormComponent,
     TaskTypeEditFormComponent,
+    BankEditFormComponent,
   ],
   imports: [
     BrowserModule,
