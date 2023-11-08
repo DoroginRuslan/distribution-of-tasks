@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import ru.era.distributionoftasks.security.domain.Role;
 import ru.era.distributionoftasks.security.filter.JwtFilter;
 
 @Configuration
@@ -27,8 +28,10 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(
+                        // TODO: 08.11.2023 Настроить доступ к API
                         authz -> authz
                                 .requestMatchers("/api/auth/login", "/api/auth/token").permitAll()
+                                .requestMatchers("/api/grades").hasAnyRole("ADMIN")
                                 .anyRequest().authenticated()
                                 .and()
                                 .addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class)
