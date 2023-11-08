@@ -27,7 +27,8 @@ export class BankEditFormComponent {
   }
 
   onSubmit() {
-    this.bankService.editBank(this.bank.id, this.bank.address, this.bank.registration, this.bank.card_materials, this.bank.last_card_issued, this.bank.approved_application_num, this.bank.card_issued_num).subscribe(result => this.gotoBankList());
+//     this.bankService.editBank(this.bank.id, this.bank.address, this.bank.registrationDate, this.bank.materialsDelivered, this.bank.lastCardIssuanceDays, this.bank.approvedApplicationsNum, this.bank.issuanceCardsNum).subscribe(result => this.gotoBankList());
+    this.bankService.editBank(this.bank).subscribe(result => this.gotoBankList());
   }
 
   gotoBankList() {

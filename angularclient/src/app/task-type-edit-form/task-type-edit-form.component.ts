@@ -28,7 +28,7 @@ export class TaskTypeEditFormComponent implements OnInit{
   }
 
   onSubmit() {
-    this.taskTypeService.editTaskType(this.taskType.id, this.taskType.name, this.taskType.priority, this.taskType.time_req).subscribe(result => this.gotoTaskTypeList());
+    this.taskTypeService.editTaskType(this.taskType.id, this.taskType.name, this.taskType.priority, this.taskType.timeReq).subscribe(result => this.gotoTaskTypeList());
   }
 
   gotoTaskTypeList() {

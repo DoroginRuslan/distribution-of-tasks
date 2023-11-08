@@ -22,7 +22,7 @@
         <td>{{ taskType.condition1 }}</td>
         <td>{{ taskType.condition2 }}</td>
         <td>
-          <button class="nav-text" (click)="editTaskType(taskType.id)">EDIT</button>
+          <button class="nav-text" routerLink="/editTaskType/taskType.id">EDIT</button>
         </td>
         <td>
           <button class="nav-text" (click)="removeTaskType(taskType.id)"> REMOVE</button>
@@ -32,12 +32,6 @@
     </table>
     <a routerLink="/addTaskType">
       <span class="nav-text">Добавить тип задач</span>
-    <tr><a routerLink="/addTaskType">
-      <span class="nav-text">Add task type</span>
-        </a>
-    </tr>
-    <a routerLink="/editTaskType/22">
-      <span class="nav-text">Edit task type</span>
     </a>
   </div>
 </div>

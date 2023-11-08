@@ -24,7 +24,7 @@
         <td>{{ bank.approvedApplicationsNum }}</td>
         <td>{{ bank.issuanceCardsNum }}</td>
         <td>
-          <button class="nav-text" (click)="editBank(bank.id)">EDIT</button>
+          <button class="nav-text" routerLink="/editBank/bank.id"> EDIT </button>
         </td>
         <td>
           <button class="nav-text" (click)="removeBank(bank.id)"> REMOVE</button>
@@ -34,11 +34,6 @@
     </table>
     <a routerLink="/addbank">
       <span class="nav-text">Добавить банк</span>
-    <tr><a routerLink="/addbank">
-      <span class="nav-text">Add bank</span>
-    </a></tr>
-    <a routerLink="/editBank/777">
-      <span class="nav-text">Edit bank</span>
     </a>
   </div>
 </div>

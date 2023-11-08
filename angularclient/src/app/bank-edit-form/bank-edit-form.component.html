@@ -12,56 +12,56 @@
       </div>
       <div [hidden]="!address.pristine" class="alert alert-danger">Needs to input address</div>
       <div class="form-group">
-        <label for="registration">Registration</label>
-        <input type="text" [(ngModel)]="bank.registration"
+        <label for="registrationDate">registrationDate</label>
+        <input type="text" [(ngModel)]="bank.registrationDate"
                class="form-control"
-               id="registration"
-               name="registration"
-               placeholder="Input registration"
-               required #registration="ngModel">
+               id="registrationDate"
+               name="registrationDate"
+               placeholder="Input registrationDate"
+               required #registrationDate="ngModel">
       </div>
-      <div [hidden]="!registration.pristine" class="alert alert-danger">Needs to input registration</div>
+      <div [hidden]="!registrationDate.pristine" class="alert alert-danger">Needs to input registrationDate</div>
       <div class="form-group">
-        <label for="card_materials">Card materials</label>
-        <input type="text" [(ngModel)]="bank.card_materials"
+        <label for="materialsDelivered">Card materials</label>
+        <input type="text" [(ngModel)]="bank.materialsDelivered"
                class="form-control"
-               id="card_materials"
-               name="card_materials"
+               id="materialsDelivered"
+               name="materialsDelivered"
                placeholder="Input card materials"
-               required #card_materials="ngModel">
+               required #materialsDelivered="ngModel">
       </div>
-      <div [hidden]="!card_materials.pristine" class="alert alert-danger">Needs to input card materials</div>
+      <div [hidden]="!materialsDelivered.pristine" class="alert alert-danger">Needs to input card materials</div>
       <div class="form-group">
-        <label for="last_card_issued">Last card issued</label>
-        <input type="text" [(ngModel)]="bank.last_card_issued"
+        <label for="lastCardIssuanceDays">Last card issued</label>
+        <input type="text" [(ngModel)]="bank.lastCardIssuanceDays"
                class="form-control"
-               id="last_card_issued"
-               name="last_card_issued"
+               id="lastCardIssuanceDays"
+               name="lastCardIssuanceDays"
                placeholder="Input last card issued"
-               required #last_card_issued="ngModel">
+               required #lastCardIssuanceDays="ngModel">
       </div>
-      <div [hidden]="!last_card_issued.pristine" class="alert alert-danger">Needs to input last card issued</div>
+      <div [hidden]="!lastCardIssuanceDays.pristine" class="alert alert-danger">Needs to input last card issued</div>
       <div class="form-group">
-        <label for="approved_application_num">Approved application num</label>
-        <input type="text" [(ngModel)]="bank.approved_application_num"
+        <label for="approvedApplicationsNum">Approved application num</label>
+        <input type="text" [(ngModel)]="bank.approvedApplicationsNum"
                class="form-control"
-               id="approved_application_num"
-               name="approved_application_num"
+               id="approvedApplicationsNum"
+               name="approvedApplicationsNum"
                placeholder="Input approved application num"
-               required #approved_application_num="ngModel">
+               required #approvedApplicationsNum="ngModel">
       </div>
-      <div [hidden]="!approved_application_num.pristine" class="alert alert-danger">Needs to input approved application num</div>
+      <div [hidden]="!approvedApplicationsNum.pristine" class="alert alert-danger">Needs to input approved application num</div>
 
       <div class="form-group">
-        <label for="card_issued_num">Card issued num</label>
-        <input type="text" [(ngModel)]="bank.card_issued_num"
+        <label for="issuanceCardsNum">Card issued num</label>
+        <input type="text" [(ngModel)]="bank.issuanceCardsNum"
                class="form-control"
-               id="card_issued_num"
-               name="card_issued_num"
+               id="issuanceCardsNum"
+               name="issuanceCardsNum"
                placeholder="Input card issued num"
-               required #card_issued_num="ngModel">
+               required #issuanceCardsNum="ngModel">
       </div>
-      <div [hidden]="!card_issued_num.pristine" class="alert alert-danger">Needs to input card issued num</div>
+      <div [hidden]="!issuanceCardsNum.pristine" class="alert alert-danger">Needs to input card issued num</div>
 
       <button type="submit" [disabled]="!bankForm.form.valid"
               class="btn btn-info">Edit</button>
