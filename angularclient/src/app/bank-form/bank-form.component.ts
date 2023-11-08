@@ -20,7 +20,7 @@ export class BankFormComponent {
   }
 
   onSubmit() {
-    this.bankService.save(this.bank).subscribe(result => this.gotoBankList());
+    this.bankService.addBank(this.bank).subscribe(result => this.gotoBankList());
   }
 
   gotoBankList() {

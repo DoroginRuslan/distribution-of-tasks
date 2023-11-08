@@ -8,6 +8,7 @@ import ru.era.distributionoftasks.services.GradeService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/grades")
 public class gradeApiController {
     @Autowired

@@ -8,6 +8,7 @@ import ru.era.distributionoftasks.services.BankService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/banks")
 public class bankApiController {
     @Autowired

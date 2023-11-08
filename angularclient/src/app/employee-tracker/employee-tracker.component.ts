@@ -10,19 +10,42 @@ import { TaskLogService } from '../task-log-service.service';
   styleUrls: ['./employee-tracker.component.css']
 })
 export class EmployeeTrackerComponent implements OnInit {
-  currentEmployee: Employee;
+  currentEmployeeId: string;
   employees: Employee[];
   taskLogs: TaskLog[];
+
+  parameters: ymaps.control.IRoutePanelParameters = {
+      options: {
+        allowSwitch: false,
+        reverseGeocoding: true,
+        types: { masstransit: true, pedestrian: true, taxi: true }
+      },
+      state: {
+        type: 'masstransit',
+        fromEnabled: false,
+        from: 'Москва, Льва Толстого 16',
+        toEnabled: true
+      }
+    };
+
   constructor(private employeeService: EmployeeService,
   private taskLogService: TaskLogService) {
   }
   ngOnInit() {
       this.employeeService.findAll().subscribe(data => {
         this.employees = data;
-        this.currentEmployee = this.employees[0];
+        this.currentEmployeeId = this.employees[0].id;
       });
-      this.taskLogService.findCurrentForEmployee(this.currentEmployee.id).subscribe(data => {
-        this.taskLogs = data;
-      });
+      this.updateCurrentEmployeeLogs();
     }
+    updateCurrentEmployeeLogs()
+    {
+    this.taskLogService.findCurrentForEmployee(this.currentEmployeeId).subscribe(data => {
+            this.taskLogs = data;
+          });
+    }
+    currentEmployeeCHanged(event) {
+        this.currentEmployeeId = event.target.value;
+        this.updateCurrentEmployeeLogs();
+      }
 }

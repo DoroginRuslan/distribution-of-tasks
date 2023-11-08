@@ -23,18 +23,14 @@
       <div [hidden]="!address.pristine" class="alert alert-danger">Необходимо ввести адрес</div>
       <div class="form-group">
         <label for="grade">Уровень сотрудника</label>
-        <select name="grade" [(ngModel)]="employee.grade"
+        <select name="grade" [(ngModel)]="employee.grade.id"
                 class="form-control"
                 id="grade"
-                name="grade"
                 placeholder="Выберите уровень сотрудника"
                 required #grade="ngModel">
-          <option value="Джун">Джун</option>
-          <option value="Мидл">Мидл</option>
-          <option value="Сеньор">Сеньор</option>
+          <option *ngFor="let grade of grades" value="{{ grade.id }}">{{ grade.name }}</option>
         </select>
       </div>
-      <div [hidden]="!grade.pristine" class="alert alert-danger">Необходимо выбрать уровень сотрудника</div>
 
       <button type="submit" [disabled]="!employeeForm.form.valid"
               class="btn btn-info">Добавить</button>

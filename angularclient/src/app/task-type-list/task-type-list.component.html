@@ -7,6 +7,8 @@
         <th scope="col">Название</th>
         <th scope="col">Приоритет</th>
         <th scope="col">Время выполнения</th>
+        <th scope="col">Условие 1</th>
+        <th scope="col">Условие 2</th>
         <th scope="col">Изменить</th>
         <th scope="col">Удалить</th>
       </tr>
@@ -16,7 +18,9 @@
         <td>{{ taskType.id }}</td>
         <td>{{ taskType.name }}</td>
         <td>{{ taskType.priority }}</td>
-        <td>{{ taskType.time_req }}</td>
+        <td>{{ taskType.timeReq }}</td>
+        <td>{{ taskType.condition1 }}</td>
+        <td>{{ taskType.condition2 }}</td>
         <td>
           <button class="nav-text" (click)="editTaskType(taskType.id)">EDIT</button>
         </td>

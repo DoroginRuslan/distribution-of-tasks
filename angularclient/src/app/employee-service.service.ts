@@ -9,15 +9,15 @@ export class EmployeeService {
   private employeesUrl: string;
 
   constructor(private http: HttpClient) {
-    this.employeesUrl = 'http://localhost:8080/getEmployers';
+    this.employeesUrl = 'http://localhost:8080/api/employees';
   }
 
   public findAll(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.employeesUrl);
   }
 
-  public save(employees: Employee) {
-    return this.http.post<Employee>(this.employeesUrl, employees);
+  public addEmployee(employee: Employee) {
+    return this.http.post<Employee>(this.employeesUrl, employee);
   }
 
   public removeEmployee(id) {

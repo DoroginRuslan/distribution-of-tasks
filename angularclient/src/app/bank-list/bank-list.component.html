@@ -18,11 +18,11 @@
       <tr *ngFor="let bank of banks">
         <td>{{ bank.id }}</td>
         <td>{{ bank.address }}</td>
-        <td>{{ bank.registration }}</td>
-        <td>{{ bank.card_materials }}</td>
-        <td>{{ bank.last_card_issued }}</td>
-        <td>{{ bank.approved_application_num }}</td>
-        <td>{{ bank.card_issued_num }}</td>
+        <td>{{ bank.registrationDate }}</td>
+        <td>{{ bank.materialsDelivered }}</td>
+        <td>{{ bank.lastCardIssuanceDays }}</td>
+        <td>{{ bank.approvedApplicationsNum }}</td>
+        <td>{{ bank.issuanceCardsNum }}</td>
         <td>
           <button class="nav-text" (click)="editBank(bank.id)">EDIT</button>
         </td>

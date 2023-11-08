@@ -3,17 +3,22 @@
       <div class="form-group">
         <div class="form-group">
         <label for="employee">Сотрудник</label>
-        <select [(ngModel)]="currentEmployee.fio"
+        <select name="employee"  [(ngModel)]="currentEmployeeId"
                 class="form-control"
                 id="employee"
-                name="employee"
                 placeholder="Выберите сотрудника"
-                *ngFor="let employee of employees">
-          <option value="asf">{{ employee.fio }}</option>
-          <option value={{ employee.id }}>{{ employee.fio }}</option>
+                (change)="currentEmployeeCHanged($event)">
+          <option *ngFor="let employee of employees" value="{{ employee.id }}">{{ employee.fio }}</option>
         </select>
       </div>
-        <div><p>map</p></div>
+        <div class="container form-group">
+            <ya-map [center]="[55.751952, 37.600739]" [zoom]="12">
+              <ya-control
+                type="RoutePanel"
+                [parameters]="parameters"
+              ></ya-control>
+            </ya-map>
+        </div>
         <table class="table table-bordered table-striped">
           <thead class="thead-dark">
           <tr>

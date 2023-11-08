@@ -9,15 +9,15 @@ export class BankService {
   private banksUrl: string;
 
   constructor(private http: HttpClient) {
-    this.banksUrl = 'http://localhost:8080/getBanks';
+    this.banksUrl = 'http://localhost:8080/api/banks';
   }
 
   public findAll(): Observable<Bank[]> {
     return this.http.get<Bank[]>(this.banksUrl);
   }
 
-  public save(banks: Bank) {
-    return this.http.post<Bank>(this.banksUrl, banks);
+  public addBank(bank: Bank) {
+    return this.http.post<Bank>(this.banksUrl, bank);
   }
 
     public removeBank(id) {

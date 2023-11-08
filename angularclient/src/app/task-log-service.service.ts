@@ -10,7 +10,7 @@ export class TaskLogService {
   private tasksLogForEmployeeUrl: string;
 
   constructor(private http: HttpClient) {
-    this.tasksLogUrl = 'http://localhost:8080/getTasksLog';
+    this.tasksLogUrl = 'http://localhost:8080/api/task-logs';
     this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/employees/1/tasks/current';
   }
 

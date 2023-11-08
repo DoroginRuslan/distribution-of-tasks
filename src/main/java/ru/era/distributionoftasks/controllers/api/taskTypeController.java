@@ -9,6 +9,7 @@ import ru.era.distributionoftasks.services.TaskTypeService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/task-types")
 public class taskTypeController {
     @Autowired

@@ -18,6 +18,13 @@ import { TaskLogListComponent } from './task-log-list/task-log-list.component';
 import { TaskLogService } from './task-log-service.service';
 import { EmployeeTrackerComponent } from './employee-tracker/employee-tracker.component';
 import { TaskTypeFormComponent } from './task-type-form/task-type-form.component';
+import { GradeService } from './grade-service.service';
+import { AngularYandexMapsModule, YaConfig  } from 'angular8-yandex-maps';
+
+const mapConfig: YaConfig = {
+  apikey: '61f5780b-ee71-47a9-93a5-6ac5fd5262e2',
+  lang: 'en_US',
+};
 
 @NgModule({
   declarations: [
@@ -37,14 +44,17 @@ import { TaskTypeFormComponent } from './task-type-form/task-type-form.component
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+//     AngularYandexMapsModule
+    AngularYandexMapsModule.forRoot(mapConfig)
   ],
   providers: [
     EmployeeService,
     AppService,
     BankService,
     TaskTypeService,
-    TaskLogService
+    TaskLogService,
+    GradeService
   ],
   bootstrap: [AppComponent]
 })

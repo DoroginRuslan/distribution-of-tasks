@@ -2,29 +2,59 @@
   <div class="card-body">
     <form (ngSubmit)="onSubmit()" #taskTypeForm="ngForm">
       <div class="form-group">
-        <label for="name">Name</label>
+        <label for="name">Название</label>
         <input type="text" [(ngModel)]="taskType.name"
                class="form-control"
                id="name"
                name="name"
-               placeholder="Input name"
+               placeholder="Введите название"
                required #name="ngModel">
       </div>
-      <div [hidden]="!name.pristine" class="alert alert-danger">Needs to input name</div>
+      <div [hidden]="!name.pristine" class="alert alert-danger">Введите название</div>
       <div class="form-group">
-        <label for="priority">Priority</label>
-        <select type="text" [(ngModel)]="taskType.priority"
+        <label for="priority">Приоритет</label>
+        <select [(ngModel)]="taskType.priority"
                class="form-control"
                id="priority"
                name="priority"
-               placeholder="Input priority"
+               placeholder="Выберите приоритет"
                required #priority="ngModel">
-        <option value="Low">Low</option>
-        <option value="Middle">Middle</option>
-        <option value="High">High</option>
+        <option value="2">Низкий</option>
+        <option value="1">Средний</option>
+        <option value="0">Высокий</option>
         </select>
       </div>
-      <div [hidden]="!priority.pristine" class="alert alert-danger">Needs to input priority</div>
+      <div [hidden]="!priority.pristine" class="alert alert-danger">Выберите приоритет</div>
+      <div class="form-group">
+        <label for="timeReq">Требуемое время</label>
+        <input type="time" [(ngModel)]="taskType.timeReq"
+               class="form-control"
+               id="timeReq"
+               name="timeReq"
+               placeholder="Введите требуемое время"
+               required #timeReq="ngModel">
+      </div>
+      <div [hidden]="!timeReq.pristine" class="alert alert-danger">Введите требуемое время</div>
+      <div class="form-group">
+        <label for="condition1">Условие назначения</label>
+        <input type="text" [(ngModel)]="taskType.condition1"
+               class="form-control"
+               id="condition1"
+               name="condition1"
+               placeholder="Введите условие назначения"
+               required #condition1="ngModel">
+      </div>
+      <div [hidden]="!condition1.pristine" class="alert alert-danger">Введите условие назначения</div>
+      <div class="form-group">
+        <label for="condition2">Условие назначения</label>
+        <input type="text" [(ngModel)]="taskType.condition2"
+               class="form-control"
+               id="condition2"
+               name="condition2"
+               placeholder="Введите условие назначения"
+               required #condition2="ngModel">
+      </div>
+      <div [hidden]="!condition2.pristine" class="alert alert-danger">Введите условие назначения</div>
 
       <button type="submit" [disabled]="!taskTypeForm.form.valid"
               class="btn btn-info">Добавить</button>

@@ -8,6 +8,7 @@ import ru.era.distributionoftasks.services.TaskLogService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/task-logs")
 public class taskLogController {
     @Autowired

@@ -8,6 +8,7 @@ import ru.era.distributionoftasks.services.EmployeeService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/employees")
 public class employerApiController {
     @Autowired

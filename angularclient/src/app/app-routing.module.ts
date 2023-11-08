@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
   { path: 'banks', component: BankListComponent },
   { path: 'tasksType', component: TaskTypeListComponent },
-  { path: 'employeeTracker', component: EmployeeTrackerComponent }
+  { path: 'employeeTracker', component: EmployeeTrackerComponent },
   { path: 'tasksType', component: TaskTypeListComponent },
   { path: 'addTaskType', component: TaskTypeFormComponent },
   { path: 'addbank', component: BankFormComponent }
