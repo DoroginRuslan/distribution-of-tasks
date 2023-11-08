@@ -24,12 +24,7 @@ export class TaskTypeService {
     console.log("remove task type");
     return ;
   }
-  public editTaskType(id, name, priority, timeReq) {
-    let taskType = new TaskType();
-    taskType.id = id;
-    taskType.name = name;
-    taskType.priority = priority;
-    taskType.timeReq = timeReq;
-    return this.http.put<TaskType>(this.tasksTypeUrl+'/${taskType.id}', taskType);
+  public editTaskType(tasksType: TaskType) {
+    return this.http.put<TaskType>(this.tasksTypeUrl+'/${tasksType.id}', tasksType);
   }
 }

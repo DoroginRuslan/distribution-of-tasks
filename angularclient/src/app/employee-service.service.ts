@@ -24,12 +24,7 @@ export class EmployeeService {
   public removeEmployee(id) {
     console.log("remove employee");
   }
-  public editEmployee(id, fio, address, grade) {
-    let employee = new Employee();
-    employee.id = id;
-    employee.fio = fio;
-    employee.address = address;
-    employee.grade = grade;
+  public editEmployee(employee: Employee) {
     return this.http.put<Employee>(this.employeesUrl+'/${employee.id}', employee);
   }
 }

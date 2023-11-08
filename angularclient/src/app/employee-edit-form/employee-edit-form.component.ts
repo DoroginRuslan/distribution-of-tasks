@@ -26,7 +26,7 @@ export class EmployeeEditFormComponent implements OnInit{
   }
 
   onSubmit() {
-    this.employeeService.editEmployee(this.employee.id, this.employee.fio, this.employee.address, this.employee.grade).subscribe(result => this.gotoEmployeeList());
+    this.employeeService.editEmployee(this.employee).subscribe(result => this.gotoEmployeeList());
   }
 
   gotoEmployeeList() {
