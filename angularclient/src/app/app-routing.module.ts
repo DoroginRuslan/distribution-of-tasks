@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { EmployeeFormComponent } from './employee-form/employee-form.component';
+import { EmployeeEditFormComponent } from './employee-edit-form/employee-edit-form.component';
 import { BankListComponent } from './bank-list/bank-list.component';
 import { TaskTypeListComponent } from './task-type-list/task-type-list.component';
 import { TaskLogListComponent } from './task-log-list/task-log-list.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'taskLogList', component: TaskLogListComponent },
   { path: 'employees', component: EmployeeListComponent },
   { path: 'addemployee', component: EmployeeFormComponent },
+  { path: 'editemployee/:id', component: EmployeeEditFormComponent},
   { path: 'login', component: LoginFormComponent },
   { path: 'banks', component: BankListComponent },
   { path: 'tasksType', component: TaskTypeListComponent },
