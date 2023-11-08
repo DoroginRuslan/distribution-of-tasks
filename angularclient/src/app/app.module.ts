@@ -25,6 +25,9 @@ const mapConfig: YaConfig = {
   apikey: '61f5780b-ee71-47a9-93a5-6ac5fd5262e2',
   lang: 'en_US',
 };
+import { EmployeeEditFormComponent } from './employee-edit-form/employee-edit-form.component';
+import { TaskTypeEditFormComponent } from './task-type-edit-form/task-type-edit-form.component';
+import { BankEditFormComponent } from './bank-edit-form/bank-edit-form.component';
 
 @NgModule({
   declarations: [
@@ -39,13 +42,15 @@ const mapConfig: YaConfig = {
     EmployeeTrackerComponent,
     TaskTypeFormComponent,
     BankFormComponent,
+    EmployeeEditFormComponent,
+    TaskTypeEditFormComponent,
+    BankEditFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-//     AngularYandexMapsModule
     AngularYandexMapsModule.forRoot(mapConfig)
   ],
   providers: [

@@ -24,6 +24,6 @@ export class TaskTypeListComponent{
     this.taskTypeService.removeTaskType(id);
   };
   editTaskType(id) {
-    this.taskTypeService.editTaskType(id);
+    this.taskTypeService.editTaskType(id, "af", "af", "af");
   };
 }

@@ -8,6 +8,7 @@ export class EmployeeService {
 
   private employeesUrl: string;
 
+
   constructor(private http: HttpClient) {
     this.employeesUrl = 'http://localhost:8080/api/employees';
   }
@@ -22,10 +23,13 @@ export class EmployeeService {
 
   public removeEmployee(id) {
     console.log("remove employee");
-    return ;
   }
   public editEmployee(id, fio, address, grade) {
-    console.log("edit employee");
-    return ;
+    let employee = new Employee();
+    employee.id = id;
+    employee.fio = fio;
+    employee.address = address;
+    employee.grade = grade;
+    return this.http.put<Employee>(this.employeesUrl+'/${employee.id}', employee);
   }
 }
