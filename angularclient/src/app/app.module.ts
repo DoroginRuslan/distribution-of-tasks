@@ -17,6 +17,7 @@ import { BankFormComponent } from './bank-form/bank-form.component';
 import { TaskLogListComponent } from './task-log-list/task-log-list.component';
 import { TaskLogService } from './task-log-service.service';
 import { EmployeeTrackerComponent } from './employee-tracker/employee-tracker.component';
+import { TaskTypeFormComponent } from './task-type-form/task-type-form.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,8 @@ import { EmployeeTrackerComponent } from './employee-tracker/employee-tracker.co
     BankFormComponent,
     TaskLogListComponent,
     EmployeeTrackerComponent,
+    TaskTypeFormComponent,
+    BankFormComponent,
   ],
   imports: [
     BrowserModule,

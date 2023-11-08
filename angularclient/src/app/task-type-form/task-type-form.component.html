@@ -1,0 +1,33 @@
+<div class="card my-5">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #taskTypeForm="ngForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" [(ngModel)]="taskType.name"
+               class="form-control"
+               id="name"
+               name="name"
+               placeholder="Input name"
+               required #name="ngModel">
+      </div>
+      <div [hidden]="!name.pristine" class="alert alert-danger">Needs to input name</div>
+      <div class="form-group">
+        <label for="priority">Priority</label>
+        <select type="text" [(ngModel)]="taskType.priority"
+               class="form-control"
+               id="priority"
+               name="priority"
+               placeholder="Input priority"
+               required #priority="ngModel">
+        <option value="Low">Low</option>
+        <option value="Middle">Middle</option>
+        <option value="High">High</option>
+        </select>
+      </div>
+      <div [hidden]="!priority.pristine" class="alert alert-danger">Needs to input priority</div>
+
+      <button type="submit" [disabled]="!taskTypeForm.form.valid"
+              class="btn btn-info">Добавить</button>
+    </form>
+  </div>
+</div>
