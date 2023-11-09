@@ -13,7 +13,7 @@ export class TaskLogService {
     this.tasksLogUrl = 'http://localhost:8080/api/task-logs';
     // fix later!!
     //this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/employees/1/tasks/current';
-    this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/task-logs/1';
+    this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/task-logs';
   }
 
   public findAll(): Observable<TaskLog[]> {

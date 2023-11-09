@@ -13,7 +13,7 @@
       </div>
         <div class="container form-group">
             <ya-map [center]="[45.051607, 38.979532]" [zoom]="12">
-              <ya-placemark
+              <!--<ya-placemark
                 [geometry]="[45.051610, 38.979532]"
                 [properties]="placemarkPropertiesHigh"
                 [options]="placemarkHigh"
@@ -31,7 +31,13 @@
               <ya-control
                 type="RoutePanel"
                 [parameters]="parameters"
-              ></ya-control>
+              ></ya-control> -->
+
+              <ya-multiroute
+                [referencePoints]="['Краснодар, ул Красная, д. 140', 'Краснодар, ул. Ставропольская, д. 140']"
+                [model]="modelMultiRoute"
+                [options]="optionMultiRoute"
+              ></ya-multiroute>
             </ya-map>
         </div>
         <table class="table table-bordered table-striped">

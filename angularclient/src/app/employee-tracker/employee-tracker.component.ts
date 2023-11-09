@@ -19,7 +19,15 @@ export class EmployeeTrackerComponent implements OnInit {
   banks:      Bank[];
 
 
-
+  placemarkPropertiesHigh: ymaps.IPlacemarkProperties;
+  optionMultiRoute: ymaps.multiRouter.IMultiRouteOptions;
+  modelMultiRoute: { params: ymaps.IMultiRouteParams } = {
+      params: {
+        avoidTrafficJams: false,
+        routingMode: 'auto',
+      },
+    };
+  pointMultiRoute: { referencePoints: ymaps.IMultiRouteReferencePoint};
 
   constructor(private employeeService: EmployeeService,
   private taskLogService: TaskLogService) {
@@ -35,31 +43,41 @@ export class EmployeeTrackerComponent implements OnInit {
     {
     this.taskLogService.findCurrentForEmployee(this.currentEmployeeId).subscribe(data => {
             this.taskLogs = data;
+            this.placemarkPropertiesHigh =
+                      {
+                              hintContent: 'Высокий приоритет',
+                              balloonContentBody: [
+                                    '<address>',
+                                    '<strong> Высокий приоритет </strong>',
+                                    '<br/>',
+                                    'Address: ', this.taskLogs[0].bank.address ,
+                                    '<br/>',
+                                    'For more information, see: <a href="https://company.yandex.com">https://company.yandex.com</a>',
+                                    '</address>',
+                                  ].join(''),
+                            };
+            this.optionMultiRoute =
+            {
+               viaIndexes: [2],
+            };
+            //this.pointMultiRoute = { referencePoints: [this.taskLogs[2].employee.address, this.taskLogs[2].bank.address]};
+
           });
-          var taskTmp = new TaskLog();
-          var employeeTmp = new Employee();
-          var taskTypeTmp = new TaskType();
-          var bankTmp = new Bank();
-          taskTmp.employee = employeeTmp;
-          taskTmp.taskType.name = taskTypeTmp.name;
+         // var taskTmp     = new TaskLog();
+         // var employeeTmp = new Employee();
+         // var taskTypeTmp = new TaskType();
+         // var bankTmp     = new Bank();
+          //taskTmp.employee = employeeTmp;
+         // taskTmp.taskType = taskTypeTmp;
+          //taskTmp.bank = bankTmp;
+
 
     }
     currentEmployeeCHanged(event) {
         this.currentEmployeeId = event.target.value;
         this.updateCurrentEmployeeLogs();
       }
-  placemarkPropertiesHigh: ymaps.IPlacemarkProperties = {
-        hintContent: 'Высокий приоритет',
-        balloonContentBody: [
-              '<address>',
-              '<strong> Высокий приоритет </strong>',
-              '<br/>',
-              'Address: ', ,
-              '<br/>',
-              'For more information, see: <a href="https://company.yandex.com">https://company.yandex.com</a>',
-              '</address>',
-            ].join(''),
-      };
+
 
     placemarkPropertiesMid: ymaps.IPlacemarkProperties = {
          hintContent: 'Средний приоритет',
@@ -106,4 +124,6 @@ export class EmployeeTrackerComponent implements OnInit {
           toEnabled: true
         }
       };
+
+
 }
