@@ -767,7 +767,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"employee\": {\r\n        \"id\": 3\r\n    },\r\n    \"taskType\": {\r\n        \"id\": 5\r\n    },\r\n    \"taskSetDate\": \"2023-11-07T17:59:28.108668\",\r\n    \"commentary\": \"Съел шаурму на вокзале и недоехал\",\r\n    \"completed\": false\r\n}",
+							"raw": "{\r\n    \"employee\": {\r\n        \"id\": 1\r\n    },\r\n    \"taskType\": {\r\n        \"id\": 1\r\n    },\r\n    \"bank\": {\r\n        \"id\": 1\r\n    },\r\n    \"taskSetDate\": \"2023-11-09T00:00:00.000000\",\r\n    \"commentary\": \"Съел шаурму на вокзале и недоехал\",\r\n    \"completed\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -931,10 +931,57 @@
 					"response": []
 				},
 				{
-					"name": "testGetDailyTasks",
+					"name": "prepareRepo",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/test/prepare-repo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"test",
+								"prepare-repo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDailyTasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/task-logs/daily/employee/12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"task-logs",
+								"daily",
+								"employee",
+								"12"
+							]
+						}
 					},
 					"response": []
 				}
