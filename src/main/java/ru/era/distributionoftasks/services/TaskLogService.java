@@ -3,6 +3,7 @@ package ru.era.distributionoftasks.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.era.distributionoftasks.entities.TaskLog;
+import ru.era.distributionoftasks.repositories.BankRepository;
 import ru.era.distributionoftasks.repositories.EmployeeRepository;
 import ru.era.distributionoftasks.repositories.TaskLogRepository;
 import ru.era.distributionoftasks.repositories.TaskTypeRepository;
@@ -17,6 +18,8 @@ public class TaskLogService {
     EmployeeRepository employeeRepository;
     @Autowired
     TaskTypeRepository taskTypeRepository;
+    @Autowired
+    BankRepository bankRepository;
 
     public List<TaskLog> getAll() {
         return (List<TaskLog>) taskLogRepository.findAll();
@@ -25,12 +28,14 @@ public class TaskLogService {
     public TaskLog addTaskLog(TaskLog taskLog) {
         taskLog.setEmployee(employeeRepository.findById(taskLog.getEmployee().getId()).orElseThrow());
         taskLog.setTaskType(taskTypeRepository.findById(taskLog.getTaskType().getId()).orElseThrow());
+        taskLog.setBank(bankRepository.findById(taskLog.getBank().getId()).orElseThrow());
         return taskLogRepository.save(taskLog);
     }
 
     public TaskLog updateTaskLog(TaskLog taskLog, Long taskLogId) {
         taskLog.setEmployee(employeeRepository.findById(taskLog.getEmployee().getId()).orElseThrow());
         taskLog.setTaskType(taskTypeRepository.findById(taskLog.getTaskType().getId()).orElseThrow());
+        taskLog.setBank(bankRepository.findById(taskLog.getBank().getId()).orElseThrow());
         return taskLogRepository.save(taskLog.setId(taskLogId));
     }
 
