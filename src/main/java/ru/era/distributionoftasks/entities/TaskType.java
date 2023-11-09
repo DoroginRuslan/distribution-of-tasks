@@ -17,6 +17,10 @@ public class TaskType {
     private int priority;
     private LocalTime timeReq;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "GRADE_ID")
+    private Grade grade;
+
     @Column(name = "CONDITION_1")
     private String condition1;
 

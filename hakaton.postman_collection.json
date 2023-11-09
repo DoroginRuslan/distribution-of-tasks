@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "37726c9b-82fa-4dbe-8382-fbd20d35a194",
+		"_postman_id": "49ed3bb5-a419-4552-8648-ed84914714ee",
 		"name": "hakaton",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "30954188"
@@ -592,7 +592,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\r\n        \"name\": \"Точка подключена вчера\",\r\n        \"priority\": 0,\r\n        \"timeReq\": \"04:40:00\"\r\n    }",
+							"raw": "    {\r\n        \"name\": \"Точка подключена вчера\",\r\n        \"priority\": 0,\r\n        \"grade\": {\r\n            \"id\": 1\r\n        },\r\n        \"timeReq\": \"04:40:00\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -929,6 +929,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "testGetDailyTasks",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -974,7 +982,10 @@
 					"name": "getUsers",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				}
