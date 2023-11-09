@@ -6,5 +6,12 @@
     <td>
       <a class="gradient-button"(click)="onEmployeeBtnClick()">Войти как сотрудник</a>
     </td>
+    <select name="employee"  [(ngModel)]="currentEmployeeId"
+            class="form-control"
+            id="employee"
+            placeholder="Выберите сотрудника"
+            (change)="currentEmployeeCHanged($event)">
+      <option *ngFor="let employee of employees" value="{{ employee.id }}">{{ employee.fio }}</option>
+    </select>
   </div>
 </div>

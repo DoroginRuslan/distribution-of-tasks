@@ -3,7 +3,7 @@
       <div class="form-group">
         <div class="form-group">
         <label for="employee">Сотрудник</label>
-        <select name="employee"  [(ngModel)]="currentEmployeeId"
+        <select [hidden]="(is_login==2)" name="employee"  [(ngModel)]="currentEmployeeId"
                 class="form-control"
                 id="employee"
                 placeholder="Выберите сотрудника"

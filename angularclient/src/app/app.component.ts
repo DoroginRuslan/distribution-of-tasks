@@ -14,11 +14,13 @@ export class AppComponent implements OnInit {
 
   title: string;
   is_login: number; // not login, 1 - manager, 2 - employee
+  worker_id : number;
 
   constructor(private app: AppService, private http: HttpClient, private router: Router, private input : InputService) {
         this.app.authenticate(undefined, undefined);
         this.title = 'Spring Boot - Angular Application';
         this.is_login = 0;
+        this.worker_id = -1;
       }
       logout() {
         this.http.post('logout', {}).pipe(
@@ -35,5 +37,8 @@ export class AppComponent implements OnInit {
     this.input.data$.subscribe(data => {
       this.is_login = data;
     });
+    this.input.worker_data$.subscribe(worker_data => {
+          this.worker_id = worker_data;
+        });
   }
 }

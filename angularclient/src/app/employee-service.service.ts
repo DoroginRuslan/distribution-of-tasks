@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Employee } from './employee';
 import { Observable } from 'rxjs';
+import { InputService } from './input-service.service';
 
 @Injectable()
 export class EmployeeService {
@@ -9,7 +10,7 @@ export class EmployeeService {
   private employeesUrl: string;
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,public input: InputService) {
     this.employeesUrl = 'http://localhost:8080/api/employees';
   }
 

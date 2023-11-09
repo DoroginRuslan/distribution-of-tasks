@@ -21,4 +21,14 @@ export class InputService {
   public changeValueTwo(){
     this.setData(2);
   }
+
+  public getData(){
+    return this._data;
+  }
+
+  private _worker_data = new BehaviorSubject<number>(0);
+  worker_data$ = this._worker_data.asObservable();
+  public changeWorkerId(currentEmployeeId: number){
+    this._worker_data.next(currentEmployeeId);
+  }
 }
