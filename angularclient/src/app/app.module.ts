@@ -23,7 +23,7 @@ import { AngularYandexMapsModule, YaConfig  } from 'angular8-yandex-maps';
 
 const mapConfig: YaConfig = {
   apikey: '61f5780b-ee71-47a9-93a5-6ac5fd5262e2',
-  lang: 'en_US',
+  lang: 'ru_RU',
 };
 import { EmployeeEditFormComponent } from './employee-edit-form/employee-edit-form.component';
 import { TaskTypeEditFormComponent } from './task-type-edit-form/task-type-edit-form.component';

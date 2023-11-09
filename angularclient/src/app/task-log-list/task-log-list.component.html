@@ -15,12 +15,12 @@
       <tbody>
       <tr *ngFor="let taskLog of taskLogs">
         <td>{{ taskLog.id }}</td>
-        <td>{{ taskLog.fio }}</td>
-        <td>{{ taskLog.task }}</td>
-        <td>{{ taskLog.address }}</td>
-        <td>{{ taskLog.date }}</td>
-        <td>{{ taskLog.result }}</td>
-        <td>{{ taskLog.data }}</td>
+        <td>{{ taskLog.employee.fio }}</td>
+        <td>{{ taskLog.taskType.name }}</td>
+        <td>{{ taskLog.bank.address }}</td>
+        <td>{{ taskLog.taskSetDate }}</td>
+        <td>{{ taskLog.completed }}</td>
+        <td>{{ taskLog.commentary }}</td>
       </tr>
       </tbody>
     </table>

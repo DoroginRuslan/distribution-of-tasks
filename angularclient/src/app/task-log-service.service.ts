@@ -11,7 +11,9 @@ export class TaskLogService {
 
   constructor(private http: HttpClient) {
     this.tasksLogUrl = 'http://localhost:8080/api/task-logs';
-    this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/employees/1/tasks/current';
+    // fix later!!
+    //this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/employees/1/tasks/current';
+    this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/task-logs/1';
   }
 
   public findAll(): Observable<TaskLog[]> {
