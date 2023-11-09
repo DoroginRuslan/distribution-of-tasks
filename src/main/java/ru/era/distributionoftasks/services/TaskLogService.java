@@ -2,12 +2,17 @@ package ru.era.distributionoftasks.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.era.distributionoftasks.entities.Employee;
 import ru.era.distributionoftasks.entities.TaskLog;
 import ru.era.distributionoftasks.repositories.BankRepository;
 import ru.era.distributionoftasks.repositories.EmployeeRepository;
 import ru.era.distributionoftasks.repositories.TaskLogRepository;
 import ru.era.distributionoftasks.repositories.TaskTypeRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -53,5 +58,10 @@ public class TaskLogService {
 
     public void deleteTaskLog(Long taskLogId) {
         taskLogRepository.deleteById(taskLogId);
+    }
+
+    public List<TaskLog> getDailyTasksForEmployee(Long employeeId) {
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow();
+        return taskLogRepository.findDateTasksForEmployee(employee, LocalDate.now().atStartOfDay());
     }
 }
