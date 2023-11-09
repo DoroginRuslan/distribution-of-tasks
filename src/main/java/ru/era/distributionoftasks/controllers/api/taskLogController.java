@@ -48,7 +48,7 @@ public class taskLogController {
         taskLogService.deleteTaskLog(taskTypeId);
     }
 
-    @GetMapping("/daily/employee/{employeeId")
+    @GetMapping("/daily/employee/{employeeId}")
     public List<TaskLog> getDailyTasksForEmployee(@PathVariable Long employeeId) {
         return taskLogService.getDailyTasksForEmployee(employeeId);
     }
