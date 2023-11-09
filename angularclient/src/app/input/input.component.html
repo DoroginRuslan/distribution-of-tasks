@@ -1,10 +1,10 @@
 <div class="card">
   <div class="card-body" [hidden]="!(is_login==false)">
     <td>
-      <input id="onManagerBtnClick" type="button" value="Войти как менеджер" (click)="onManagerBtnClick()" />
+      <a class="gradient-button"(click)="onManagerBtnClick()">Войти как менеджер</a>
     </td>
     <td>
-      <input id="onEmployeeBtnClick" type="button" value="Войти как сотрудник" (click)="onEmployeeBtnClick()" />
+      <a class="gradient-button"(click)="onEmployeeBtnClick()">Войти как сотрудник</a>
     </td>
   </div>
 </div>
