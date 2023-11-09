@@ -3,8 +3,6 @@ package ru.era.distributionoftasks.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 
@@ -23,6 +21,11 @@ public class TaskLog {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TASK_TYPE_ID")
     TaskType taskType;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "BANK_ID")
+    private Bank bank;
+
     LocalDateTime taskSetDate;
     boolean isCompleted;
     String commentary;
