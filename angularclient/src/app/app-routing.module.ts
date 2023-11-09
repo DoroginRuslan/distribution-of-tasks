@@ -12,6 +12,7 @@ import { TaskTypeFormComponent } from './task-type-form/task-type-form.component
 import { TaskTypeEditFormComponent } from './task-type-edit-form/task-type-edit-form.component';
 import { BankFormComponent } from './bank-form/bank-form.component';
 import { BankEditFormComponent } from './bank-edit-form/bank-edit-form.component';
+import { InputComponent } from './input/input.component';
 
 const routes: Routes = [
   { path: 'taskLogList', component: TaskLogListComponent },
@@ -26,7 +27,8 @@ const routes: Routes = [
   { path: 'addTaskType', component: TaskTypeFormComponent },
   { path: 'editTaskType/:id', component: TaskTypeEditFormComponent },
   { path: 'addbank', component: BankFormComponent },
-  { path: 'editBank/:id', component: BankEditFormComponent }
+  { path: 'editBank/:id', component: BankEditFormComponent },
+  { path: 'input', component: InputComponent }
 ];
 
 @NgModule({
