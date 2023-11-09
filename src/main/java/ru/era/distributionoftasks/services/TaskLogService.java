@@ -7,6 +7,7 @@ import ru.era.distributionoftasks.repositories.EmployeeRepository;
 import ru.era.distributionoftasks.repositories.TaskLogRepository;
 import ru.era.distributionoftasks.repositories.TaskTypeRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -25,6 +26,7 @@ public class TaskLogService {
     public TaskLog addTaskLog(TaskLog taskLog) {
         taskLog.setEmployee(employeeRepository.findById(taskLog.getEmployee().getId()).orElseThrow());
         taskLog.setTaskType(taskTypeRepository.findById(taskLog.getTaskType().getId()).orElseThrow());
+
         return taskLogRepository.save(taskLog);
     }
 
@@ -48,5 +50,11 @@ public class TaskLogService {
 
     public void deleteTaskLog(Long taskLogId) {
         taskLogRepository.deleteById(taskLogId);
+    }
+
+    public List<TaskLog> getDailyTasksForEmployee(Long employeeId) {
+        LocalDate today = LocalDate.now();
+        System.out.println(today);
+        return null;
     }
 }
