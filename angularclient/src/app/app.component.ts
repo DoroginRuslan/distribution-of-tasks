@@ -36,7 +36,4 @@ export class AppComponent implements OnInit {
       this.is_login = data;
     });
   }
-  //public changeLogin(): void {
-  //this.input.changeValue(this.is_login);
-  //}
 }

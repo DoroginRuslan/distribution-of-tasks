@@ -16,11 +16,9 @@ export class InputService {
   constructor() { }
 
   public changeValueOne(){
-  //this.value = value;
     this.setData(1);
   }
   public changeValueTwo(){
-  //this.value = value;
     this.setData(2);
   }
 }
