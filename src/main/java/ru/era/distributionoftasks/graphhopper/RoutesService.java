@@ -68,9 +68,11 @@ public class RoutesService {
                         transformPointsToParamString(points) +
                         "&type=" + "json" +
                         "&profile=" + "car" +
-                        "&out_array=" + "weights" +
-                        "&out_array=" + "times" +
-                        "&out_array=" + "distances" +
+                        // Эти параметры можно отключать
+                        "&out_array=" + "weights" +     // Сложность пути
+                        "&out_array=" + "times" +       // Время пути (в секундах)
+                        "&out_array=" + "distances" +   // Расстояние (в метрах)
+                        // --
                         "&key=" + graphhopperApiKey)
                 .get()
                 .build();
