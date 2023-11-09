@@ -1,23 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppService } from './app-service.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { finalize } from "rxjs/operators";
+import { InputService } from './input-service.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   title: string;
   is_login: number; // not login, 1 - manager, 2 - employee
 
-  constructor(private app: AppService, private http: HttpClient, private router: Router) {
+  constructor(private app: AppService, private http: HttpClient, private router: Router, private input : InputService) {
         this.app.authenticate(undefined, undefined);
         this.title = 'Spring Boot - Angular Application';
-        this.is_login = 2;
+        this.is_login = 0;
       }
       logout() {
         this.http.post('logout', {}).pipe(
@@ -30,4 +31,12 @@ export class AppComponent {
   authenticated(){
     return this.app.authenticated;
   }
+  ngOnInit() {
+    this.input.data$.subscribe(data => {
+      this.is_login = data;
+    });
+  }
+  //public changeLogin(): void {
+  //this.input.changeValue(this.is_login);
+  //}
 }
