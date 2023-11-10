@@ -8,8 +8,9 @@
     </li>
     <li>
       <a routerLink="/employeeTracker">
-        <i class="fa fa-home fa-2x"></i>
-        <span class="nav-text">Прогресс сотрудников</span>
+        <i class="fa fa-tasks fa-2x"></i>
+        <span [hidden]="(is_login==2)" class="nav-text">Прогресс сотрудников</span>
+        <span [hidden]="(is_login==1)" class="nav-text">Прогресс на сегодня</span>
       </a>
     </li>
     <li>

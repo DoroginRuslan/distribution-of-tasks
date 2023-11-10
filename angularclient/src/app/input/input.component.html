@@ -1,19 +1,19 @@
 <div class="card">
   <div class="card-body " [hidden]="!(is_login==false)">
-    <td>
-      <a class="form-control"(click)="onManagerBtnClick()">Войти как менеджер</a>
-    </td>
-    <td>
-      <a class="form-control"(click)="onEmployeeBtnClick()">Войти как сотрудник</a>
-
-    <td>
-    <select name="employee"  [(ngModel)]="currentEmployeeId"
-            class="form-control"
-            id="employee"
-            placeholder="Выберите сотрудника"
-            (change)="currentEmployeeCHanged($event)">
-      <option *ngFor="let employee of employees" value="{{ employee.id }}">{{ employee.fio }}</option>
-    </select>
-  </td>
+      <td>
+        <a class="form-control"(click)="onManagerBtnClick()">Войти как менеджер</a>
+      </td>
+      <td>
+        <a class="form-control"(click)="onEmployeeBtnClick()">Войти как сотрудник</a>
+      </td>
+      <td>
+      <select name="employee"  [(ngModel)]="currentEmployeeId"
+              class="form-control"
+              id="employee"
+              placeholder="Выберите сотрудника"
+              (change)="currentEmployeeCHanged($event)">
+        <option *ngFor="let employee of employees" value="{{ employee.id }}">{{ employee.fio }}</option>
+      </select>
+      </td>
   </div>
 </div>
