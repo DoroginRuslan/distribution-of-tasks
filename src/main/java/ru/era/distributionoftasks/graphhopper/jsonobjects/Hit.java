@@ -10,4 +10,8 @@ public class Hit {
     String countrycode;
     String osm_key;
     String osm_value;
+    String city;
+    String state;
+    String street;
+    String housenumber;
 }

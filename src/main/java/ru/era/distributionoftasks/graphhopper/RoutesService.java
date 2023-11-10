@@ -8,20 +8,22 @@ import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.era.distributionoftasks.graphhopper.jsonobjects.GeocodeAnswer;
+import ru.era.distributionoftasks.graphhopper.jsonobjects.Hit;
 import ru.era.distributionoftasks.graphhopper.jsonobjects.MatrixWeightsAnswer;
 import ru.era.distributionoftasks.graphhopper.jsonobjects.Point;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 @Service
 public class RoutesService {
 
-    @Value("graphhopper.key")
+    @Value("${graphhopper.key}")
     private String graphhopperApiKey;
-    @Value("graphhopper.geocode")
+    @Value("${graphhopper.geocode}")
     private String geocodeUrl;
-    @Value("graphhopper.matrix")
+    @Value("${graphhopper.matrix}")
     private String matrixRul;
     private final ObjectMapper objectMapper;
     private final OkHttpClient client;
@@ -32,6 +34,7 @@ public class RoutesService {
         client = new OkHttpClient();
     }
 
+    // TODO: 10.11.2023 Некорректно работает с некоторыми адресами
     public Point getGeocodeFromAddress(String address) {
         GeocodeAnswer geocodeAnswer = null;
         try {
@@ -43,13 +46,19 @@ public class RoutesService {
         if(geocodeAnswer.getHits() == null || geocodeAnswer.getHits().isEmpty()) {
             throw new GraphhopperErrorException("Не удалось найти соответствие адресу: " + address);
         }
-        return geocodeAnswer.getHits().get(0).getPoint();
+        List<Hit> hintsList = geocodeAnswer.getHits().stream()
+                .filter(h -> "Краснодар".equalsIgnoreCase(h.getCity()))
+                .toList();
+        if(hintsList.isEmpty()) {
+            throw new GraphhopperErrorException("Не удалось найти соответствие адресу: " + address);
+        }
+        return hintsList.get(1).getPoint();
     }
 
     private GeocodeAnswer getGeocodeAnswer(String address) throws IOException {
         Request request = new Request.Builder()
                 .url(geocodeUrl + "?" +
-                        "q=" + address +
+                        "q=" + URLEncoder.encode(address, "UTF-8") +
                         "&locale=" + "ru" +
                         "&key=" + graphhopperApiKey)
                 .get()
