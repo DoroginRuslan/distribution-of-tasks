@@ -14,13 +14,11 @@ public class ServiceTaskAssigment {
     private final AddressTimesMatrix addressTimesMatrix;
     private final List<AgencyPoint> agencyPointList;
     private final List<Office> officeList;
-    private final List<AlgEmployee> algEmployeeList;
 
-    public ServiceTaskAssigment(AddressTimesMatrix addressTimesMatrix, List<AgencyPoint> agencyPointList, List<Office> officeList, List<AlgEmployee> algEmployeeList) {
+    public ServiceTaskAssigment(AddressTimesMatrix addressTimesMatrix, List<AgencyPoint> agencyPointList, List<Office> officeList) {
         this.addressTimesMatrix = addressTimesMatrix;
         this.agencyPointList = agencyPointList;
         this.officeList = officeList;
-        this.algEmployeeList = algEmployeeList;
     }
 
     // Основной метод для получения маршрутов

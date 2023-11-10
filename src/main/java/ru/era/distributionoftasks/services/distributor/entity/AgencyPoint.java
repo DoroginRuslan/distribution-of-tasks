@@ -3,7 +3,7 @@ package ru.era.distributionoftasks.services.distributor.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AgencyPoint {
+public class AgencyPoint implements AddressInterface {
     private final int databaseId;
     // private String address; //адрес точки
     private final String pointsConnected; // когда подключена точка?
@@ -12,14 +12,13 @@ public class AgencyPoint {
     private final int numberOfApproved;// кол-во одобренных заявок?
     private final int numberOfIssued;// кол-во выданных карт?
 
-    @Getter
-    private final int addressId;
+    private int addressId;
 
     @Getter
     @Setter
     private Priority taskPriority;
 
-    public AgencyPoint(int databaseId, String pointsConnected, boolean isDelivered, int numberOfDaysOfIssue, int numberOfApproved, int numberOfIssued, int addressId) {
+    public AgencyPoint(int databaseId, String pointsConnected, boolean isDelivered, int numberOfDaysOfIssue, int numberOfApproved, int numberOfIssued) {
         this.databaseId = databaseId;
         //  this.address = address;
         this.pointsConnected = pointsConnected;
@@ -53,5 +52,15 @@ public class AgencyPoint {
 
     public int getNumberOfIssued() {
         return numberOfIssued;
+    }
+
+    @Override
+    public int getAddressId() {
+        return addressId;
+    }
+
+    @Override
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 }

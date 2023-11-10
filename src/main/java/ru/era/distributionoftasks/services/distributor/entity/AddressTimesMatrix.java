@@ -1,5 +1,6 @@
 package ru.era.distributionoftasks.services.distributor.entity;
 
+// Хранит время между точками в минутах
 public class AddressTimesMatrix {
     private final int[][] addressTimeMatrixArr;
 

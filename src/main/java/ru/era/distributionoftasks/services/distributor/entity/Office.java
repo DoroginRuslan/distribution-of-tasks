@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Office {
+public class Office implements AddressInterface {
 
     private int id;
     private List<List<Integer>> listRoutesSignor = new ArrayList<>();
@@ -16,15 +16,14 @@ public class Office {
     private int[] listDisFromOfficeToMiddleTask;
     private int[] listDisFromOfficeToLowTask;
 
-    @Getter
-    private final int addressId;
+    private int addressId;
+
     @Getter
     private final List<AlgEmployee> employeeList;
 
 
-    public Office(int id, int addressId, List<AlgEmployee> employeeList) {
+    public Office(int id, List<AlgEmployee> employeeList) {
         this.id = id;
-        this.addressId = addressId;
         this.employeeList = employeeList;
     }
 
@@ -78,5 +77,15 @@ public class Office {
 
     public void addListDisFromOfficeToLowTask(int[] distance) {
         this.listDisFromOfficeToLowTask = distance;
+    }
+
+    @Override
+    public int getAddressId() {
+        return addressId;
+    }
+
+    @Override
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 }
