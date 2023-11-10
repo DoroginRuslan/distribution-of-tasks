@@ -1,0 +1,33 @@
+<div class="card">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">ФИО</th>
+        <th scope="col">Адрес</th>
+        <th scope="col">Уровень</th>
+        <th scope="col">Изменить</th>
+        <th scope="col">Удалить</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.fio }}</td>
+        <td>{{ employee.address }}</td>
+        <td>{{ employee.grade.name }}</td>
+        <td>
+          <button class="nav-text" routerLink="/editemployee/{{employee.id.toString()}}">Изменить</button>
+        </td>
+        <td>
+          <button class="nav-text" (click)="removeEmployee(employee.id)"> Удалить</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <a routerLink="/addemployee">
+      <span class="nav-text">Добавить сотрудника</span>
+    </a>
+  </div>
+</div>

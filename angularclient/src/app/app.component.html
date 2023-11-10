@@ -1,0 +1,68 @@
+<nav class="main-menu">
+  <ul class="manager" [hidden]="!(is_login==1)">
+    <li>
+      <a routerLink="/taskLogList">
+        <i class="fa fa-home fa-2x"></i>
+        <span class="nav-text">Эффективность сотрудников</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/employeeTracker">
+        <i class="fa fa-home fa-2x"></i>
+        <span class="nav-text">Прогресс сотрудников</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/employees">
+        <i class="fa fa-users fa-2x"></i>
+        <span class="nav-text">Сотрудники</span>
+      </a>
+    </li>
+
+    <li>
+      <a routerLink="/tasksType">
+        <i class="fa fa-book fa-2x"></i>
+        <span class="nav-text">Задачи</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/banks">
+        <i class="fa fa-map-marker fa-2x"></i>
+        <span class="nav-text">Точки</span>
+      </a>
+    </li>
+  </ul>
+
+  <ul class="employee" [hidden]="!(is_login==2)">
+    <li>
+      <a routerLink="/employeeTracker">
+        <i class="fa fa-home fa-2x"></i>
+        <span class="nav-text">Прогресс сотрудников</span>
+      </a>
+    </li>
+  </ul>
+
+  <ul class="logout" [hidden]="(is_login==0)">
+    <li>
+      <a href="#" >
+        <i class="fa fa-power-off fa-2x"></i>
+        <span class="nav-text">Выйти</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="logout" [hidden]="!(is_login==0)">
+    <li>
+      <a routerLink="/input">
+        <i class="fa fa-power-off fa-2x"></i>
+        <span class="nav-text">Войти</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="main_area">
+  <router-outlet></router-outlet>
+  <div [hidden]="!authenticated()">
+    <p>Login to see your greeting</p>
+  </div>
+</div>

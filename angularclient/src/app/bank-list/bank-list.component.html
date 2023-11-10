@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Адрес</th>
+        <th scope="col">Регистрация</th>
+        <th scope="col">Материалы карт</th>
+        <th scope="col">Последняя карта</th>
+        <th scope="col">Кол-во заявок</th>
+        <th scope="col">Выдано карт</th>
+        <th scope="col">Изменить</th>
+        <th scope="col">Удалить</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let bank of banks">
+        <td>{{ bank.id }}</td>
+        <td>{{ bank.address }}</td>
+        <td>{{ bank.registrationDate }}</td>
+        <td>{{ bank.materialsDelivered }}</td>
+        <td>{{ bank.lastCardIssuanceDays }}</td>
+        <td>{{ bank.approvedApplicationsNum }}</td>
+        <td>{{ bank.issuanceCardsNum }}</td>
+        <td>
+          <button class="nav-text" routerLink="/editBank/{{bank.id}}"> Изменить </button>
+        </td>
+        <td>
+          <button class="nav-text" (click)="removeBank(bank.id)"> Удалить</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <a routerLink="/addbank">
+      <span class="nav-text">Добавить банк</span>
+    </a>
+  </div>
+</div>

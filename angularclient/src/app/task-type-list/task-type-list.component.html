@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark" >
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Название</th>
+        <th scope="col">Приоритет</th>
+        <th scope="col">Время выполнения</th>
+        <th scope="col">Условие 1</th>
+        <th scope="col">Условие 2</th>
+        <th scope="col">Изменить</th>
+        <th scope="col">Удалить</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let taskType of tasksType">
+        <td>{{ taskType.id }}</td>
+        <td>{{ taskType.name }}</td>
+        <td>{{ taskType.priority }}</td>
+        <td>{{ taskType.timeReq }}</td>
+        <td>{{ taskType.condition1 }}</td>
+        <td>{{ taskType.condition2 }}</td>
+        <td>
+          <button class="nav-text" routerLink="/editTaskType/{{taskType.id}}">Изменить</button>
+        </td>
+        <td>
+          <button class="nav-text" (click)="removeTaskType(taskType.id)"> Удалить</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <a routerLink="/addTaskType">
+      <span class="nav-text">Добавить тип задач</span>
+    </a>
+  </div>
+</div>

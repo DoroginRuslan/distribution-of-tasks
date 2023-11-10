@@ -1,0 +1,71 @@
+[33mcommit 1d2c667f5eddf97b4df62199e683e6f08f3dc6d6[m[33m ([m[1;36mHEAD -> [m[1;32madd_task[m[33m)[m
+Author: soroc <sorochanm@bk.ru>
+Date:   Tue Nov 7 15:18:09 2023 +0300
+
+    TaskType
+
+[33mcommit 3c476b5b56a7a7b1b04d4c56e18e8a5a4babc0e9[m
+Author: soroc <sorochanm@bk.ru>
+Date:   Tue Nov 7 15:15:57 2023 +0300
+
+    Add TaskType
+
+[33mcommit 492892bd37f1c343549694773935cd1eb767a335[m[33m ([m[1;32mfront[m[33m)[m
+Author: soroc <sorochanm@bk.ru>
+Date:   Tue Nov 7 14:37:01 2023 +0300
+
+    2nd iteration of bank-list
+
+[33mcommit 086c443ac875375c56d8501fcf72712f83f968e7[m
+Author: soroc <sorochanm@bk.ru>
+Date:   Tue Nov 7 14:30:18 2023 +0300
+
+    1st iteration
+
+[33mcommit 8f5240ac2ebae7ba092688587108674ef64f15fd[m[33m ([m[1;31morigin/front[m[33m)[m
+Author: JijaPog <macarows@mail.ru>
+Date:   Tue Nov 7 10:53:42 2023 +0300
+
+    init frontend
+
+[33mcommit 746be136b3d68e31e1b34f24a06cd6b93cb85bae[m[33m ([m[1;31morigin/develop[m[33m, [m[1;31morigin/database-connect[m[33m, [m[1;32mdevelop[m[33m)[m
+Author: Ruslan Dorogin <dorogin.ruslan99@yandex.ru>
+Date:   Sun Nov 5 18:25:52 2023 +0300
+
+    Добавлены таблицы соотрудников, их уровней, точек, задач и таблица назначения задач соотрудникам
+
+[33mcommit cb57908316117218fbdd42337474302fe77026b8[m
+Author: Ruslan Dorogin <dorogin.ruslan99@yandex.ru>
+Date:   Sat Nov 4 16:04:43 2023 +0300
+
+    Исправлен конструктор сущности, добавлен демонстрационный метод получения данных.
+
+[33mcommit 5d6169c83d721012af03146f6951e6c2722b0ad6[m
+Author: Ruslan Dorogin <dorogin.ruslan99@yandex.ru>
+Date:   Sat Nov 4 15:40:55 2023 +0300
+
+    Миграция начата заново. Создана таблица Employee, сущность и интерфейс к ней.
+
+[33mcommit 2113390df9f60712cdbd651c8bcc6e4ce2af1e35[m
+Author: Ruslan Dorogin <dorogin.ruslan99@yandex.ru>
+Date:   Sat Nov 4 14:45:54 2023 +0300
+
+    Работа с сохранение данных с H2 перенастроено в файл. Добавлена миграция базы данных. Работа с БД ведётся при запущенном приложении по адресу http://localhost:8080/h2-console
+
+[33mcommit 0caa9e871794575efa2b292607f2368138dad5a6[m
+Author: Ruslan Dorogin <dorogin.ruslan99@yandex.ru>
+Date:   Sat Nov 4 13:55:11 2023 +0300
+
+    Добавлены настройки для подключения к H2 базе данных
+
+[33mcommit 3a8604866b2c1988260f26178065ac3798a6cc4c[m
+Author: Ruslan Dorogin <dorogin.ruslan99@yandex.ru>
+Date:   Sat Nov 4 12:32:55 2023 +0300
+
+    Добавлен HelloWorld контроллер. На запрос http://localhost:8080/hello выдаётся строка.
+
+[33mcommit afbe25c922aca4365129b0ba170c2543cb528e1c[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: Ruslan Dorogin <dorogin.ruslan99@yandex.ru>
+Date:   Sat Nov 4 11:59:00 2023 +0300
+
+    Init commit
