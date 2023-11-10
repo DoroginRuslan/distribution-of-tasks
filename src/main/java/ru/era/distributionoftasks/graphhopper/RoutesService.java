@@ -46,13 +46,14 @@ public class RoutesService {
         if(geocodeAnswer.getHits() == null || geocodeAnswer.getHits().isEmpty()) {
             throw new GraphhopperErrorException("Не удалось найти соответствие адресу: " + address);
         }
+//        return geocodeAnswer.getHits().get(0)
         List<Hit> hintsList = geocodeAnswer.getHits().stream()
                 .filter(h -> "Краснодар".equalsIgnoreCase(h.getCity()))
                 .toList();
         if(hintsList.isEmpty()) {
-            throw new GraphhopperErrorException("Не удалось найти соответствие адресу: " + address);
+            return geocodeAnswer.getHits().get(0).getPoint();
         }
-        return hintsList.get(1).getPoint();
+        return hintsList.get(0).getPoint();
     }
 
     private GeocodeAnswer getGeocodeAnswer(String address) throws IOException {

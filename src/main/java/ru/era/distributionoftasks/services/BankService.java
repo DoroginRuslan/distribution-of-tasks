@@ -7,6 +7,7 @@ import ru.era.distributionoftasks.graphhopper.RoutesService;
 import ru.era.distributionoftasks.graphhopper.jsonobjects.Point;
 import ru.era.distributionoftasks.repositories.BankRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -60,5 +61,13 @@ public class BankService {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<Bank> addBankList(List<Bank> banks) {
+        List<Bank> result = new ArrayList<>(banks.size());
+        for(Bank bank : banks) {
+            result.add(addBank(bank));
+        }
+        return result;
     }
 }
