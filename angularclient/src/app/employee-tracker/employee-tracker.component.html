@@ -2,12 +2,12 @@
   <div class="card-body">
       <div class="form-group">
         <div class="form-group">
-        <label for="employee">Сотрудник</label>
+        <label [hidden]="(is_login==2)" for="employee">Сотрудник</label>
         <select [hidden]="(is_login==2)" name="employee"  [(ngModel)]="currentEmployeeId"
                 class="form-control"
                 id="employee"
                 placeholder="Выберите сотрудника"
-                (change)="currentEmployeeCHanged($event)">
+                (change)="currentEmployeeChanged($event)">
           <option *ngFor="let employee of employees" value="{{ employee.id }}">{{ employee.fio }}</option>
         </select>
       </div>

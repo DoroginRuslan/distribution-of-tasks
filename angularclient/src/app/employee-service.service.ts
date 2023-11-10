@@ -22,9 +22,11 @@ export class EmployeeService {
     return this.http.post<Employee>(this.employeesUrl, employee);
   }
 
-  public removeEmployee(id) {
-    console.log("remove employee");
+  public removeEmployee(id:string) {
+  console.log(this.employeesUrl+"/"+id);
+    return this.http.delete<string>(this.employeesUrl+"/"+id);
   }
+
   public editEmployee(employee: Employee) {
     return this.http.put<Employee>(this.employeesUrl+'/${employee.id}', employee);
   }

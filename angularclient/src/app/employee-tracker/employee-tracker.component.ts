@@ -18,10 +18,8 @@ export class EmployeeTrackerComponent implements OnInit {
   taskLogs:   TaskLog[];
   taskTypes:  TaskType[];
   banks:      Bank[];
-  employees: Employee[];
-  taskLogs: TaskLog[];
-  is_login: number; // not login, 1 - manager, 2 - employee
-
+  is_login:   number; // not login, 1 - manager, 2 - employee
+  worker_id: number;
 
   placemarkPropertiesHigh: ymaps.IPlacemarkProperties;
   optionMultiRoute: ymaps.multiRouter.IMultiRouteOptions;
@@ -37,18 +35,31 @@ export class EmployeeTrackerComponent implements OnInit {
   private taskLogService: TaskLogService, private input : InputService) {
   }
   ngOnInit() {
-      this.employeeService.findAll().subscribe(data => {
-        this.employees = data;
-        this.currentEmployeeId = this.employees[0].id;
-      });
       this.input.data$.subscribe(data => {
         this.is_login = data;
       });
+
+      if (this.is_login == 1)
+      {
+        this.employeeService.findAll().subscribe(data => {
+          this.employees = data;
+          this.currentEmployeeId = this.employees[0].id;
+          this.updateCurrentEmployeeLogs();
+        });
+      }
+      else
+      {
+      this.input.worker_data$.subscribe(worker_data => {
+        this.worker_id = worker_data;
+      });
+      this.currentEmployeeId = this.worker_id.toString();
       this.updateCurrentEmployeeLogs();
+      }
     }
     updateCurrentEmployeeLogs()
     {
     this.taskLogService.findCurrentForEmployee(this.currentEmployeeId).subscribe(data => {
+    console.log(this.currentEmployeeId);
             this.taskLogs = data;
             this.placemarkPropertiesHigh =
                       {
@@ -80,7 +91,7 @@ export class EmployeeTrackerComponent implements OnInit {
 
 
     }
-    currentEmployeeCHanged(event) {
+    currentEmployeeChanged(event) {
         this.currentEmployeeId = event.target.value;
         this.updateCurrentEmployeeLogs();
       }

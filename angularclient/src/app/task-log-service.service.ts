@@ -13,14 +13,14 @@ export class TaskLogService {
     this.tasksLogUrl = 'http://localhost:8080/api/task-logs';
     // fix later!!
     //this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/employees/1/tasks/current';
-    this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/task-logs';
+    this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/task-logs/daily/employee';
   }
 
   public findAll(): Observable<TaskLog[]> {
     return this.http.get<TaskLog[]>(this.tasksLogUrl);
   }
   public findCurrentForEmployee(id):Observable<TaskLog[]> {
-     return this.http.get<TaskLog[]>(this.tasksLogForEmployeeUrl);
+     return this.http.get<TaskLog[]>(this.tasksLogForEmployeeUrl+"/"+id);
    }
 
 }

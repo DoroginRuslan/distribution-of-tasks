@@ -9,5 +9,4 @@ public class DistributionOfTasksApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DistributionOfTasksApplication.class, args);
 	}
-
 }

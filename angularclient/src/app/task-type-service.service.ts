@@ -21,8 +21,8 @@ export class TaskTypeService {
   }
 
   public removeTaskType(id) {
-    console.log("remove task type");
-    return ;
+  console.log(this.tasksTypeUrl+"/"+id);
+    return this.http.delete(this.tasksTypeUrl+'/'+id);
   }
   public editTaskType(tasksType: TaskType) {
     return this.http.put<TaskType>(this.tasksTypeUrl+'/${tasksType.id}', tasksType);

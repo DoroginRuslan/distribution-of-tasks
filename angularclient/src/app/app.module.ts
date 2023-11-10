@@ -29,6 +29,7 @@ import { EmployeeEditFormComponent } from './employee-edit-form/employee-edit-fo
 import { TaskTypeEditFormComponent } from './task-type-edit-form/task-type-edit-form.component';
 import { BankEditFormComponent } from './bank-edit-form/bank-edit-form.component';
 import { InputComponent } from './input/input.component';
+import { EmployeeSelfTrackerComponent } from './employee-self-tracker/employee-self-tracker.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { InputComponent } from './input/input.component';
     TaskTypeEditFormComponent,
     BankEditFormComponent,
     InputComponent,
+    EmployeeSelfTrackerComponent,
   ],
   imports: [
     BrowserModule,

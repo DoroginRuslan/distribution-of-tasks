@@ -21,8 +21,7 @@ export class BankService {
   }
 
   public removeBank(id) {
-    console.log("remove bank");
-    return ;
+    return this.http.delete(this.banksUrl+'/'+id);
   }
 
   public editBank(bank: Bank) {
