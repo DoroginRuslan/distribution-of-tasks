@@ -63,7 +63,7 @@ public class TasksAgencyPoints {
     public List<Integer> getAgencyPointListHighPriority() {
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < agencyPointListHighPriority.size(); i++) {
-            list.add(agencyPointListHighPriority.get(i).getId());
+            list.add(agencyPointListHighPriority.get(i).getDatabaseId());
         }
         return list;
     }
@@ -71,7 +71,7 @@ public class TasksAgencyPoints {
     public List<Integer> getAgencyPointListMediumPriority() {
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < agencyPointListMediumPriority.size(); i++) {
-            list.add(agencyPointListMediumPriority.get(i).getId());
+            list.add(agencyPointListMediumPriority.get(i).getDatabaseId());
         }
         return list;
     }
@@ -79,7 +79,7 @@ public class TasksAgencyPoints {
     public List<Integer> getAgencyPointListLowPriority() {
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < agencyPointListLowPriority.size(); i++) {
-            list.add(agencyPointListLowPriority.get(i).getId());
+            list.add(agencyPointListLowPriority.get(i).getDatabaseId());
         }
         return list;
     }

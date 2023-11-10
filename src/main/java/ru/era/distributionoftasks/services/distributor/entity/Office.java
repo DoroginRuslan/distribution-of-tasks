@@ -1,5 +1,7 @@
 package ru.era.distributionoftasks.services.distributor.entity;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,16 @@ public class Office {
     private int[] listDisFromOfficeToMiddleTask;
     private int[] listDisFromOfficeToLowTask;
 
+    @Getter
+    private final int addressId;
+    @Getter
+    private final List<AlgEmployee> employeeList;
 
-    public Office(int id) {
+
+    public Office(int id, int addressId, List<AlgEmployee> employeeList) {
         this.id = id;
+        this.addressId = addressId;
+        this.employeeList = employeeList;
     }
 
     public int getId() {

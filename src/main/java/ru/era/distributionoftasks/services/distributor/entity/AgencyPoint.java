@@ -1,26 +1,37 @@
 package ru.era.distributionoftasks.services.distributor.entity;
 
-public class AgencyPoint {
-    private int id;
-    // private String address; //адрес точки
-    private String pointsConnected; // когда подключена точка?
-    private boolean isDelivered;// карты и материалы доставлены?
-    private int numberOfDaysOfIssue;// кол-во дней после выдачи последней карты?
-    private int numberOfApproved;// кол-во одобренных заявок?
-    private int numberOfIssued;// кол-во выданных карт?
+import lombok.Getter;
+import lombok.Setter;
 
-    public AgencyPoint(int id, String pointsConnected, boolean isDelivered, int numberOfDaysOfIssue, int numberOfApproved, int numberOfIssued) {
-        this.id = id;
+public class AgencyPoint {
+    private final int databaseId;
+    // private String address; //адрес точки
+    private final String pointsConnected; // когда подключена точка?
+    private final boolean isDelivered;// карты и материалы доставлены?
+    private final int numberOfDaysOfIssue;// кол-во дней после выдачи последней карты?
+    private final int numberOfApproved;// кол-во одобренных заявок?
+    private final int numberOfIssued;// кол-во выданных карт?
+
+    @Getter
+    private final int addressId;
+
+    @Getter
+    @Setter
+    private Priority taskPriority;
+
+    public AgencyPoint(int databaseId, String pointsConnected, boolean isDelivered, int numberOfDaysOfIssue, int numberOfApproved, int numberOfIssued, int addressId) {
+        this.databaseId = databaseId;
         //  this.address = address;
         this.pointsConnected = pointsConnected;
         this.isDelivered = isDelivered;
         this.numberOfDaysOfIssue = numberOfDaysOfIssue;
         this.numberOfApproved = numberOfApproved;
         this.numberOfIssued = numberOfIssued;
+        this.addressId = addressId;
     }
 
-    public int getId() {
-        return id;
+    public int getDatabaseId() {
+        return databaseId;
     }
 
 

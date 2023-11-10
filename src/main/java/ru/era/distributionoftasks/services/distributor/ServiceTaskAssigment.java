@@ -1,9 +1,7 @@
 package ru.era.distributionoftasks.services.distributor;
 
 
-import ru.era.distributionoftasks.services.distributor.entity.Office;
-import ru.era.distributionoftasks.services.distributor.entity.RouteTimes;
-import ru.era.distributionoftasks.services.distributor.entity.TasksAgencyPoints;
+import ru.era.distributionoftasks.services.distributor.entity.*;
 
 import java.util.*;
 
@@ -13,23 +11,23 @@ import static ru.era.distributionoftasks.services.distributor.entity.Task.*;
 
 
 public class ServiceTaskAssigment {
-    private static List<Office> officeList = new ArrayList<>();
+    private final AddressTimesMatrix addressTimesMatrix;
+    private final List<AgencyPoint> agencyPointList;
+    private final List<Office> officeList;
+    private final List<AlgEmployee> algEmployeeList;
 
+    public ServiceTaskAssigment(AddressTimesMatrix addressTimesMatrix, List<AgencyPoint> agencyPointList, List<Office> officeList, List<AlgEmployee> algEmployeeList) {
+        this.addressTimesMatrix = addressTimesMatrix;
+        this.agencyPointList = agencyPointList;
+        this.officeList = officeList;
+        this.algEmployeeList = algEmployeeList;
+    }
 
-
-    public static void main(String[] args) {
+    // Основной метод для получения маршрутов
+    public List<EmployeeRoute> calcEmployeeRoutes() {
         TasksAgencyPoints tasksAgencyPoints = new TasksAgencyPoints();
 
-        Office office1 = new Office(1);
-        Office office2 = new Office(2);
-        Office office3 = new Office(3);
-
-        officeList.add(office1);
-        officeList.add(office2);
-        officeList.add(office3);
-
-        //todo реализовать класс офиса
-        RouteTimes routeTimes = new RouteTimes(new int[]{office1.getId(), office2.getId(), office3.getId()},
+        RouteTimes routeTimes = new RouteTimes(officeList,
                 tasksAgencyPoints.getAgencyPointListLowPriority(),
                 tasksAgencyPoints.getAgencyPointListMediumPriority(),
                 tasksAgencyPoints.getAgencyPointListHighPriority());
@@ -59,9 +57,11 @@ public class ServiceTaskAssigment {
 
         findDuplicateRoutes(officeList.get(1).getListRoutesJunior(), officeList.get(2).getListRoutesJunior());
 
+        // TODO: 10.11.2023 Заменить на реальный результат
+        return new ArrayList<>();
     }
 
-    private static void addRouteOffice(RouteTimes routeTimes, TasksAgencyPoints tasksAgencyPoints) {
+    private void addRouteOffice(RouteTimes routeTimes, TasksAgencyPoints tasksAgencyPoints) {
         for (int i = 0; i < officeList.size(); i++) {
             Office office = officeList.get(i);
             List<List<Integer>> routesSignor = getRoutesFromOfficeToTwoPoints(office.getListDisFromOfficeToHighTask(), routeTimes.getDisHighToMediumTask(), new int[]{TIME_HIGH_TASK, TIME_MEDIUM_TASK}, tasksAgencyPoints);

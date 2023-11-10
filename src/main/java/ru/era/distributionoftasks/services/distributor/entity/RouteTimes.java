@@ -11,9 +11,9 @@ public class RouteTimes {
 
     private List<Integer> pointsWithTaskLowPriority, pointsWithTaskMediumPriority, pointsWithTaskHighPriority;
 
-    private int[] pointsOffice;
+    private List<Office> pointsOffice;
 
-    public RouteTimes(int[] pointsOffice, List<Integer> pointsWithTaskLowPriority, List<Integer> pointsWithTaskMediumPriority, List<Integer> pointsWithTaskHighPriority) {
+    public RouteTimes(List<Office> pointsOffice, List<Integer> pointsWithTaskLowPriority, List<Integer> pointsWithTaskMediumPriority, List<Integer> pointsWithTaskHighPriority) {
         this.pointsOffice = pointsOffice;
         this.pointsWithTaskLowPriority = pointsWithTaskLowPriority;
         this.pointsWithTaskMediumPriority = pointsWithTaskMediumPriority;
@@ -22,7 +22,7 @@ public class RouteTimes {
     }
 
     private void init() {
-        int sizeOffice = pointsOffice.length;
+        int sizeOffice = pointsOffice.size();
         int sizeTasksHighPriority = pointsWithTaskHighPriority.size();
         int sizeTasksMediumPriority = pointsWithTaskMediumPriority.size();
         int sizeTasksLowPriority = pointsWithTaskLowPriority.size();
@@ -30,7 +30,7 @@ public class RouteTimes {
         if (sizeTasksLowPriority > 0) {
             disOfficeToLowTask = new int[sizeOffice][sizeTasksLowPriority];
             for (int i = 0; i < sizeOffice; i++) {
-                getRouteTimesOfficeToPointFromDB(pointsOffice[i], pointsWithTaskLowPriority, disOfficeToLowTask[i]);
+                getRouteTimesOfficeToPointFromDB(pointsOffice.get(i), pointsWithTaskLowPriority, disOfficeToLowTask[i]);
             }
 
             disLowToLowTask = new int[sizeTasksLowPriority][sizeTasksLowPriority];
@@ -40,7 +40,7 @@ public class RouteTimes {
         if (sizeTasksMediumPriority > 0) {
             disOfficeToMediumTask = new int[sizeOffice][sizeTasksMediumPriority];
             for (int i = 0; i < sizeOffice; i++) {
-                getRouteTimesOfficeToPointFromDB(pointsOffice[i], pointsWithTaskLowPriority, disOfficeToMediumTask[i]);
+                getRouteTimesOfficeToPointFromDB(pointsOffice.get(i), pointsWithTaskLowPriority, disOfficeToMediumTask[i]);
             }
 
             disMediumToMediumTask = new int[sizeTasksMediumPriority][sizeTasksMediumPriority];
@@ -50,7 +50,7 @@ public class RouteTimes {
         if (sizeTasksHighPriority > 0) {
             disOfficeToHighTask = new int[sizeOffice][sizeTasksHighPriority];
             for (int i = 0; i < sizeOffice; i++) {
-                getRouteTimesOfficeToPointFromDB(pointsOffice[i], pointsWithTaskHighPriority, disOfficeToHighTask[i]);
+                getRouteTimesOfficeToPointFromDB(pointsOffice.get(i), pointsWithTaskHighPriority, disOfficeToHighTask[i]);
             }
         }
 
@@ -76,7 +76,7 @@ public class RouteTimes {
         }
     }
 
-    private void getRouteTimesOfficeToPointFromDB(int office, List<Integer> points1, int[] disOfficeToPoints) {
+    private void getRouteTimesOfficeToPointFromDB(Office office, List<Integer> points1, int[] disOfficeToPoints) {
         for (int i = 0; i < points1.size(); i++) {
             //todo disOfficeToPoints[i] = получить точку офиса из БД, получить массив точек points1, измерить расстояние с каждой
         }
@@ -150,7 +150,7 @@ public class RouteTimes {
         return pointsWithTaskHighPriority;
     }
 
-    public int[] getPointsOffice() {
+    public List<Office> getPointsOffice() {
         return pointsOffice;
     }
 }
