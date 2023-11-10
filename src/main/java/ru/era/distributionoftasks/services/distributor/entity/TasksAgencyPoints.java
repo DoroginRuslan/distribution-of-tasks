@@ -1,39 +1,40 @@
 package ru.era.distributionoftasks.services.distributor.entity;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TasksAgencyPoints {
-    private List<AgencyPoint> agencyPointList = new ArrayList<>();
+    private List<AgencyPoint> agencyPointList;
+    @Getter
     private List<AgencyPoint> agencyPointListHighPriority = new ArrayList<>();
+    @Getter
     private List<AgencyPoint> agencyPointListMediumPriority = new ArrayList<>();
+    @Getter
     private List<AgencyPoint> agencyPointListLowPriority = new ArrayList<>();
 
-    public TasksAgencyPoints() {
-        init();
-    }
-
-    private void init() {
-
-        //todo получить из базы данных текущее состояние по каждой точке AgencyPoint agencyPoint1 = new AgencyPoint(1, "вчера", false, 0, 0, 0);
-        //todo добавить все точки в agencyPointList
+    public TasksAgencyPoints(List<AgencyPoint> agencyPointList) {
+        this.agencyPointList = agencyPointList;
         getTasksWithPriority(agencyPointList);
     }
 
-    private List<List<AgencyPoint>> getTasksWithPriority(List<AgencyPoint> agencyPoints) {
+
+    private void getTasksWithPriority(List<AgencyPoint> agencyPoints) {
         for (int i = 0; i < agencyPoints.size(); i++) {
             AgencyPoint agencyPoint = agencyPoints.get(i);
             if (getTasksWithHighPriority(agencyPoint)) {
                 agencyPointListHighPriority.add(agencyPoint);
+                agencyPoint.setTaskPriority(Priority.MAX_PRIORITY);
             } else if (getTasksWithMediumPriority(agencyPoint)) {
                 agencyPointListMediumPriority.add(agencyPoint);
+                agencyPoint.setTaskPriority(Priority.MEDIUM_PRIORITY);
             } else if (getTasksWithLowPriority(agencyPoint)) {
                 agencyPointListLowPriority.add(agencyPoint);
+                agencyPoint.setTaskPriority(Priority.LOW_PRIORITY);
             }
         }
 
-        return Arrays.asList(agencyPointListHighPriority, agencyPointListMediumPriority, agencyPointListLowPriority);
     }
 
     //todo перепроверить по правильности условия
@@ -60,27 +61,4 @@ public class TasksAgencyPoints {
         return false;
     }
 
-    public List<Integer> getAgencyPointListHighPriority() {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < agencyPointListHighPriority.size(); i++) {
-            list.add(agencyPointListHighPriority.get(i).getDatabaseId());
-        }
-        return list;
-    }
-
-    public List<Integer> getAgencyPointListMediumPriority() {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < agencyPointListMediumPriority.size(); i++) {
-            list.add(agencyPointListMediumPriority.get(i).getDatabaseId());
-        }
-        return list;
-    }
-
-    public List<Integer> getAgencyPointListLowPriority() {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < agencyPointListLowPriority.size(); i++) {
-            list.add(agencyPointListLowPriority.get(i).getDatabaseId());
-        }
-        return list;
-    }
 }

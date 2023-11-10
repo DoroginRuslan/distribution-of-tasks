@@ -14,6 +14,7 @@ class ServiceTaskAssignmentTest {
         List<Office> officeList = getOffices();
         AddressTimesMatrix addressTimesMatrix = getTimeMatrixAndFillAddressIds(agencyPointList, officeList);
         ServiceTaskAssigment serviceTaskAssigment = new ServiceTaskAssigment(addressTimesMatrix, agencyPointList, officeList);
+        serviceTaskAssigment.calcEmployeeRoutes();
     }
 
     private List<AgencyPoint> getAgencyPointList() {
@@ -54,11 +55,11 @@ class ServiceTaskAssignmentTest {
                 new AgencyPoint(36,"давно",true,4,19,4),
                 new AgencyPoint(37,"давно",true,9,10,7),
                 new AgencyPoint(38,"вчера",false,0,13,0),
-                new AgencyPoint(39,"вчера",false,0,10,0),
-                new AgencyPoint(40,"давно",true,6,30,14),
-                new AgencyPoint(41,"давно",true,6,65,12),
-                new AgencyPoint(42,"давно",true,3,20,4),
-                new AgencyPoint(43,"вчера",false,0,0,0)
+                new AgencyPoint(39,"вчера",false,0,10,0)
+//                new AgencyPoint(40,"давно",true,6,30,14)
+//                new AgencyPoint(41,"давно",true,6,65,12),
+//                new AgencyPoint(42,"давно",true,3,20,4)
+//                new AgencyPoint(43,"вчера",false,0,0,0)
         );
     }
 
@@ -148,6 +149,11 @@ class ServiceTaskAssignmentTest {
                 {607, 853, 1809, 968, 1068, 883, 1190, 1147, 557, 1624, 1956, 1407, 650, 558, 199, 624, 1144, 1087, 1381, 1121, 1121, 1147, 1348, 786, 653, 806, 1704, 953, 1026, 1103, 984, 1054, 2288, 1319, 993, 1005, 993, 998, 0, 1221},
                 {970, 567, 1003, 461, 2302, 2117, 1100, 188, 1162, 746, 746, 571, 1454, 1136, 1163, 1407, 553, 691, 222, 1126, 1126, 189, 137, 631, 1456, 598, 1365, 551, 349, 709, 435, 384, 1589, 985, 433, 430, 459, 423, 1480, 0}
         };
+        for(int i = 0 ; i < arr.length; i++) {
+            for(int j = 0; j < arr[i].length; j++) {
+                arr[i][j] /= 60;
+            }
+        }
         return arr;
     }
 }

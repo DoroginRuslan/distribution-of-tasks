@@ -9,6 +9,9 @@ public class AddressTimesMatrix {
     }
 
     public int getTimeBetweenAddresses(int addressFrom, int addressTo) {
+        if(addressFrom >= addressTimeMatrixArr.length || addressTo >= addressTimeMatrixArr[0].length) {
+            System.out.println("Error");
+        }
         return addressTimeMatrixArr[addressFrom][addressTo];
     }
 }

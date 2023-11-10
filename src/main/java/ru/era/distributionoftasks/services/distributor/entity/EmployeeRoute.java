@@ -10,4 +10,5 @@ import java.util.List;
 public class EmployeeRoute {
     private final AlgEmployee algEmployee;
     private final List<AgencyPoint> agencyPointList;
+
 }

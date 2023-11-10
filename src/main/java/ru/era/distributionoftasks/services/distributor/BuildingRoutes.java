@@ -1,7 +1,7 @@
 package ru.era.distributionoftasks.services.distributor;
 
 
-import ru.era.distributionoftasks.services.distributor.entity.TasksAgencyPoints;
+import ru.era.distributionoftasks.services.distributor.entity.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,36 +11,43 @@ import java.util.stream.Collectors;
 import static ru.era.distributionoftasks.services.distributor.entity.Task.*;
 
 public class BuildingRoutes {
-    public static List<List<Integer>> buildingRouteFromOfficeToPointToPoint(int[] disOffice, int[][] disPointToPoint, int[] priorityTask, int desiredRemainingTime, TasksAgencyPoints tasksAgencyPoints) {
-        List<Integer> listAgencyPoints1 = switch (priorityTask[0]) {
+    public static List<IntPointPair> buildingRouteFromOfficeToPointToPoint(Office office, AddressTimesMatrix addressTimesMatrix, int[] priorityTask, int desiredRemainingTime, TasksAgencyPoints tasksAgencyPoints) {
+        List<AgencyPoint> firstTypePriorityPoints = switch (priorityTask[0]) {
             case TIME_HIGH_TASK -> tasksAgencyPoints.getAgencyPointListHighPriority();
             case TIME_MEDIUM_TASK -> tasksAgencyPoints.getAgencyPointListMediumPriority();
             case TIME_LOW_TASK -> tasksAgencyPoints.getAgencyPointListLowPriority();
             default -> throw new IllegalStateException("Задачи такого типа нет: " + priorityTask[0]);
         };
 
-        List<Integer> listAgencyPoints2 = switch (priorityTask[1]) {
+        List<AgencyPoint> secondTypePriorityPoints = switch (priorityTask[1]) {
             case TIME_HIGH_TASK -> tasksAgencyPoints.getAgencyPointListHighPriority();
             case TIME_MEDIUM_TASK -> tasksAgencyPoints.getAgencyPointListMediumPriority();
             case TIME_LOW_TASK -> tasksAgencyPoints.getAgencyPointListLowPriority();
             default -> throw new IllegalStateException("Задачи такого типа нет: " + priorityTask[1]);
         };
 
-        List<List<Integer>> listRoute = new ArrayList<>();
+        List<IntPointPair> listRoute = new ArrayList<>();
         int maxRestDis = 0;
 
-        for (int i = 0; i < listAgencyPoints1.size(); i++) {
-            for (int j = 0; j < listAgencyPoints2.size(); j++) {
+        for(AgencyPoint firstTypePoint : firstTypePriorityPoints) {
+            int distanceFromOfficeToFirstPoint = addressTimesMatrix.getTimeBetweenAddresses(office.getAddressId(), firstTypePoint.getAddressId());
+            for(AgencyPoint secondTypePoint : secondTypePriorityPoints) {
+                int pointsDistance = addressTimesMatrix.getTimeBetweenAddresses(firstTypePoint.getAddressId(), secondTypePoint.getAddressId());
+                int restEmployeeTime = TIME_MAX_TASK - (distanceFromOfficeToFirstPoint + priorityTask[0] + pointsDistance + priorityTask[1]);
+            }
+        }
+        for (int i = 0; i < firstTypePriorityPoints.size(); i++) {
+            for (int j = 0; j < secondTypePriorityPoints.size(); j++) {
                 int point1;
                 int point2;
                 int disPoint1ToPoint2;
 
-                point1 = listAgencyPoints1.get(i);
-                point2 = listAgencyPoints2.get(j);
-                disPoint1ToPoint2 = disPointToPoint[i][j];
+                point1 = firstTypePriorityPoints.get(i).getDatabaseId();
+                point2 = secondTypePriorityPoints.get(j).getDatabaseId();
+                disPoint1ToPoint2 = addressTimesMatrix[i][j];
 
                 if (point1 != point2 && i != j) {
-                    int restDis = TIME_MAX_TASK - (disOffice[i] + priorityTask[0] + disPoint1ToPoint2 + priorityTask[1]);
+                    int restDis = TIME_MAX_TASK - (office[i] + priorityTask[0] + disPoint1ToPoint2 + priorityTask[1]);
                     if (restDis >= desiredRemainingTime && restDis > maxRestDis) {
                         maxRestDis = restDis;
 
@@ -60,33 +67,33 @@ public class BuildingRoutes {
         return listRoute;
     }
 
-    public static List<List<Integer>> buildingRouteFromPointToPoint(List<List<Integer>> listRoute, int[][] disPointToPoint, int priorityTask, TasksAgencyPoints tasksAgencyPoints) {
-        List<Integer> listAgencyPoints1 = switch (priorityTask) {
+    public static List<List<Integer>> buildingRouteFromPointToPoint(List<IntPointPair> officeRoutes, int[][] disPointToPoint, int priorityTask, TasksAgencyPoints tasksAgencyPoints) {
+        List<AgencyPoint> listAgencyPoints1 = switch (priorityTask) {
             case TIME_HIGH_TASK -> tasksAgencyPoints.getAgencyPointListHighPriority();
             case TIME_MEDIUM_TASK -> tasksAgencyPoints.getAgencyPointListMediumPriority();
             case TIME_LOW_TASK -> tasksAgencyPoints.getAgencyPointListLowPriority();
             default -> throw new IllegalStateException("Задачи такого типа нет: " + priorityTask);
         };
 
-        for (int i = 0; i < listRoute.size(); i++) {
+        for (int i = 0; i < officeRoutes.size(); i++) {
             int maxDis = 0;
-            int dis = listRoute.get(i).get(0); // оставшееся время у сотрудника в минутах
+            int dis = officeRoutes.get(i).getLastTime(); // оставшееся время у сотрудника в минутах
 
-            int sizeRoute = listRoute.get(i).size();
+           /* int sizeRoute = officeRoutes.get(i).getAgencyPointList().size();
             int[] pointsRoute = new int[sizeRoute]; //текущий маршрут
 
 
             for (int j = 0; j < pointsRoute.length; j++) {
-                pointsRoute[j] = listRoute.get(i).get(j); //получение точек маршрута
-            }
+                pointsRoute[j] = officeRoutes.get(i).getAgencyPointList().get(j); //получение точек маршрута
+            }*/
 
-            listRoute.get(i).add(-1); // маршрут до следующей точки равен бесконечности
+        //    officeRoutes.get(i).add(-1); // маршрут до следующей точки равен бесконечности
 
             int index = listAgencyPoints1.indexOf(pointsRoute[sizeRoute - 1]);
 
             for (int j = 0; j < disPointToPoint.length; j++) {
                 if (pointsRoute[sizeRoute - 1] != -1 && index != -1) {
-                    if (listAgencyPoints1.get(j) == pointsRoute[1] || listAgencyPoints1.get(j) == pointsRoute[2] || listAgencyPoints1.get(j) == pointsRoute[sizeRoute - 1]) {
+                    if (listAgencyPoints1.get(j).getDatabaseId() == pointsRoute[1] || listAgencyPoints1.get(j).getDatabaseId() == pointsRoute[2] || listAgencyPoints1.get(j).getDatabaseId() == pointsRoute[sizeRoute - 1]) {
                         continue;
                     }
 
@@ -94,31 +101,41 @@ public class BuildingRoutes {
 
                     if (restDis >= maxDis) {
                         maxDis = restDis;
-                        listRoute.get(i).set(0, restDis); // обновили остаток времени
-                        listRoute.get(i).set(sizeRoute, listAgencyPoints1.get(j)); // в конец массива добавили точку
+                        officeRoutes.get(i).set(0, restDis); // обновили остаток времени
+                        officeRoutes.get(i).set(sizeRoute, listAgencyPoints1.get(j).getDatabaseId()); // в конец массива добавили точку
                     }
                 }
             }
         }
 
-        removeEmptyRoutes(listRoute);
-        listRoute = sortedList(listRoute);
+        removeEmptyRoutes(officeRoutes);
+        officeRoutes = sortedList(officeRoutes);
 
-        return listRoute;
+        return officeRoutes;
     }
 
-    public static void findDuplicateRoutes(List<List<Integer>> listRoutesOffice1, List<List<Integer>> listRoutesOffice2) {
-        List<List<Integer>> maxListRoutes = listRoutesOffice1.size() - listRoutesOffice2.size() > 0 ? listRoutesOffice1 : listRoutesOffice2;
-        List<List<Integer>> minListRoutes = listRoutesOffice1.size() - listRoutesOffice2.size() < 0 ? listRoutesOffice1 : listRoutesOffice2;
-
-        for (int i = 0; i < maxListRoutes.size(); i++) {
-            for (int point : maxListRoutes.get(i).subList(1, maxListRoutes.get(i).size())) {
-                for (int j = 0; j < minListRoutes.size(); j++) {
-                    if (minListRoutes.get(j).subList(1, minListRoutes.get(j).size()).contains(point)) {
-                        if (minListRoutes.get(j).get(0) - maxListRoutes.get(i).get(0) > 0 && maxListRoutes.size() > 1) {
-                            maxListRoutes.get(i).set(maxListRoutes.get(i).size() - 1, -1);
-                        } else {
-                            minListRoutes.get(j).set(minListRoutes.get(j).size() - 1, -1);
+//    public static void findDuplicateRoutes(List<List<AgencyPoint>> listRoutesOffice1, List<List<AgencyPoint>> listRoutesOffice2) {
+public static void findDuplicateRoutes(List<IntPointPair> listRoutesOffice1, List<IntPointPair> listRoutesOffice2) {
+        List<IntPointPair> maxListRoutes = listRoutesOffice1.size() - listRoutesOffice2.size() > 0 ? listRoutesOffice1 : listRoutesOffice2;
+        List<IntPointPair> minListRoutes = listRoutesOffice1.size() - listRoutesOffice2.size() < 0 ? listRoutesOffice1 : listRoutesOffice2;
+        for(IntPointPair intPointFromMax : maxListRoutes) {
+            for(AgencyPoint agencyPointFromMax : intPointFromMax.getAgencyPointList()) {
+                for(IntPointPair intPointFromMin : minListRoutes) {
+                    for(AgencyPoint agencyPointFromMin : intPointFromMin.getAgencyPointList()) {
+                        if(agencyPointFromMax.getDatabaseId() == agencyPointFromMin.getDatabaseId()) {
+                            if(intPointFromMax.getLastTime() > intPointFromMin.getLastTime()) {
+                                intPointFromMin.setLastTime(-1);
+                            } else if(intPointFromMax.getLastTime() < intPointFromMin.getLastTime()) {
+                                intPointFromMax.setLastTime(-1);
+                            } else {
+                                int activeRoutesByMax = getAmmRoutesForOffice(maxListRoutes);
+                                int activeRoutesByMin = getAmmRoutesForOffice(minListRoutes);
+                                if(activeRoutesByMax <= activeRoutesByMin) {
+                                    intPointFromMin.setLastTime(-1);
+                                } else {
+                                    intPointFromMax.setLastTime(-1);
+                                }
+                            }
                         }
                     }
                 }
@@ -127,6 +144,16 @@ public class BuildingRoutes {
 
         removeEmptyRoutes(listRoutesOffice1);
         removeEmptyRoutes(listRoutesOffice2);
+    }
+
+    private static int getAmmRoutesForOffice(List<IntPointPair> officeRoutes) {
+        int delRoutes = 0;
+        for(IntPointPair route : officeRoutes) {
+            if(route.getLastTime() == -1) {
+                delRoutes++;
+            }
+        }
+        return officeRoutes.size()-delRoutes;
     }
 
     private static List<List<Integer>> sortedList(List<List<Integer>> listRoute) {
@@ -143,11 +170,11 @@ public class BuildingRoutes {
         return listRoute;
     }
 
-    private static List<List<Integer>> removeEmptyRoutes(List<List<Integer>> listRoute) {
-        Iterator<List<Integer>> iterator = listRoute.iterator();
+    private static List<IntPointPair> removeEmptyRoutes(List<IntPointPair> listRoute) {
+        Iterator<IntPointPair> iterator = listRoute.iterator();
         while (iterator.hasNext()) {
-            List<Integer> num = iterator.next();
-            if (num.get(num.size() - 2) == -1 || num.get(num.size() - 1) == -1) {
+            IntPointPair num = iterator.next();
+            if (num.getLastTime() == -1) {
                 iterator.remove();
             }
         }

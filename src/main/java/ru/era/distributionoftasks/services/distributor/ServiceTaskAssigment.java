@@ -23,12 +23,12 @@ public class ServiceTaskAssigment {
 
     // Основной метод для получения маршрутов
     public List<EmployeeRoute> calcEmployeeRoutes() {
-        TasksAgencyPoints tasksAgencyPoints = new TasksAgencyPoints();
+        TasksAgencyPoints tasksAgencyPoints = new TasksAgencyPoints(agencyPointList);
 
         RouteTimes routeTimes = new RouteTimes(officeList,
                 tasksAgencyPoints.getAgencyPointListLowPriority(),
                 tasksAgencyPoints.getAgencyPointListMediumPriority(),
-                tasksAgencyPoints.getAgencyPointListHighPriority());
+                tasksAgencyPoints.getAgencyPointListHighPriority(), addressTimesMatrix);
 
         addDisFromOfficeToPoint(routeTimes, 1, officeList); // дистанция между офисом и задачами различного приоритета в минутах
         addDisFromOfficeToPoint(routeTimes, 2, officeList);
@@ -55,14 +55,29 @@ public class ServiceTaskAssigment {
 
         findDuplicateRoutes(officeList.get(1).getListRoutesJunior(), officeList.get(2).getListRoutesJunior());
 
+        List<EmployeeRoute> employeeRouteList = new ArrayList<>();
+        EmployeeRoute employeeRoute = new EmployeeRoute(officeList.get(0).getEmployeeList().get(0).getDatabaseId(),
+                officeList.get(0).getEmployeeList().get(0).getRang(), officeList.get(0).getListRoutesSignor())
+
+
         // TODO: 10.11.2023 Заменить на реальный результат
-        return new ArrayList<>();
+        return
     }
 
     private void addRouteOffice(RouteTimes routeTimes, TasksAgencyPoints tasksAgencyPoints) {
-        for (int i = 0; i < officeList.size(); i++) {
-            Office office = officeList.get(i);
-            List<List<Integer>> routesSignor = getRoutesFromOfficeToTwoPoints(office.getListDisFromOfficeToHighTask(), routeTimes.getDisHighToMediumTask(), new int[]{TIME_HIGH_TASK, TIME_MEDIUM_TASK}, tasksAgencyPoints);
+        /****** Проверка на дублирование *****/
+        for (Office office : officeList) {
+            for (AlgEmployee algEmployee : office.getEmployeeList()){
+                List<IntPointPair> employeeRoutes;
+                switch (algEmployee.getRang()){
+                    case SENIOR_RANG -> employeeRoutes = getRoutesFromOfficeToTwoPoints(
+                            office.getListDisFromOfficeToHighTask(),
+                            routeTimes.getDisHighToMediumTask(),
+                            new int[]{TIME_HIGH_TASK, TIME_MEDIUM_TASK},
+                            tasksAgencyPoints);
+                }
+            }
+
             List<List<Integer>> routesMiddle = getRoutesFromOfficeToThreePoints(office.getListDisFromOfficeToMediumTask(), routeTimes.getDisMediumToMediumTask(), routeTimes.getDisMediumToMediumTask(), new int[]{TIME_MEDIUM_TASK, TIME_MEDIUM_TASK, TIME_MEDIUM_TASK}, tasksAgencyPoints);
             List<List<Integer>> routesJunior = getRoutesFromOfficeToFourPoints(office.getListDisFromOfficeToLowTask(), routeTimes.getDisLowToLowTask(), routeTimes.getDisLowToLowTask(), routeTimes.getDisLowToLowTask(), new int[]{TIME_LOW_TASK, TIME_LOW_TASK, TIME_LOW_TASK, TIME_LOW_TASK}, tasksAgencyPoints);
 
@@ -125,9 +140,9 @@ public class ServiceTaskAssigment {
         for (int[] keyDistance : keySetDistance) {
             int office = mapDisOfficeToTask.get(keyDistance);
             switch (priorityTask) {
-                case 1 -> officeList.get(office - 1).addListDisFromOfficeToHighTask(keyDistance);
-                case 2 -> officeList.get(office - 1).addListDisFromOfficeToMiddleTask(keyDistance);
-                case 3 -> officeList.get(office - 1).addListDisFromOfficeToLowTask(keyDistance);
+                case 1 -> officeList.get(office).addListDisFromOfficeToHighTask(keyDistance);
+                case 2 -> officeList.get(office).addListDisFromOfficeToMiddleTask(keyDistance);
+                case 3 -> officeList.get(office).addListDisFromOfficeToLowTask(keyDistance);
             }
         }
     }
@@ -137,23 +152,25 @@ public class ServiceTaskAssigment {
         switch (priorityTask) {
             case 1 -> {
                 for (int i = 0; i < routeTimes.getDisOfficeToHighTask().length; i++) {
-                    for (int j = 0; j < routeTimes.getDisOfficeToHighTask()[0].length; j++) {
-                        mapRoutes.put(routeTimes.getDisOfficeToHighTask()[j], routeTimes.getDisOfficeToHighTask()[i][j]);
-                    }
+                 //   for (int j = 0; j < routeTimes.getDisOfficeToHighTask()[i].length; j++) {
+                        mapRoutes.put(routeTimes.getDisOfficeToHighTask()[i], i);
+                //    }
                 }
             }
             case 2 -> {
                 for (int i = 0; i < routeTimes.getDisOfficeToMediumTask().length; i++) {
-                    for (int j = 0; j < routeTimes.getDisOfficeToMediumTask()[0].length; j++) {
+                   /* for (int j = 0; j < routeTimes.getDisOfficeToMediumTask()[i].length; j++) {
                         mapRoutes.put(routeTimes.getDisOfficeToMediumTask()[j], routeTimes.getDisOfficeToMediumTask()[i][j]);
-                    }
+                    }*/
+                    mapRoutes.put(routeTimes.getDisOfficeToMediumTask()[i], i);
                 }
             }
             case 3 -> {
                 for (int i = 0; i < routeTimes.getDisOfficeToLowTask().length; i++) {
-                    for (int j = 0; j < routeTimes.getDisOfficeToLowTask()[0].length; j++) {
+                   /* for (int j = 0; j < routeTimes.getDisOfficeToLowTask()[i].length; j++) {
                         mapRoutes.put(routeTimes.getDisOfficeToLowTask()[j], routeTimes.getDisOfficeToLowTask()[i][j]);
-                    }
+                    }*/
+                    mapRoutes.put(routeTimes.getDisOfficeToLowTask()[i],i);
                 }
             }
             default -> throw new IllegalStateException("Задачи с таким приоритетом нет пока что: " + priorityTask);
@@ -161,7 +178,7 @@ public class ServiceTaskAssigment {
         return mapRoutes;
     }
 
-    private static List<List<Integer>> getRoutesFromOfficeToTwoPoints(int[] disOfficeToPointTask,
+    private static List<IntPointPair> getRoutesFromOfficeToTwoPoints(int[] disOfficeToPointTask,
                                                                       int[][] disPoint1ToPoint2, int[] timeTask, TasksAgencyPoints tasksAgencyPoints) {
         return buildingRouteFromOfficeToPointToPoint(disOfficeToPointTask, disPoint1ToPoint2,
                 new int[]{timeTask[0], timeTask[1]}, 0, tasksAgencyPoints);

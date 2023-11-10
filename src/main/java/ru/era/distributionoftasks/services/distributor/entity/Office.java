@@ -8,9 +8,9 @@ import java.util.List;
 public class Office implements AddressInterface {
 
     private int id;
-    private List<List<Integer>> listRoutesSignor = new ArrayList<>();
-    private List<List<Integer>> listRoutesMiddle = new ArrayList<>();
-    private List<List<Integer>> listRoutesJunior = new ArrayList<>();
+    private List<List<AgencyPoint>> listRoutesSignor = new ArrayList<>();
+    private List<List<AgencyPoint>> listRoutesMiddle = new ArrayList<>();
+    private List<List<AgencyPoint>> listRoutesJunior = new ArrayList<>();
 
     private int[] listDisFromOfficeToHighTask;
     private int[] listDisFromOfficeToMiddleTask;
@@ -31,27 +31,27 @@ public class Office implements AddressInterface {
         return id;
     }
 
-    public List<List<Integer>> getListRoutesSignor() {
+    public List<List<AgencyPoint>> getListRoutesSignor() {
         return listRoutesSignor;
     }
 
-    public void setListRoutesSignor(List<List<Integer>> listRoutesSignor) {
+    public void setListRoutesSignor(List<List<AgencyPoint>> listRoutesSignor) {
         this.listRoutesSignor = listRoutesSignor;
     }
 
-    public List<List<Integer>> getListRoutesMiddle() {
+    public List<List<AgencyPoint>> getListRoutesMiddle() {
         return listRoutesMiddle;
     }
 
-    public void setListRoutesMiddle(List<List<Integer>> listRoutesMiddle) {
+    public void setListRoutesMiddle(List<List<AgencyPoint>> listRoutesMiddle) {
         this.listRoutesMiddle = listRoutesMiddle;
     }
 
-    public List<List<Integer>> getListRoutesJunior() {
+    public List<List<AgencyPoint>> getListRoutesJunior() {
         return listRoutesJunior;
     }
 
-    public void setListRoutesJunior(List<List<Integer>> listRoutesJunior) {
+    public void setListRoutesJunior(List<List<AgencyPoint>> listRoutesJunior) {
         this.listRoutesJunior = listRoutesJunior;
     }
 

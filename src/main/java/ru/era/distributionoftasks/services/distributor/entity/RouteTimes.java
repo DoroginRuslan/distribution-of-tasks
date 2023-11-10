@@ -4,20 +4,22 @@ import java.util.List;
 
 public class RouteTimes {
     //todo найти минимальное и максимальное время между агентскими точками
-    public static final int[] TIME_ROUTE = {25, 70}; //время на дорогу минимальное и максимальное
+    public static final int[] TIME_ROUTE = {1, 50}; //время на дорогу минимальное и максимальное
     private int[][] disOfficeToLowTask, disOfficeToMediumTask, disOfficeToHighTask; // первая ячейка номер офиса
     private int[][] disMediumToMediumTask, disLowToLowTask, disLowToMediumTask, disLowToHighTask, disMediumToHighTask, disMediumToLowTask,
             disHighToMediumTask, disHighToLowTask;
 
-    private List<Integer> pointsWithTaskLowPriority, pointsWithTaskMediumPriority, pointsWithTaskHighPriority;
+    private List<AgencyPoint> pointsWithTaskLowPriority, pointsWithTaskMediumPriority, pointsWithTaskHighPriority;
 
     private List<Office> pointsOffice;
+    private final AddressTimesMatrix addressTimesMatrix;
 
-    public RouteTimes(List<Office> pointsOffice, List<Integer> pointsWithTaskLowPriority, List<Integer> pointsWithTaskMediumPriority, List<Integer> pointsWithTaskHighPriority) {
+    public RouteTimes(List<Office> pointsOffice, List<AgencyPoint> pointsWithTaskLowPriority, List<AgencyPoint> pointsWithTaskMediumPriority, List<AgencyPoint> pointsWithTaskHighPriority, AddressTimesMatrix addressTimesMatrix) {
         this.pointsOffice = pointsOffice;
         this.pointsWithTaskLowPriority = pointsWithTaskLowPriority;
         this.pointsWithTaskMediumPriority = pointsWithTaskMediumPriority;
         this.pointsWithTaskHighPriority = pointsWithTaskHighPriority;
+        this.addressTimesMatrix = addressTimesMatrix;
         init();
     }
 
@@ -76,19 +78,19 @@ public class RouteTimes {
         }
     }
 
-    private void getRouteTimesOfficeToPointFromDB(Office office, List<Integer> points1, int[] disOfficeToPoints) {
+    private void getRouteTimesOfficeToPointFromDB(Office office, List<AgencyPoint> points1, int[] disOfficeToPoints) {
         for (int i = 0; i < points1.size(); i++) {
-            //todo disOfficeToPoints[i] = получить точку офиса из БД, получить массив точек points1, измерить расстояние с каждой
+            disOfficeToPoints[i] = addressTimesMatrix.getTimeBetweenAddresses(office.getAddressId(), points1.get(i).getAddressId());
         }
     }
 
-    private void getRouteTimesPointToPointFromDB(List<Integer> points1, List<Integer> points2, int[][] disPointToPoint) {
+    private void getRouteTimesPointToPointFromDB(List<AgencyPoint> points1, List<AgencyPoint> points2, int[][] disPointToPoint) {
         for (int i = 0; i < points1.size(); i++) {
             for (int j = 0; j < points2.size(); j++) {
-                if (i == j) {
+                if (points1.get(i).getAddressId() == points2.get(j).getAddressId()) {
                     disPointToPoint[i][j] = 0;
                 } else {
-                    //todo  disPointsToPoints[i][j] = получить каждую точку points1 and points2 массива из БД и измерить между ними расстояние
+                    disPointToPoint[i][j] = addressTimesMatrix.getTimeBetweenAddresses(points1.get(i).getAddressId(), points2.get(j).getAddressId());
                 }
             }
         }
@@ -138,15 +140,15 @@ public class RouteTimes {
         return disHighToLowTask;
     }
 
-    public List<Integer> getPointsWithTaskLowPriority() {
+    public List<AgencyPoint> getPointsWithTaskLowPriority() {
         return pointsWithTaskLowPriority;
     }
 
-    public List<Integer> getPointsWithTaskMediumPriority() {
+    public List<AgencyPoint> getPointsWithTaskMediumPriority() {
         return pointsWithTaskMediumPriority;
     }
 
-    public List<Integer> getPointsWithTaskHighPriority() {
+    public List<AgencyPoint> getPointsWithTaskHighPriority() {
         return pointsWithTaskHighPriority;
     }
 
