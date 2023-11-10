@@ -84,6 +84,8 @@ export class EmployeeTrackerComponent implements OnInit {
             console.log(this.currentEmployeeId);
             this.points = [];
             this.taskLogs.forEach( (element) => {
+            this.points.shift();
+            this.points.unshift(element.employee.address);
             this.points.push(element.bank.address);
             });
 
