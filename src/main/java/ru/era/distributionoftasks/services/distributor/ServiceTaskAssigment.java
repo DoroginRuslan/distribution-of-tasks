@@ -25,126 +25,127 @@ public class ServiceTaskAssigment {
     public List<EmployeeRoute> calcEmployeeRoutes() {
         TasksAgencyPoints tasksAgencyPoints = new TasksAgencyPoints(agencyPointList);
 
-        RouteTimes routeTimes = new RouteTimes(officeList,
-                tasksAgencyPoints.getAgencyPointListLowPriority(),
-                tasksAgencyPoints.getAgencyPointListMediumPriority(),
-                tasksAgencyPoints.getAgencyPointListHighPriority(), addressTimesMatrix);
-
-        addDisFromOfficeToPoint(routeTimes, 1, officeList); // дистанция между офисом и задачами различного приоритета в минутах
-        addDisFromOfficeToPoint(routeTimes, 2, officeList);
-        addDisFromOfficeToPoint(routeTimes, 3, officeList);
-
-        addRouteOffice(routeTimes, tasksAgencyPoints); // распределение маршрутов по офисам
+        addRouteOffice(tasksAgencyPoints); // распределение маршрутов по офисам
 
         //todo на свежую голову сделать универсальный перебор
-        findDuplicateRoutes(officeList.get(0).getListRoutesSignor(), officeList.get(1).getListRoutesSignor());
-
-        findDuplicateRoutes(officeList.get(0).getListRoutesSignor(), officeList.get(2).getListRoutesSignor());
-
-        findDuplicateRoutes(officeList.get(1).getListRoutesSignor(), officeList.get(2).getListRoutesSignor());
-
-        findDuplicateRoutes(officeList.get(0).getListRoutesMiddle(), officeList.get(1).getListRoutesMiddle());
-
-        findDuplicateRoutes(officeList.get(0).getListRoutesMiddle(), officeList.get(2).getListRoutesMiddle());
-
-        findDuplicateRoutes(officeList.get(1).getListRoutesMiddle(), officeList.get(2).getListRoutesMiddle());
-
-        findDuplicateRoutes(officeList.get(0).getListRoutesJunior(), officeList.get(1).getListRoutesJunior());
-
-        findDuplicateRoutes(officeList.get(0).getListRoutesJunior(), officeList.get(2).getListRoutesJunior());
-
-        findDuplicateRoutes(officeList.get(1).getListRoutesJunior(), officeList.get(2).getListRoutesJunior());
+        for(int i = 0; i < officeList.size()-1; i++) {
+            for(int j = i+1; j < officeList.size(); j++) {
+                findDuplicateRoutes(officeList.get(i).getListRoutesSignor(),
+                        officeList.get(j).getListRoutesSignor(),
+                        officeList.get(i).getCountEmployees(Rang.SENIOR_RANG),
+                        officeList.get(j).getCountEmployees(Rang.SENIOR_RANG));
+                findDuplicateRoutes(officeList.get(i).getListRoutesMiddle(),
+                        officeList.get(j).getListRoutesMiddle(),
+                        officeList.get(i).getCountEmployees(Rang.MIDDLE_RANG),
+                        officeList.get(j).getCountEmployees(Rang.MIDDLE_RANG));
+                findDuplicateRoutes(officeList.get(i).getListRoutesJunior(),
+                        officeList.get(j).getListRoutesJunior(),
+                        officeList.get(i).getCountEmployees(Rang.JUNIOR_RANG),
+                        officeList.get(j).getCountEmployees(Rang.JUNIOR_RANG));
+            }
+        }
 
         List<EmployeeRoute> employeeRouteList = new ArrayList<>();
-        EmployeeRoute employeeRoute = new EmployeeRoute(officeList.get(0).getEmployeeList().get(0).getDatabaseId(),
-                officeList.get(0).getEmployeeList().get(0).getRang(), officeList.get(0).getListRoutesSignor())
-
-
-        // TODO: 10.11.2023 Заменить на реальный результат
-        return
+        EmployeeRoute employeeRoute = new EmployeeRoute(new AlgEmployee(1L, Rang.SENIOR_RANG), officeList.get(0).getListRoutesSignor().get(0).getAgencyPointList());
+        EmployeeRoute employeeRoute1 = new EmployeeRoute(new AlgEmployee(1L, Rang.MIDDLE_RANG), officeList.get(0).getListRoutesMiddle().get(0).getAgencyPointList());
+        EmployeeRoute employeeRoute2 = new EmployeeRoute(new AlgEmployee(1L, Rang.MIDDLE_RANG), officeList.get(0).getListRoutesMiddle().get(0).getAgencyPointList());
+        employeeRouteList.add(employeeRoute);
+        return employeeRouteList;
     }
 
-    private void addRouteOffice(RouteTimes routeTimes, TasksAgencyPoints tasksAgencyPoints) {
+    private void addRouteOffice(TasksAgencyPoints tasksAgencyPoints) {
         /****** Проверка на дублирование *****/
         for (Office office : officeList) {
-            for (AlgEmployee algEmployee : office.getEmployeeList()){
+            for (AlgEmployee algEmployee : office.getEmployeeList()) {
                 List<IntPointPair> employeeRoutes;
                 switch (algEmployee.getRang()){
-                    case SENIOR_RANG -> employeeRoutes = getRoutesFromOfficeToTwoPoints(
-                            office.getListDisFromOfficeToHighTask(),
-                            routeTimes.getDisHighToMediumTask(),
-                            new int[]{TIME_HIGH_TASK, TIME_MEDIUM_TASK},
-                            tasksAgencyPoints);
+                    case SENIOR_RANG ->  {
+                        fixRoutesForSenior(office, tasksAgencyPoints);
+                    }
+                    case MIDDLE_RANG -> {
+                        fixRoutesForMiddle(office, tasksAgencyPoints);
+                    }
+                    case JUNIOR_RANG -> {
+                        fixRoutesForJune(office, tasksAgencyPoints);
+                    }
                 }
             }
-
-            List<List<Integer>> routesMiddle = getRoutesFromOfficeToThreePoints(office.getListDisFromOfficeToMediumTask(), routeTimes.getDisMediumToMediumTask(), routeTimes.getDisMediumToMediumTask(), new int[]{TIME_MEDIUM_TASK, TIME_MEDIUM_TASK, TIME_MEDIUM_TASK}, tasksAgencyPoints);
-            List<List<Integer>> routesJunior = getRoutesFromOfficeToFourPoints(office.getListDisFromOfficeToLowTask(), routeTimes.getDisLowToLowTask(), routeTimes.getDisLowToLowTask(), routeTimes.getDisLowToLowTask(), new int[]{TIME_LOW_TASK, TIME_LOW_TASK, TIME_LOW_TASK, TIME_LOW_TASK}, tasksAgencyPoints);
-
             //todo добавить проверку есть ли вообще такой сотрудник в офисе и проверить, остались ли задачи нужного уровня
-            if (routesSignor == null || routesSignor.isEmpty()) {
-                routesSignor = getRoutesFromOfficeToTwoPoints(office.getListDisFromOfficeToMediumTask(), routeTimes.getDisMediumToMediumTask(), new int[]{TIME_MEDIUM_TASK, TIME_HIGH_TASK}, tasksAgencyPoints);
-
-                if (routesSignor == null || routesSignor.isEmpty()) {
-                    routesSignor = getRoutesFromOfficeToTwoPoints(office.getListDisFromOfficeToHighTask(), routeTimes.getDisHighToLowTask(), new int[]{TIME_HIGH_TASK, TIME_LOW_TASK}, tasksAgencyPoints);
-
-                    if (routesSignor == null || routesSignor.isEmpty()) {
-                        routesSignor = getRoutesFromOfficeToTwoPoints(office.getListDisFromOfficeToLowTask(), routeTimes.getDisLowToHighTask(), new int[]{TIME_LOW_TASK, TIME_HIGH_TASK}, tasksAgencyPoints);
-                    }
-                }
-            }
-
-            if (routesMiddle == null || routesMiddle.isEmpty()) {
-                routesMiddle = getRoutesFromOfficeToThreePoints(office.getListDisFromOfficeToMediumTask(), routeTimes.getDisMediumToMediumTask(), routeTimes.getDisLowToMediumTask(), new int[]{TIME_MEDIUM_TASK, TIME_MEDIUM_TASK, TIME_LOW_TASK}, tasksAgencyPoints);
-
-                if (routesMiddle == null || routesMiddle.isEmpty()) {
-                    routesMiddle = getRoutesFromOfficeToThreePoints(office.getListDisFromOfficeToMediumTask(), routeTimes.getDisMediumToLowTask(), routeTimes.getDisLowToMediumTask(), new int[]{TIME_MEDIUM_TASK, TIME_LOW_TASK, TIME_MEDIUM_TASK}, tasksAgencyPoints);
-
-                    if (routesMiddle == null || routesMiddle.isEmpty()) {
-                        routesMiddle = getRoutesFromOfficeToThreePoints(office.getListDisFromOfficeToLowTask(), routeTimes.getDisLowToMediumTask(), routeTimes.getDisMediumToMediumTask(), new int[]{TIME_LOW_TASK, TIME_MEDIUM_TASK, TIME_MEDIUM_TASK}, tasksAgencyPoints);
-
-                        if (routesMiddle == null || routesMiddle.isEmpty()) {
-                            routesMiddle = getRoutesFromOfficeToTwoPoints(office.getListDisFromOfficeToMediumTask(), routeTimes.getDisMediumToLowTask(), new int[]{TIME_MEDIUM_TASK, TIME_LOW_TASK}, tasksAgencyPoints);
-                        }
-                    }
-                }
-            }
-            if (routesJunior == null || routesJunior.isEmpty()) {
-                routesJunior = getRoutesFromOfficeToThreePoints(office.getListDisFromOfficeToLowTask(), routeTimes.getDisLowToLowTask(), routeTimes.getDisLowToLowTask(), new int[]{TIME_LOW_TASK, TIME_LOW_TASK, TIME_LOW_TASK}, tasksAgencyPoints);
-
-                if (routesJunior == null || routesJunior.isEmpty()) {
-                    routesJunior = getRoutesFromOfficeToTwoPoints(office.getListDisFromOfficeToLowTask(), routeTimes.getDisLowToLowTask(), new int[]{TIME_LOW_TASK, TIME_LOW_TASK}, tasksAgencyPoints);
-                }
-            }
 
             /****** Проверка на дублирование *****/
-            if (routesSignor != null && routesMiddle != null) {
-                findDuplicateRoutes(routesSignor, routesMiddle);
+            if (office.getListRoutesSignor() != null && office.getListRoutesMiddle() != null) {
+                findDuplicateRoutes(office.getListRoutesSignor(), office.getListRoutesMiddle(), office.getCountEmployees(Rang.SENIOR_RANG), office.getCountEmployees(Rang.MIDDLE_RANG));
             }
-            if (routesSignor != null && routesJunior != null) {
-                findDuplicateRoutes(routesSignor, routesJunior);
+            if (office.getListRoutesSignor() != null && office.getListRoutesJunior() != null) {
+                findDuplicateRoutes(office.getListRoutesSignor(), office.getListRoutesJunior(), office.getCountEmployees(Rang.SENIOR_RANG), office.getCountEmployees(Rang.JUNIOR_RANG));
             }
-            if (routesMiddle != null && routesJunior != null) {
-                findDuplicateRoutes(routesMiddle, routesJunior);
+            if (office.getListRoutesMiddle() != null && office.getListRoutesJunior() != null) {
+                findDuplicateRoutes(office.getListRoutesMiddle(), office.getListRoutesJunior(), office.getCountEmployees(Rang.MIDDLE_RANG), office.getCountEmployees(Rang.JUNIOR_RANG));
             }
-
-            office.setListRoutesSignor(routesSignor);
-            office.setListRoutesMiddle(routesMiddle);
-            office.setListRoutesJunior(routesJunior);
         }
     }
 
-    private static void addDisFromOfficeToPoint(RouteTimes routeTimes, int priorityTask, List<Office> officeList) {
-        Map<int[], Integer> mapDisOfficeToTask = getDisFromOfficeToPoint(routeTimes, priorityTask);
-        Set<int[]> keySetDistance = mapDisOfficeToTask.keySet();
-        for (int[] keyDistance : keySetDistance) {
-            int office = mapDisOfficeToTask.get(keyDistance);
-            switch (priorityTask) {
-                case 1 -> officeList.get(office).addListDisFromOfficeToHighTask(keyDistance);
-                case 2 -> officeList.get(office).addListDisFromOfficeToMiddleTask(keyDistance);
-                case 3 -> officeList.get(office).addListDisFromOfficeToLowTask(keyDistance);
+    private void fixRoutesForJune( Office office, TasksAgencyPoints tasksAgencyPoints) {
+        List<IntPointPair> routesJunior = getRoutesFromOfficeToFourPoints(
+                office,
+                addressTimesMatrix,
+                new int[]{TIME_LOW_TASK, TIME_LOW_TASK, TIME_LOW_TASK, TIME_LOW_TASK},
+                tasksAgencyPoints);
+
+        fixRoutesForMiddle(office, tasksAgencyPoints);
+        if (routesJunior == null || routesJunior.isEmpty()) {
+            routesJunior = getRoutesFromOfficeToThreePoints(office, addressTimesMatrix, new int[]{TIME_LOW_TASK, TIME_LOW_TASK, TIME_LOW_TASK}, tasksAgencyPoints);
+
+            if (routesJunior == null || routesJunior.isEmpty()) {
+                routesJunior = getRoutesFromOfficeToTwoPoints(office, addressTimesMatrix, new int[]{TIME_LOW_TASK, TIME_LOW_TASK}, tasksAgencyPoints);
             }
         }
+        office.setListRoutesJunior(routesJunior);
+    }
+
+    private void fixRoutesForMiddle(Office office, TasksAgencyPoints tasksAgencyPoints) {
+        List<IntPointPair> routesMiddle = getRoutesFromOfficeToThreePoints(
+                office,
+                addressTimesMatrix,
+                new int[]{TIME_MEDIUM_TASK, TIME_MEDIUM_TASK, TIME_MEDIUM_TASK},
+                tasksAgencyPoints);
+
+        if (routesMiddle == null || routesMiddle.isEmpty()) {
+            routesMiddle = getRoutesFromOfficeToThreePoints(office, addressTimesMatrix, new int[]{TIME_MEDIUM_TASK, TIME_MEDIUM_TASK, TIME_LOW_TASK}, tasksAgencyPoints);
+
+            if (routesMiddle == null || routesMiddle.isEmpty()) {
+                routesMiddle = getRoutesFromOfficeToThreePoints(office, addressTimesMatrix, new int[]{TIME_MEDIUM_TASK, TIME_LOW_TASK, TIME_MEDIUM_TASK}, tasksAgencyPoints);
+
+                if (routesMiddle == null || routesMiddle.isEmpty()) {
+                    routesMiddle = getRoutesFromOfficeToThreePoints(office, addressTimesMatrix, new int[]{TIME_LOW_TASK, TIME_MEDIUM_TASK, TIME_MEDIUM_TASK}, tasksAgencyPoints);
+
+                    if (routesMiddle == null || routesMiddle.isEmpty()) {
+                        routesMiddle = getRoutesFromOfficeToTwoPoints(office, addressTimesMatrix, new int[]{TIME_MEDIUM_TASK, TIME_LOW_TASK}, tasksAgencyPoints);
+                    }
+                }
+            }
+        }
+        office.setListRoutesMiddle(routesMiddle);
+    }
+
+    private void fixRoutesForSenior(Office office, TasksAgencyPoints tasksAgencyPoints) {
+        List<IntPointPair> routesSignor = getRoutesFromOfficeToTwoPoints(
+                office,
+                addressTimesMatrix,
+                new int[]{TIME_HIGH_TASK, TIME_MEDIUM_TASK},
+                tasksAgencyPoints);
+        if (routesSignor == null || routesSignor.isEmpty()) {
+            routesSignor = getRoutesFromOfficeToTwoPoints(office, addressTimesMatrix, new int[]{TIME_MEDIUM_TASK, TIME_HIGH_TASK}, tasksAgencyPoints);
+
+            if (routesSignor == null || routesSignor.isEmpty()) {
+                routesSignor = getRoutesFromOfficeToTwoPoints(office, addressTimesMatrix, new int[]{TIME_HIGH_TASK, TIME_LOW_TASK}, tasksAgencyPoints);
+
+                if (routesSignor == null || routesSignor.isEmpty()) {
+                    routesSignor = getRoutesFromOfficeToTwoPoints(office, addressTimesMatrix, new int[]{TIME_LOW_TASK, TIME_HIGH_TASK}, tasksAgencyPoints);
+                }
+            }
+        }
+        office.setListRoutesSignor(routesSignor);
     }
 
     private static Map<int[], Integer> getDisFromOfficeToPoint(RouteTimes routeTimes, int priorityTask) {
@@ -178,31 +179,37 @@ public class ServiceTaskAssigment {
         return mapRoutes;
     }
 
-    private static List<IntPointPair> getRoutesFromOfficeToTwoPoints(int[] disOfficeToPointTask,
-                                                                      int[][] disPoint1ToPoint2, int[] timeTask, TasksAgencyPoints tasksAgencyPoints) {
-        return buildingRouteFromOfficeToPointToPoint(disOfficeToPointTask, disPoint1ToPoint2,
+    private static List<IntPointPair> getRoutesFromOfficeToTwoPoints(Office office,
+                                                                     AddressTimesMatrix addressTimesMatrix,
+                                                                     int[] timeTask,
+                                                                     TasksAgencyPoints tasksAgencyPoints) {
+        return buildingRouteFromOfficeToPointToPoint(office, addressTimesMatrix,
                 new int[]{timeTask[0], timeTask[1]}, 0, tasksAgencyPoints);
     }
 
-    private static List<List<Integer>> getRoutesFromOfficeToThreePoints(int[] disOfficeToPointTask,
-                                                                        int[][] disPoint1ToPoint2Task, int[][] disPoint2ToPoint3Task, int[] timeTask, TasksAgencyPoints tasksAgencyPoints) {
-        List<List<Integer>> routesFromOfficeToPointToPoint = buildingRouteFromOfficeToPointToPoint(disOfficeToPointTask,
-                disPoint1ToPoint2Task, new int[]{timeTask[0], timeTask[1]}, timeTask[0] + TIME_ROUTE[0], tasksAgencyPoints);
+    private static List<IntPointPair> getRoutesFromOfficeToThreePoints(Office office,
+                                                                       AddressTimesMatrix addressTimesMatrix,
+                                                                       int[] timeTask,
+                                                                       TasksAgencyPoints tasksAgencyPoints) {
+        List<IntPointPair> routesFromOfficeToPointToPoint = buildingRouteFromOfficeToPointToPoint(office,
+                addressTimesMatrix, new int[]{timeTask[0], timeTask[1]}, timeTask[0] + TIME_ROUTE[0], tasksAgencyPoints);
 
         if (!routesFromOfficeToPointToPoint.isEmpty()) {
-            return buildingRouteFromPointToPoint(routesFromOfficeToPointToPoint, disPoint2ToPoint3Task, timeTask[2], tasksAgencyPoints);
+            return buildingRouteFromPointToPoint(routesFromOfficeToPointToPoint, addressTimesMatrix, timeTask[2], tasksAgencyPoints);
         }
         return null;
     }
 
-    private static List<List<Integer>> getRoutesFromOfficeToFourPoints(int[] disOfficeToPointTask,
-                                                                       int[][] disPoint1ToPoint2Task, int[][] disPoint2ToPoint3Task, int[][] disPoint3ToPoint4Task, int[] timeTask, TasksAgencyPoints tasksAgencyPoints) {
-        List<List<Integer>> routesFromOfficeToPointToPoint = buildingRouteFromOfficeToPointToPoint(disOfficeToPointTask,
-                disPoint1ToPoint2Task, new int[]{timeTask[0], timeTask[1]}, timeTask[0] + TIME_ROUTE[0], tasksAgencyPoints);
+    private static List<IntPointPair> getRoutesFromOfficeToFourPoints(Office office,
+                                                                      AddressTimesMatrix addressTimesMatrix,
+                                                                      int[] timeTask,
+                                                                      TasksAgencyPoints tasksAgencyPoints) {
+        List<IntPointPair> routesFromOfficeToPointToPoint = buildingRouteFromOfficeToPointToPoint(office,
+                addressTimesMatrix, new int[]{timeTask[0], timeTask[1]}, timeTask[0] + TIME_ROUTE[0], tasksAgencyPoints);
 
-        List<List<Integer>> routesFromOfficeToPointToPointToPoint = buildingRouteFromPointToPoint(routesFromOfficeToPointToPoint, disPoint2ToPoint3Task, timeTask[2], tasksAgencyPoints);
+        List<IntPointPair> routesFromOfficeToPointToPointToPoint = buildingRouteFromPointToPoint(routesFromOfficeToPointToPoint, addressTimesMatrix, timeTask[2], tasksAgencyPoints);
         if (!routesFromOfficeToPointToPoint.isEmpty()) {
-            return buildingRouteFromPointToPoint(routesFromOfficeToPointToPointToPoint, disPoint3ToPoint4Task, timeTask[3], tasksAgencyPoints);
+            return buildingRouteFromPointToPoint(routesFromOfficeToPointToPointToPoint, addressTimesMatrix, timeTask[3], tasksAgencyPoints);
         }
         return null;
     }

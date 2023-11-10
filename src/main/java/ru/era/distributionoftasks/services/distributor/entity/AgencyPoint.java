@@ -2,7 +2,9 @@ package ru.era.distributionoftasks.services.distributor.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
+@ToString
 public class AgencyPoint implements AddressInterface {
     private final int databaseId;
     // private String address; //адрес точки
