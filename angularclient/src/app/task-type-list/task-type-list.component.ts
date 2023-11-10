@@ -21,6 +21,12 @@ export class TaskTypeListComponent{
     });
   }
   removeTaskType(id) {
-    this.taskTypeService.removeTaskType(id);
+    if(confirm("Вы уверены что хотите удалить этот тип задач?")) {
+      this.taskTypeService.removeTaskType(id).subscribe(data=>{
+        this.taskTypeService.findAll().subscribe(data => {
+          this.tasksType = data;
+        });
+      });
+    }
   };
 }

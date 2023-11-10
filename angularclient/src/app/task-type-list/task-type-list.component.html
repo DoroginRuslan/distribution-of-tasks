@@ -22,7 +22,7 @@
         <td>{{ taskType.condition1 }}</td>
         <td>{{ taskType.condition2 }}</td>
         <td>
-          <button class="nav-text" routerLink="/editTaskType/taskType.id">Изменить</button>
+          <button class="nav-text" routerLink="/editTaskType/{{taskType.id}}">Изменить</button>
         </td>
         <td>
           <button class="nav-text" (click)="removeTaskType(taskType.id)"> Удалить</button>

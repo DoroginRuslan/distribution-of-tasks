@@ -16,15 +16,19 @@ export class BankService {
     return this.http.get<Bank[]>(this.banksUrl);
   }
 
+  public find(id): Observable<Bank> {
+    return this.http.get<Bank>(this.banksUrl+'/'+id);
+  }
+
   public addBank(bank: Bank) {
     return this.http.post<Bank>(this.banksUrl, bank);
   }
 
-  public removeBank(id) {
+  public removeBank(id){
     return this.http.delete(this.banksUrl+'/'+id);
   }
 
   public editBank(bank: Bank) {
-    return this.http.put<Bank>(this.banksUrl+'/${bank.id}', bank);
+    return this.http.put<Bank>(this.banksUrl+'/'+ bank.id, bank);
     }
 }

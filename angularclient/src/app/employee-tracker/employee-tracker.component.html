@@ -27,6 +27,7 @@
             <th scope="col">Задача</th>
             <th scope="col">Адрес</th>
             <th scope="col">Результат</th>
+            <th scope="col">Комментарий</th>
           </tr>
           </thead>
           <tbody>
@@ -35,7 +36,9 @@
             <td>{{ taskLog.taskType.name }}</td>
             <td>{{ taskLog.bank.address }}</td>
 <!--            <td>{{ taskLog.completed }}</td>    [hidden]="(taskLog.completed!='true')"  [hidden]="(taskLog.completed!='true')"-->
-            <td ><input type="checkbox" [(ngModel)]="isChecked[rowIndex]" [disabled]="((rowIndex-1>=0)&&(taskLogs[rowIndex-1].completed.toString()=='false'))" (change)="checkValue(rowIndex, taskLog.id, isChecked[rowIndex]?'true':'false')" /></td >
+<!--            <td ><input type="checkbox" [(ngModel)]="isChecked[rowIndex]"  (change)="checkValue(rowIndex, taskLog.id, isChecked[rowIndex]?'true':'false')" /></td >-->
+            <td ><input type="checkbox" [(ngModel)]="taskLogs[rowIndex].completed" [disabled]="(((rowIndex-1>=0)&&(taskLogs[rowIndex-1].completed.toString()=='false'))||((taskLogs[rowIndex+1]!=null)&&(taskLogs[rowIndex+1].completed.toString()=='true')))" (change)="checkValue(rowIndex)" /></td >
+            <td ><input type="text" [(ngModel)]="taskLogs[rowIndex].commentary" (keyup.enter)="checkValueCommentary(rowIndex)" /></td >
 
 <!--            <td ><input id="cur_res_complete" type="checkbox" onclick="this.checkResChanging(false, taskLog.id)" checked ></td>-->
 <!--            <td [hidden]="(taskLog.completed!='false')"><input id="cur_res_uncomplete" type="checkbox" onclick="this.checkResChanging(true, taskLog.id)" [hidden]="(taskLog.completed!='false')"></td>-->

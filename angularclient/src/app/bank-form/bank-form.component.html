@@ -19,7 +19,7 @@
                 placeholder="Выберите когда зарегистрирована точка"
                 required #registrationDate="ngModel">
           <option value="Давно">Давно</option>
-          <option value="Недавно">Недавно</option>
+          <option value="Вчера">Вчера</option>
         </select>
       </div>
       <div [hidden]="!registrationDate.pristine" class="alert alert-danger">Введите когда зарегистрирована точка</div>

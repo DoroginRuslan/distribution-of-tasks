@@ -79,13 +79,14 @@ export class EmployeeTrackerComponent implements OnInit {
 
 
     }
-    checkValue(rowIndex, id, checked){
-      this.taskLogs[rowIndex].completed = checked;
-      this.taskLogService.updateStatus(id, this.taskLogs[rowIndex]).subscribe(data => {
-
-        console.log(this.points);
-              });
+    checkValue(rowIndex){
+      // this.taskLogs[rowIndex].completed = checked;
+      this.taskLogService.updateStatus(this.taskLogs[rowIndex].id, this.taskLogs[rowIndex]).subscribe(data => {});
     }
+  checkValueCommentary(rowIndex){
+    // this.taskLogs[rowIndex].completed = checked;
+    this.taskLogService.updateStatus(this.taskLogs[rowIndex].id, this.taskLogs[rowIndex]).subscribe(data => {});
+  }
 
     currentEmployeeChanged(event) {
         this.currentEmployeeId = event.target.value;

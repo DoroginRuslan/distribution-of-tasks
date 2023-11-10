@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TaskLog } from './task-log';
 import { Observable } from 'rxjs';
+import {Employee} from "./employee";
 
 @Injectable()
 export class TaskLogService {
@@ -19,6 +20,8 @@ export class TaskLogService {
   public findAll(): Observable<TaskLog[]> {
     return this.http.get<TaskLog[]>(this.tasksLogUrl);
   }
+
+
   public findCurrentForEmployee(id):Observable<TaskLog[]> {
      return this.http.get<TaskLog[]>(this.tasksLogForEmployeeUrl+"/"+id);
   }

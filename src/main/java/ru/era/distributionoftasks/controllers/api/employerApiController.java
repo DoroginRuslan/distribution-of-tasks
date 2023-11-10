@@ -46,6 +46,6 @@ public class employerApiController {
 
     @DeleteMapping("/{employeeId}")
     public void deleteEmployee(@PathVariable Long employeeId) {
-        employeeService.deleteEmployee(employeeId);
+        System.out.println("fsdfs"); employeeService.deleteEmployee(employeeId);
     }
 }

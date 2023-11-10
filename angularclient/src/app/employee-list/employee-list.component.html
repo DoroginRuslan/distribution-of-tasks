@@ -18,7 +18,7 @@
         <td>{{ employee.address }}</td>
         <td>{{ employee.grade.name }}</td>
         <td>
-          <button class="nav-text" routerLink="/editemployee/employee.id">Изменить</button>
+          <button class="nav-text" routerLink="/editemployee/{{employee.id.toString()}}">Изменить</button>
         </td>
         <td>
           <button class="nav-text" (click)="removeEmployee(employee.id)"> Удалить</button>

@@ -21,7 +21,15 @@ export class BankListComponent{
     });
   }
   removeBank(id) {
-    this.bankService.removeBank(id);
+    if(confirm("Вы уверены что хотите удалить эту точку?")) {
+      this.bankService.removeBank(id).subscribe(data=>{
+        this.bankService.findAll().subscribe(data => {
+          this.banks = data;
+        });
+      });
+    }
+
+
   };
 
 }

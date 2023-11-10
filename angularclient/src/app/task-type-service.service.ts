@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TaskType } from './task-type';
 import { Observable } from 'rxjs';
+import {TaskLog} from "./task-log";
 
 @Injectable()
 export class TaskTypeService {
@@ -16,6 +17,10 @@ export class TaskTypeService {
     return this.http.get<TaskType[]>(this.tasksTypeUrl);
   }
 
+  public find(id): Observable<TaskType> {
+    return this.http.get<TaskType>(this.tasksTypeUrl+'/'+id);
+  }
+
   public save(tasksType: TaskType) {
     return this.http.post<TaskType>(this.tasksTypeUrl, tasksType);
   }
@@ -25,6 +30,6 @@ export class TaskTypeService {
     return this.http.delete(this.tasksTypeUrl+'/'+id);
   }
   public editTaskType(taskType: TaskType) {
-    return this.http.put<TaskType>(this.tasksTypeUrl+'/${tasksType.id}', taskType);
+    return this.http.put<TaskType>(this.tasksTypeUrl+'/' + taskType.id, taskType);
   }
 }
