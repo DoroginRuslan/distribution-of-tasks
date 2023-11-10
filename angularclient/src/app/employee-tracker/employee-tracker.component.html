@@ -51,6 +51,9 @@
           <tbody>
           <tr *ngFor="let taskLog of taskLogs">
             <td>{{ taskLog.id }}</td>
+            <td><input id="cur_res_complete" type="checkbox" onclick="this.checkResChanging(false, taskLog.id)" checked [hidden]="(taskLog.result!='true')"></td>
+            <td><input id="cur_res_uncomplete" type="checkbox" onclick="this.checkResChanging(true, taskLog.id)" [hidden]="(taskLog.result!='false')"></td>
+            <!--<td>{{ taskLog.result }}</td>-->
             <td>{{ taskLog.taskType.name }}</td>
             <td>{{ taskLog.bank.address }}</td>
             <td>{{ taskLog.completed }}</td>

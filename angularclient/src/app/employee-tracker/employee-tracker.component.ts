@@ -180,4 +180,7 @@ export class EmployeeTrackerComponent implements OnInit {
       };
 
 
+  public checkResChanging(res: boolean, taskLogId: string){
+    this.taskLogService.updateResult(res,taskLogId);
+  }
 }
