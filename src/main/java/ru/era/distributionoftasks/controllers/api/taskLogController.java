@@ -3,7 +3,9 @@ package ru.era.distributionoftasks.controllers.api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.era.distributionoftasks.entities.TaskLog;
+import ru.era.distributionoftasks.services.DistributeDalyTasksService;
 import ru.era.distributionoftasks.services.TaskLogService;
+import ru.era.distributionoftasks.services.entities.MatrixWeightWithBanks;
 
 import java.util.List;
 
@@ -12,6 +14,9 @@ import java.util.List;
 public class taskLogController {
     @Autowired
     TaskLogService taskLogService;
+
+    @Autowired
+    DistributeDalyTasksService distributeDalyTasksService;
 
     @GetMapping("")
     public List<TaskLog> getAllTaskLogs() {
@@ -51,5 +56,10 @@ public class taskLogController {
     @GetMapping("/daily/employee/{employeeId}")
     public List<TaskLog> getDailyTasksForEmployee(@PathVariable Long employeeId) {
         return taskLogService.getDailyTasksForEmployee(employeeId);
+    }
+
+    @GetMapping("/daily/distribute")
+    public MatrixWeightWithBanks distributeDailyTasks() {
+        return distributeDalyTasksService.getWeightRoutesMatrix();
     }
 }

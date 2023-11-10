@@ -79,9 +79,9 @@ public class RoutesService {
                         "&type=" + "json" +
                         "&profile=" + "car" +
                         // Эти параметры можно отключать, чтобы не грузить сервер
-                        "&out_array=" + "weights" +     // Сложность пути
+//                        "&out_array=" + "weights" +     // Сложность пути
                         "&out_array=" + "times" +       // Время пути (в секундах)
-                        "&out_array=" + "distances" +   // Расстояние (в метрах)
+//                        "&out_array=" + "distances" +   // Расстояние (в метрах)
                         // --
                         "&key=" + graphhopperApiKey)
                 .get()
