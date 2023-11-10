@@ -21,4 +21,9 @@ export class TaskLogService {
      return this.http.get<TaskLog[]>(this.tasksLogForEmployeeUrl);
    }
 
+  public updateResult(res: boolean, taskLogId: string){
+    console.log("taskLogId: " + taskLogId);
+    console.log("res: " + res);
+    }
+
 }

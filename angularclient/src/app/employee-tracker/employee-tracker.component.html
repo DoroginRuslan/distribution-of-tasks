@@ -2,7 +2,7 @@
   <div class="card-body">
       <div class="form-group">
         <div class="form-group">
-        <label for="employee">Сотрудник</label>
+        <label [hidden]="(is_login==2)" for="employee">Сотрудник</label>
         <select [hidden]="(is_login==2)" name="employee"  [(ngModel)]="currentEmployeeId"
                 class="form-control"
                 id="employee"
@@ -34,6 +34,9 @@
             <td>{{ taskLog.task }}</td>
             <td>{{ taskLog.address }}</td>
             <td>{{ taskLog.result }}</td>
+            <td><input id="cur_res_complete" type="checkbox" onclick="this.checkResChanging(false, taskLog.id)" checked [hidden]="(taskLog.result!='true')"></td>
+            <td><input id="cur_res_uncomplete" type="checkbox" onclick="this.checkResChanging(true, taskLog.id)" [hidden]="(taskLog.result!='false')"></td>
+            <!--<td>{{ taskLog.result }}</td>-->
           </tr>
           </tbody>
         </table>

@@ -53,4 +53,7 @@ export class EmployeeTrackerComponent implements OnInit {
         this.currentEmployeeId = event.target.value;
         this.updateCurrentEmployeeLogs();
       }
+  public checkResChanging(res: boolean, taskLogId: string){
+    this.taskLogService.updateResult(res,taskLogId);
+  }
 }
