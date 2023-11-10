@@ -13,32 +13,13 @@
       </div>
         <div class="container form-group">
             <ya-map [center]="[45.051610, 38.979532]" [zoom]="12">
-              <!--<ya-placemark
-                [geometry]=""
-                [properties]="placemarkPropertiesHigh"
-                [options]="placemarkHigh"
-              ></ya-placemark>
-              <ya-placemark
-                [geometry]="[45.041607, 38.979432]"
-              [properties]="placemarkPropertiesMid"
-              [options]="placemarkMid"
-              ></ya-placemark>
-              <ya-placemark
-                [geometry]="[45.061507, 38.979534]"
-                [properties]="placemarkPropertiesLow"
-                [options]="placemarkLow"
-              ></ya-placemark>
-              <ya-control
-                type="RoutePanel"
-                [parameters]="parameters"
-              ></ya-control>-->
-
               <ya-multiroute
                 [referencePoints]="points"
                 [options]="{routeActiveStrokeColor: 'ff0000'}"
               ></ya-multiroute>
             </ya-map>
         </div>
+
         <table class="table table-bordered table-striped">
           <thead class="thead-dark">
           <tr>
@@ -54,7 +35,7 @@
             <td>{{ taskLog.taskType.name }}</td>
             <td>{{ taskLog.bank.address }}</td>
 <!--            <td>{{ taskLog.completed }}</td>    [hidden]="(taskLog.completed!='true')"  [hidden]="(taskLog.completed!='true')"-->
-            <td ><input type="checkbox" [(ngModel)]="isChecked[rowIndex]" (change)="checkValue(rowIndex, taskLog.id, isChecked[rowIndex]?'true':'false')" /></td >
+            <td ><input type="checkbox" [(ngModel)]="isChecked[rowIndex]" [disabled]="((rowIndex-1>=0)&&(taskLogs[rowIndex-1].completed.toString()=='false'))" (change)="checkValue(rowIndex, taskLog.id, isChecked[rowIndex]?'true':'false')" /></td >
 
 <!--            <td ><input id="cur_res_complete" type="checkbox" onclick="this.checkResChanging(false, taskLog.id)" checked ></td>-->
 <!--            <td [hidden]="(taskLog.completed!='false')"><input id="cur_res_uncomplete" type="checkbox" onclick="this.checkResChanging(true, taskLog.id)" [hidden]="(taskLog.completed!='false')"></td>-->
