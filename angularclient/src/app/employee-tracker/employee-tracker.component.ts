@@ -5,6 +5,7 @@ import { TaskLog } from '../task-log';
 import { TaskType } from '../task-type';
 import { Bank } from '../bank';
 import { TaskLogService } from '../task-log-service.service';
+import {  AngularYandexMapsModule, YaConfig, YaGeocoderService, YaReadyEvent } from 'angular8-yandex-maps';
 import { InputService } from '../input-service.service';
 
 @Component({
@@ -18,23 +19,40 @@ export class EmployeeTrackerComponent implements OnInit {
   taskLogs:   TaskLog[];
   taskTypes:  TaskType[];
   banks:      Bank[];
+  centerPoint: number[];
+  points: string[] =[];
+
+  geocodeResult: YaGeocoderService["geocode"];
   is_login:   number; // not login, 1 - manager, 2 - employee
   worker_id: number;
 
   placemarkPropertiesHigh: ymaps.IPlacemarkProperties;
   optionMultiRoute: ymaps.multiRouter.IMultiRouteOptions;
-  modelMultiRoute: { params: ymaps.IMultiRouteParams } = {
-      params: {
-        avoidTrafficJams: false,
-        routingMode: 'auto',
-      },
-    };
-  pointMultiRoute: { referencePoints: ymaps.IMultiRouteReferencePoint};
+  //paramMultiRoute: IMultiRouteParams;
+  //paramMultiRoute: { params: ymaps.IMultiRouteParams } = {
+  //    params: {
+  //      avoidTrafficJams: false,
+   //     routingMode: 'auto',
+   //   },
+   // };
+  modelMultiRoute: ymaps.multiRouter.MultiRouteModel;
+  //modelMultiRoute: {referencePoints: ymaps.multiRouter.MultiRouteModel};
+  //pointMultiRoute:  ymaps.IMultiRouteReferencePoint[];
 
   constructor(private employeeService: EmployeeService,
-  private taskLogService: TaskLogService, private input : InputService) {
+  private taskLogService: TaskLogService,
+  private yaGeocoderService: YaGeocoderService,
+  private input : InputService) //{
+  //private taskLogService: TaskLogService, private input : InputService)
+  {
   }
   ngOnInit() {
+  //this.paramMultiRoute = new IMultiRouteParams();
+  //(,
+      this.employeeService.findAll().subscribe(data => {
+        this.employees = data;
+        this.currentEmployeeId = this.employees[0].id;
+      });
       this.input.data$.subscribe(data => {
         this.is_login = data;
       });
@@ -51,16 +69,24 @@ export class EmployeeTrackerComponent implements OnInit {
       {
       this.input.worker_data$.subscribe(worker_data => {
         this.worker_id = worker_data;
+        this.currentEmployeeId = this.worker_id.toString();
+              this.updateCurrentEmployeeLogs();
       });
-      this.currentEmployeeId = this.worker_id.toString();
-      this.updateCurrentEmployeeLogs();
+
       }
     }
+
     updateCurrentEmployeeLogs()
     {
+    //this.modelMultiRoute = new ymaps.multiRouter.MultiRouteModel(['Moscow','Tver'],{ routingMode: 'pedestrian' });
     this.taskLogService.findCurrentForEmployee(this.currentEmployeeId).subscribe(data => {
-    console.log(this.currentEmployeeId);
             this.taskLogs = data;
+            console.log(this.currentEmployeeId);
+            this.points = [];
+            this.taskLogs.forEach( (element) => {
+            this.points.push(element.bank.address);
+            });
+
             this.placemarkPropertiesHigh =
                       {
                               hintContent: 'Высокий приоритет',
@@ -78,7 +104,17 @@ export class EmployeeTrackerComponent implements OnInit {
             {
                viaIndexes: [2],
             };
-            //this.pointMultiRoute = { referencePoints: [this.taskLogs[2].employee.address, this.taskLogs[2].bank.address]};
+            //this.modelMultiRoute = {  referencePoints: [this.taskLogs[2].employee.address, this.taskLogs[2].bank.address],
+            //{
+            //    avoidTrafficJams: true,
+            //    viaIndexes: [1]
+            //}
+            //};
+
+              //this.pointMultiRoute = [[45.061507, 38.979534], [45.161507, 38.979534], [45.191507, 38.979534]];
+              //setReferencePoints(referencePoints[, viaIndexes[, clearRequests]])
+            //this.modelMultiRoute.setReferencePoints(['Moscow','Tver']);
+
 
           });
          // var taskTmp     = new TaskLog();

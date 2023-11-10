@@ -12,9 +12,9 @@
         </select>
       </div>
         <div class="container form-group">
-            <ya-map [center]="[45.051607, 38.979532]" [zoom]="12">
+            <ya-map [center]="[45.051610, 38.979532]" [zoom]="12">
               <!--<ya-placemark
-                [geometry]="[45.051610, 38.979532]"
+                [geometry]=""
                 [properties]="placemarkPropertiesHigh"
                 [options]="placemarkHigh"
               ></ya-placemark>
@@ -31,12 +31,11 @@
               <ya-control
                 type="RoutePanel"
                 [parameters]="parameters"
-              ></ya-control> -->
+              ></ya-control>-->
 
               <ya-multiroute
-                [referencePoints]="['Краснодар, ул Красная, д. 140', 'Краснодар, ул. Ставропольская, д. 140']"
-                [model]="modelMultiRoute"
-                [options]="optionMultiRoute"
+                [referencePoints]="points"
+                [options]="{routeActiveStrokeColor: 'ff0000'}"
               ></ya-multiroute>
             </ya-map>
         </div>

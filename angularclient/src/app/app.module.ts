@@ -19,7 +19,7 @@ import { TaskLogService } from './task-log-service.service';
 import { EmployeeTrackerComponent } from './employee-tracker/employee-tracker.component';
 import { TaskTypeFormComponent } from './task-type-form/task-type-form.component';
 import { GradeService } from './grade-service.service';
-import { AngularYandexMapsModule, YaConfig  } from 'angular8-yandex-maps';
+import { AngularYandexMapsModule, YaConfig, YaGeocoderService  } from 'angular8-yandex-maps';
 
 const mapConfig: YaConfig = {
   apikey: '61f5780b-ee71-47a9-93a5-6ac5fd5262e2',
@@ -29,7 +29,6 @@ import { EmployeeEditFormComponent } from './employee-edit-form/employee-edit-fo
 import { TaskTypeEditFormComponent } from './task-type-edit-form/task-type-edit-form.component';
 import { BankEditFormComponent } from './bank-edit-form/bank-edit-form.component';
 import { InputComponent } from './input/input.component';
-import { EmployeeSelfTrackerComponent } from './employee-self-tracker/employee-self-tracker.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +47,6 @@ import { EmployeeSelfTrackerComponent } from './employee-self-tracker/employee-s
     TaskTypeEditFormComponent,
     BankEditFormComponent,
     InputComponent,
-    EmployeeSelfTrackerComponent,
   ],
   imports: [
     BrowserModule,
