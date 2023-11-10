@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskTypeService } from '../task-type-service.service';
 import { TaskType } from '../task-type';
+import { GradeService } from '../grade-service.service';
+import { Grade } from '../grade';
 
 @Component({
   selector: 'app-task-type-edit-form',
@@ -13,17 +15,23 @@ export class TaskTypeEditFormComponent implements OnInit{
   taskTypeId: number;
 
   taskType: TaskType;
+  grades: Grade[];
 
   constructor(
     private route: ActivatedRoute,
       private router: Router,
-        private taskTypeService: TaskTypeService) {
+        private taskTypeService: TaskTypeService,
+        private gradeService: GradeService) {
     this.taskType = new TaskType();
+    this.taskType.grade = new Grade();
   }
 
   ngOnInit(){
   this.route.params.subscribe(params => {
     this.taskTypeId = Number(params['id']);
+    });
+    this.gradeService.findAll().subscribe(data => {
+            this.grades = data;
     });
   }
 

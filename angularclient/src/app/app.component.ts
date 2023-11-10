@@ -17,19 +17,23 @@ export class AppComponent implements OnInit {
   worker_id : number;
 
   constructor(private app: AppService, private http: HttpClient, private router: Router, private input : InputService) {
-        this.app.authenticate(undefined, undefined);
-        this.title = 'Spring Boot - Angular Application';
-        this.is_login = 0;
-        this.worker_id = -1;
+//         this.app.authenticate(undefined, undefined);
+//         this.title = 'Spring Boot - Angular Application';
+//         this.is_login = 0;
+//         this.worker_id = -1;
+//       }
+//       logout() {
+//         this.http.post('logout', {}).pipe(
+//             finalize(() => {
+//             this.app.authenticated = false;
+//             this.is_login = 0;
+//             this.router.navigateByUrl('/login');
+//         })).subscribe();
+      if (this.is_login != 1 && this.is_login != 2) {
+          router.navigate(['input']);
+
       }
-      logout() {
-        this.http.post('logout', {}).pipe(
-            finalize(() => {
-            this.app.authenticated = false;
-            this.is_login = 0;
-            this.router.navigateByUrl('/login');
-        })).subscribe();
-      }
+  }
   authenticated(){
     return this.app.authenticated;
   }

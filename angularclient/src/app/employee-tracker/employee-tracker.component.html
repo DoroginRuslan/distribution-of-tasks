@@ -49,14 +49,17 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let taskLog of taskLogs">
+          <tr *ngFor="let taskLog of taskLogs; let rowIndex = index">
             <td>{{ taskLog.id }}</td>
-            <td><input id="cur_res_complete" type="checkbox" onclick="this.checkResChanging(false, taskLog.id)" checked [hidden]="(taskLog.result!='true')"></td>
-            <td><input id="cur_res_uncomplete" type="checkbox" onclick="this.checkResChanging(true, taskLog.id)" [hidden]="(taskLog.result!='false')"></td>
-            <!--<td>{{ taskLog.result }}</td>-->
             <td>{{ taskLog.taskType.name }}</td>
             <td>{{ taskLog.bank.address }}</td>
-            <td>{{ taskLog.completed }}</td>
+<!--            <td>{{ taskLog.completed }}</td>    [hidden]="(taskLog.completed!='true')"  [hidden]="(taskLog.completed!='true')"-->
+            <td ><input type="checkbox" [(ngModel)]="isChecked[rowIndex]" (change)="checkValue(rowIndex, taskLog.id, isChecked[rowIndex]?'true':'false')" /></td >
+
+<!--            <td ><input id="cur_res_complete" type="checkbox" onclick="this.checkResChanging(false, taskLog.id)" checked ></td>-->
+<!--            <td [hidden]="(taskLog.completed!='false')"><input id="cur_res_uncomplete" type="checkbox" onclick="this.checkResChanging(true, taskLog.id)" [hidden]="(taskLog.completed!='false')"></td>-->
+            <!--<td>{{ taskLog.result }}</td>-->
+
           </tr>
           </tbody>
         </table>

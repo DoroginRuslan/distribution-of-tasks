@@ -28,9 +28,7 @@
                 id="grade"
                 placeholder="Выберите уровень сотрудника"
                 required #grade="ngModel">
-          <option value="Джун">Джун</option>
-          <option value="Мидл">Мидл</option>
-          <option value="Сеньор">Сеньор</option>
+          <option *ngFor="let grade of grades" value="{{ grade.id }}">{{ grade.name }}</option>
           <!--<option *ngFor="let grade of grades" value="{{ grade.id }}">{{ grade.name }}</option>-->
         </select>
       </div>

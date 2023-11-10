@@ -21,6 +21,7 @@ export class EmployeeTrackerComponent implements OnInit {
   banks:      Bank[];
   centerPoint: number[];
   points: string[] =[];
+  isChecked: boolean[] =[];
 
   geocodeResult: YaGeocoderService["geocode"];
   is_login:   number; // not login, 1 - manager, 2 - employee
@@ -81,8 +82,14 @@ export class EmployeeTrackerComponent implements OnInit {
     //this.modelMultiRoute = new ymaps.multiRouter.MultiRouteModel(['Moscow','Tver'],{ routingMode: 'pedestrian' });
     this.taskLogService.findCurrentForEmployee(this.currentEmployeeId).subscribe(data => {
             this.taskLogs = data;
-            console.log(this.currentEmployeeId);
+            console.log(this.taskLogs);
+
             this.points = [];
+            this.isChecked = [];
+            for (var i = 0; i < this.taskLogs.length; i++)
+              this.isChecked[i] = this.taskLogs[i].completed.toString() == 'true'
+
+            console.log(this.taskLogs);
             this.taskLogs.forEach( (element) => {
             this.points.push(element.bank.address);
             });
@@ -127,6 +134,12 @@ export class EmployeeTrackerComponent implements OnInit {
 
 
     }
+    checkValue(rowIndex, id, checked){
+      this.taskLogs[rowIndex].completed = checked;
+      this.taskLogService.updateStatus(id, this.taskLogs[rowIndex]).subscribe(data => {
+              });
+    }
+
     currentEmployeeChanged(event) {
         this.currentEmployeeId = event.target.value;
         this.updateCurrentEmployeeLogs();
@@ -180,7 +193,7 @@ export class EmployeeTrackerComponent implements OnInit {
       };
 
 
-  public checkResChanging(res: boolean, taskLogId: string){
-    this.taskLogService.updateResult(res,taskLogId);
-  }
+//   public checkResChanging(res: boolean, taskLogId: string){
+//     this.taskLogService.updateResult(res,taskLogId);
+//   }
 }

@@ -24,7 +24,18 @@
         <option value="0">Высокий</option>
         </select>
       </div>
-      <div [hidden]="!priority.pristine" class="alert alert-danger">Выберите приоритет</div>
+      <div class="form-group">
+        <label for="priority">Уровень сотрудника</label>
+        <select [(ngModel)]="taskType.grade.id"
+                class="form-control"
+                id="grade"
+                name="grade"
+                placeholder="Выберите уровень сотрудника"
+                required #priority="ngModel">
+          <option *ngFor="let grade of grades" value="{{ grade.id }}">{{ grade.name }}</option>
+        </select>
+      </div>
+      <div [hidden]="!priority.pristine" class="alert alert-danger">Выберите уровень сотрудника</div>
       <div class="form-group">
         <label for="timeReq">Требуемое время</label>
         <input type="time" [(ngModel)]="taskType.timeReq"

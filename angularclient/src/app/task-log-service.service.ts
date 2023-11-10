@@ -21,11 +21,11 @@ export class TaskLogService {
   }
   public findCurrentForEmployee(id):Observable<TaskLog[]> {
      return this.http.get<TaskLog[]>(this.tasksLogForEmployeeUrl+"/"+id);
-   }
+  }
 
-  public updateResult(res: boolean, taskLogId: string){
-    console.log("taskLogId: " + taskLogId);
-    console.log("res: " + res);
-    }
+  public updateStatus(id:string, taskLog: TaskLog){
+  console.log(this.tasksLogUrl+"/"+id, taskLog);
+    return this.http.put<any>(this.tasksLogUrl+"/"+id, taskLog);
+  }
 
 }

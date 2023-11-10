@@ -41,6 +41,7 @@ public class taskLogController {
 
     @PutMapping("/{taskTypeId}")
     public TaskLog updateTaskLog(@RequestBody TaskLog taskType, @PathVariable Long taskTypeId) {
+        System.out.println("daf");
         return taskLogService.updateTaskLog(taskType, taskTypeId);
     }
 

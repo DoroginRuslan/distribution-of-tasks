@@ -1,4 +1,4 @@
-<div class="card my-5">
+<div class="card my">
   <div class="card-body">
     <form (ngSubmit)="onSubmit()" #taskTypeForm="ngForm">
       <div class="form-group">
@@ -24,7 +24,18 @@
           <option value="0">Высокий</option>
         </select>
       </div>
-      <div [hidden]="!priority.pristine" class="alert alert-danger">Выберите приоритет</div>
+      <div class="form-group">
+        <label for="priority">Уровень сотрудника</label>
+        <select [(ngModel)]="taskType.grade.id"
+                class="form-control"
+                id="grade"
+                name="grade"
+                placeholder="Выберите уровень сотрудника"
+                required #priority="ngModel">
+          <option *ngFor="let grade of grades" value="{{ grade.id }}">{{ grade.name }}</option>
+        </select>
+      </div>
+      <div [hidden]="!priority.pristine" class="alert alert-danger">Выберите уровень сотрудника</div>
       <div class="form-group">
         <label for="timeReq">Требуемое время</label>
         <input type="time" [(ngModel)]="taskType.timeReq"
@@ -57,7 +68,7 @@
       <div [hidden]="!condition2.pristine" class="alert alert-danger">Введите условие назначения</div>
 
       <button type="submit" [disabled]="!taskTypeForm.form.valid"
-              class="btn btn-info">Изменить</button>
+              class="btn btn-info">Добавить</button>
     </form>
   </div>
 </div>
