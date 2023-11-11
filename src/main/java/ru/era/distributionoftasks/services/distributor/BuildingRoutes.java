@@ -27,11 +27,11 @@ public class BuildingRoutes {
         List<IntPointPair> listRoute = new ArrayList<>();
         int maxRestDis = 0;
 
-        for(AgencyPoint firstTypePoint : firstTypePriorityPoints) {
+        for (AgencyPoint firstTypePoint : firstTypePriorityPoints) {
             int distanceFromOfficeToFirstPoint = addressTimesMatrix.getTimeBetweenAddresses(office.getAddressId(), firstTypePoint.getAddressId());
-            for(AgencyPoint secondTypePoint : secondTypePriorityPoints) {
+            for (AgencyPoint secondTypePoint : secondTypePriorityPoints) {
                 int pointsTimeDistance = addressTimesMatrix.getTimeBetweenAddresses(firstTypePoint.getAddressId(), secondTypePoint.getAddressId());
-                if(firstTypePoint.getDatabaseId() != secondTypePoint.getDatabaseId()) {
+                if (firstTypePoint.getDatabaseId() != secondTypePoint.getDatabaseId()) {
                     int restEmployeeTime = TIME_MAX_TASK - (distanceFromOfficeToFirstPoint + priorityTaskTime[0] + pointsTimeDistance + priorityTaskTime[1]);
                     if (restEmployeeTime >= desiredRemainingTime/* && restEmployeeTime > maxRestDis*/) {
                         maxRestDis = restEmployeeTime;
@@ -58,16 +58,16 @@ public class BuildingRoutes {
         };
 
         List<IntPointPair> newOfficeRoutes = new ArrayList<>();
-        for(IntPointPair route : officeRoutes) {
-            AgencyPoint lastPoint = route.getAgencyPointList().get(route.getAgencyPointList().size()-1);
+        for (IntPointPair route : officeRoutes) {
+            AgencyPoint lastPoint = route.getAgencyPointList().get(route.getAgencyPointList().size() - 1);
             int maxTimeDistance = 0;
-            for(AgencyPoint agencyPoint : listAgencyPoints1) {
-                if(route.getAgencyPointList().stream()
+            for (AgencyPoint agencyPoint : listAgencyPoints1) {
+                if (route.getAgencyPointList().stream()
                         .map(AgencyPoint::getDatabaseId)
                         .toList().contains(agencyPoint.getDatabaseId())) {
                     int pointsTimeDistance = addressTimesMatrix.getTimeBetweenAddresses(lastPoint.getAddressId(), agencyPoint.getAddressId());
                     int restEmployeeTime = route.getLastTime() - (pointsTimeDistance + priorityTaskTime);
-                    if(restEmployeeTime >= 0) {
+                    if (restEmployeeTime >= 0) {
                         maxTimeDistance = restEmployeeTime;
                         List<AgencyPoint> newRoute = new ArrayList<>(route.getAgencyPointList());
                         newRoute.add(agencyPoint);
@@ -82,25 +82,33 @@ public class BuildingRoutes {
         return officeRoutes;
     }
 
-//    public static void findDuplicateRoutes(List<List<AgencyPoint>> listRoutesOffice1, List<List<AgencyPoint>> listRoutesOffice2) {
-public static void findDuplicateRoutes(List<IntPointPair> listRoutesOffice1, List<IntPointPair> listRoutesOffice2, long countEmployeesOffice1, long countEmployeesOffice2) {
+    //    public static void findDuplicateRoutes(List<List<AgencyPoint>> listRoutesOffice1, List<List<AgencyPoint>> listRoutesOffice2) {
+    public static void findDuplicateRoutes(List<IntPointPair> listRoutesOffice1, List<IntPointPair> listRoutesOffice2, long countEmployeesOffice1, long countEmployeesOffice2) {
 //        List<IntPointPair> maxListRoutes = listRoutesOffice1.size() - listRoutesOffice2.size() > 0 ? listRoutesOffice1 : listRoutesOffice2;
 //        List<IntPointPair> minListRoutes = listRoutesOffice1.size() - listRoutesOffice2.size() < 0 ? listRoutesOffice1 : listRoutesOffice2;
-        for(IntPointPair intPointFromOffice1 : listRoutesOffice1) {
-            for(AgencyPoint agencyPointFromOffice1 : intPointFromOffice1.getAgencyPointList()) {
-                for(IntPointPair intPointFromOffice2 : listRoutesOffice2) {
-                    for(AgencyPoint agencyPointFromOffice2 : intPointFromOffice2.getAgencyPointList()) {
-                        if(agencyPointFromOffice1.getDatabaseId() == agencyPointFromOffice2.getDatabaseId()) {
+        for (IntPointPair intPointFromOffice1 : listRoutesOffice1) {
+            for (AgencyPoint agencyPointFromOffice1 : intPointFromOffice1.getAgencyPointList()) {
+                for (IntPointPair intPointFromOffice2 : listRoutesOffice2) {
+                    for (AgencyPoint agencyPointFromOffice2 : intPointFromOffice2.getAgencyPointList()) {
+                        if (agencyPointFromOffice1.getDatabaseId() == agencyPointFromOffice2.getDatabaseId()) {
                             int activeRoutesByOffice1 = getAmmRoutesForOffice(listRoutesOffice1);
                             int activeRoutesByOffice2 = getAmmRoutesForOffice(listRoutesOffice2);
                             boolean office1Border = activeRoutesByOffice1 <= countEmployeesOffice1;
                             boolean office2Border = activeRoutesByOffice2 <= countEmployeesOffice2;
-                            if(office1Border && office2Border || !office1Border && !office2Border) {
-                                if(intPointFromOffice1.getLastTime() > intPointFromOffice2.getLastTime()) {
+                            /* if(office1Border && office2Border || !office1Border && !office2Border) {*/
+                            if (intPointFromOffice1.getLastTime() > intPointFromOffice2.getLastTime()) {
+                                if (!office1Border && office2Border) {
+                                    intPointFromOffice1.setLastTime(-1);
+                                } else {
                                     intPointFromOffice2.setLastTime(-1);
-                                } else if(intPointFromOffice1.getLastTime() < intPointFromOffice2.getLastTime()) {
+                                }
+                            } else if (intPointFromOffice1.getLastTime() < intPointFromOffice2.getLastTime()) {
+                                if (office1Border && !office2Border) {
+                                    intPointFromOffice2.setLastTime(-1);
+                                } else {
                                     intPointFromOffice1.setLastTime(-1);
                                 }
+                            }
 //                                else {
 //                                    if(activeRoutesByOffice1 <= activeRoutesByOffice2) {
 //                                        intPointFromOffice2.setLastTime(-1);
@@ -108,30 +116,29 @@ public static void findDuplicateRoutes(List<IntPointPair> listRoutesOffice1, Lis
 //                                        intPointFromOffice1.setLastTime(-1);
 //                                    }
 //                                }
-                            } else if(office1Border) {
+                        } /*else if(office1Border) {
                                 intPointFromOffice2.setLastTime(-1);
                             } else {
                                 intPointFromOffice1.setLastTime(-1);
-                            }
+                            }*/
 
-                        }
                     }
                 }
             }
         }
-
         removeEmptyRoutes(listRoutesOffice1);
         removeEmptyRoutes(listRoutesOffice2);
     }
 
+
     private static int getAmmRoutesForOffice(List<IntPointPair> officeRoutes) {
         int delRoutes = 0;
-        for(IntPointPair route : officeRoutes) {
-            if(route.getLastTime() == -1) {
+        for (IntPointPair route : officeRoutes) {
+            if (route.getLastTime() == -1) {
                 delRoutes++;
             }
         }
-        return officeRoutes.size()-delRoutes;
+        return officeRoutes.size() - delRoutes;
     }
 
     // TODO: 10.11.2023 Посмотреть в отладчике

@@ -27,7 +27,6 @@ public class ServiceTaskAssigment {
 
         addRouteOffice(tasksAgencyPoints); // распределение маршрутов по офисам
 
-        //todo на свежую голову сделать универсальный перебор
         for(int i = 0; i < officeList.size()-1; i++) {
             for(int j = i+1; j < officeList.size(); j++) {
                 findDuplicateRoutes(officeList.get(i).getListRoutesSignor(),
@@ -46,10 +45,19 @@ public class ServiceTaskAssigment {
         }
 
         List<EmployeeRoute> employeeRouteList = new ArrayList<>();
-        EmployeeRoute employeeRoute = new EmployeeRoute(new AlgEmployee(1L, Rang.SENIOR_RANG), officeList.get(0).getListRoutesSignor().get(0).getAgencyPointList());
-        EmployeeRoute employeeRoute1 = new EmployeeRoute(new AlgEmployee(1L, Rang.MIDDLE_RANG), officeList.get(0).getListRoutesMiddle().get(0).getAgencyPointList());
-        EmployeeRoute employeeRoute2 = new EmployeeRoute(new AlgEmployee(1L, Rang.MIDDLE_RANG), officeList.get(0).getListRoutesMiddle().get(0).getAgencyPointList());
-        employeeRouteList.add(employeeRoute);
+        for(Office office : officeList) {
+            EmployeeRoute employeeRoute1 = null;
+            try {
+                employeeRoute1 = new EmployeeRoute(new AlgEmployee(1L, Rang.SENIOR_RANG), office.getListRoutesSignor().get(0).getAgencyPointList());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            EmployeeRoute employeeRoute2 = new EmployeeRoute(new AlgEmployee(1L, Rang.MIDDLE_RANG), office.getListRoutesMiddle().get(0).getAgencyPointList());
+            EmployeeRoute employeeRoute3 = new EmployeeRoute(new AlgEmployee(1L, Rang.JUNIOR_RANG), office.getListRoutesMiddle().get(0).getAgencyPointList());
+            employeeRouteList.add(employeeRoute1);
+            employeeRouteList.add(employeeRoute2);
+            employeeRouteList.add(employeeRoute3);
+        }
         return employeeRouteList;
     }
 
@@ -129,10 +137,10 @@ public class ServiceTaskAssigment {
     }
 
     private void fixRoutesForSenior(Office office, TasksAgencyPoints tasksAgencyPoints) {
-        List<IntPointPair> routesSignor = getRoutesFromOfficeToTwoPoints(
+        List<IntPointPair> routesSignor = getRoutesFromOfficeToThreePoints(
                 office,
                 addressTimesMatrix,
-                new int[]{TIME_HIGH_TASK, TIME_MEDIUM_TASK},
+                new int[]{TIME_HIGH_TASK, TIME_MEDIUM_TASK, TIME_LOW_TASK},
                 tasksAgencyPoints);
         if (routesSignor == null || routesSignor.isEmpty()) {
             routesSignor = getRoutesFromOfficeToTwoPoints(office, addressTimesMatrix, new int[]{TIME_MEDIUM_TASK, TIME_HIGH_TASK}, tasksAgencyPoints);

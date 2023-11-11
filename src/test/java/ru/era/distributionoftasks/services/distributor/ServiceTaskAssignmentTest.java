@@ -14,7 +14,17 @@ class ServiceTaskAssignmentTest {
         List<Office> officeList = getOffices();
         AddressTimesMatrix addressTimesMatrix = getTimeMatrixAndFillAddressIds(agencyPointList, officeList);
         ServiceTaskAssigment serviceTaskAssigment = new ServiceTaskAssigment(addressTimesMatrix, agencyPointList, officeList);
-        System.out.println(serviceTaskAssigment.calcEmployeeRoutes());
+        List<EmployeeRoute>  employeeRouteList = serviceTaskAssigment.calcEmployeeRoutes();
+//        System.out.println(employeeRouteList);
+        for(EmployeeRoute employeeRoute : employeeRouteList) {
+            for(AgencyPoint agencyPoint : employeeRoute.getAgencyPointList()) {
+                try {
+                    System.out.println(agencyPoint.getDatabaseId());
+                } catch (Exception e) {
+
+                }
+            }
+        }
     }
 
     private List<AgencyPoint> getAgencyPointList() {
