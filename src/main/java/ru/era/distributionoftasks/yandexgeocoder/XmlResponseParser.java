@@ -1,4 +1,4 @@
-package ru.era.distributionoftasks.graphhopper;
+package ru.era.distributionoftasks.yandexgeocoder;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;

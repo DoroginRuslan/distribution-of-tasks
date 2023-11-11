@@ -1,4 +1,4 @@
-package ru.era.distributionoftasks.graphhopper;
+package ru.era.distributionoftasks.yandexgeocoder;
 
 import java.util.ArrayList;
 import java.util.List;

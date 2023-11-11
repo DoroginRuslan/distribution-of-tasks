@@ -1,4 +1,6 @@
-package ru.era.distributionoftasks.graphhopper;
+package ru.era.distributionoftasks.yandexgeocoder;
+
+import ru.era.distributionoftasks.yandexgeocoder.GeoPoint;
 
 public class GeoObject {
     private String name;

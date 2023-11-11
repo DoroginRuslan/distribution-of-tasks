@@ -1,4 +1,4 @@
-package ru.era.distributionoftasks.graphhopper;
+package ru.era.distributionoftasks.yandexgeocoder;
 
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
