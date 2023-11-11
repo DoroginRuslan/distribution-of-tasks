@@ -118,7 +118,7 @@ public class TestApiController {
                 .setIssuanceCardsNum(0)
         );
         Bank bank2 = bankRepository.save(new Bank()
-                .setAddress("г. Краснодар, ул. им. Максима Горького, д. 128")
+                .setAddress("г. Краснодар, ул. Горького, д. 128")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
                 .setLastCardIssuanceDays(3)
@@ -269,15 +269,8 @@ public class TestApiController {
                 .setApprovedApplicationsNum(18)
                 .setIssuanceCardsNum(6)
         );
-        Bank bank21 = bankRepository.save(new Bank()
-                .setAddress("г. Краснодар, ул. им. Героя Аверкиева А.А., д. 8/1 к. мая, кв. 268")
-                .setRegistrationDate("Давно")
-                .setMaterialsDelivered(true)
-                .setLastCardIssuanceDays(0)
-                .setApprovedApplicationsNum(15)
-                .setIssuanceCardsNum(5)
-        );
-        Bank bank22 = bankRepository.save(new Bank()
+
+        Bank bank23 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. им. Тургенева, д. 106")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
@@ -285,7 +278,7 @@ public class TestApiController {
                 .setApprovedApplicationsNum(96)
                 .setIssuanceCardsNum(20)
         );
-        Bank bank23 = bankRepository.save(new Bank()
+        Bank bank24 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. Красных Партизан, д. 117")
                 .setRegistrationDate("Вчера")
                 .setMaterialsDelivered(false)
@@ -293,7 +286,7 @@ public class TestApiController {
                 .setApprovedApplicationsNum(0)
                 .setIssuanceCardsNum(0)
         );
-        Bank bank24 = bankRepository.save(new Bank()
+        Bank bank25 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. Северная, д. 389")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
@@ -301,7 +294,7 @@ public class TestApiController {
                 .setApprovedApplicationsNum(16)
                 .setIssuanceCardsNum(0)
         );
-        Bank bank25 = bankRepository.save(new Bank()
+        Bank bank26 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. Уральская, д. 166/3")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
@@ -309,7 +302,7 @@ public class TestApiController {
                 .setApprovedApplicationsNum(43)
                 .setIssuanceCardsNum(29)
         );
-        Bank bank26 = bankRepository.save(new Bank()
+        Bank bank27 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. Северная, д. 524")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
@@ -317,7 +310,7 @@ public class TestApiController {
                 .setApprovedApplicationsNum(13)
                 .setIssuanceCardsNum(14)
         );
-        Bank bank27 = bankRepository.save(new Bank()
+        Bank bank28 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. им. Кирилла Россинского, д. 61/1")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
@@ -325,7 +318,7 @@ public class TestApiController {
                 .setApprovedApplicationsNum(19)
                 .setIssuanceCardsNum(5)
         );
-        Bank bank28 = bankRepository.save(new Bank()
+        Bank bank29 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. Коммунаров, д. 258")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
@@ -333,15 +326,15 @@ public class TestApiController {
                 .setApprovedApplicationsNum(45)
                 .setIssuanceCardsNum(30)
         );
-        Bank bank29 = bankRepository.save(new Bank()
-                .setAddress("г. Краснодар, ул. им. Дзержинского, д. 100")
+        Bank bank30 = bankRepository.save(new Bank()
+                .setAddress("г. Краснодар, ул. им. Дзержинского, д. 101")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
                 .setLastCardIssuanceDays(1)
                 .setApprovedApplicationsNum(19)
                 .setIssuanceCardsNum(4)
         );
-        Bank bank30 = bankRepository.save(new Bank()
+        Bank bank31 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. Северная, д. 326")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
@@ -349,7 +342,7 @@ public class TestApiController {
                 .setApprovedApplicationsNum(20)
                 .setIssuanceCardsNum(9)
         );
-        Bank bank31 = bankRepository.save(new Bank()
+        Bank bank32 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. им. 40-летия Победы, д. 34")
                 .setRegistrationDate("Вчера")
                 .setMaterialsDelivered(false)
@@ -357,7 +350,7 @@ public class TestApiController {
                 .setApprovedApplicationsNum(19)
                 .setIssuanceCardsNum(0)
         );
-        Bank bank32 = bankRepository.save(new Bank()
+        Bank bank33 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. Красная, д. 176")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
@@ -365,23 +358,23 @@ public class TestApiController {
                 .setApprovedApplicationsNum(82)
                 .setIssuanceCardsNum(72)
         );
-        Bank bank33 = bankRepository.save(new Bank()
-                .setAddress("г. Краснодар, ул. Уральская, д. 79/1")
+        Bank bank34 = bankRepository.save(new Bank()
+                .setAddress("г. Краснодар, ул. Уральская, д. 78")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
                 .setLastCardIssuanceDays(23)
                 .setApprovedApplicationsNum(32)
                 .setIssuanceCardsNum(21)
         );
-        Bank bank34 = bankRepository.save(new Bank()
-                .setAddress("г. Краснодар, ул. Северная, д. 326")
+        Bank bank35 = bankRepository.save(new Bank()
+                .setAddress("г. Краснодар, ул. Северная, д. 327")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
                 .setLastCardIssuanceDays(4)
                 .setApprovedApplicationsNum(19)
                 .setIssuanceCardsNum(4)
         );
-        Bank bank35 = bankRepository.save(new Bank()
+        Bank bank36 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. Красная, д. 149")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
@@ -389,7 +382,7 @@ public class TestApiController {
                 .setApprovedApplicationsNum(10)
                 .setIssuanceCardsNum(7)
         );
-        Bank bank36 = bankRepository.save(new Bank()
+        Bank bank37 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, п. Березовый, ул. Целиноградская, д. 6/1")
                 .setRegistrationDate("Вчера")
                 .setMaterialsDelivered(false)
@@ -397,15 +390,15 @@ public class TestApiController {
                 .setApprovedApplicationsNum(13)
                 .setIssuanceCardsNum(0)
         );
-        Bank bank37 = bankRepository.save(new Bank()
-                .setAddress("г. Краснодар, ул. им. Дзержинского, д. 100")
+        Bank bank38 = bankRepository.save(new Bank()
+                .setAddress("г. Краснодар, ул. им. Дзержинского, д. 102")
                 .setRegistrationDate("Вчера")
                 .setMaterialsDelivered(false)
                 .setLastCardIssuanceDays(0)
                 .setApprovedApplicationsNum(10)
                 .setIssuanceCardsNum(0)
         );
-        Bank bank38 = bankRepository.save(new Bank()
+        Bank bank39 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. Российская, д. 418")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
@@ -413,7 +406,7 @@ public class TestApiController {
                 .setApprovedApplicationsNum(30)
                 .setIssuanceCardsNum(14)
         );
-        Bank bank39 = bankRepository.save(new Bank()
+        Bank bank40 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. им. Володи Головатого, д. 313")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
@@ -421,7 +414,7 @@ public class TestApiController {
                 .setApprovedApplicationsNum(65)
                 .setIssuanceCardsNum(12)
         );
-        Bank bank40 = bankRepository.save(new Bank()
+        Bank bank41 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. Красная, д. 145")
                 .setRegistrationDate("Давно")
                 .setMaterialsDelivered(true)
@@ -429,7 +422,7 @@ public class TestApiController {
                 .setApprovedApplicationsNum(20)
                 .setIssuanceCardsNum(4)
         );
-        Bank bank41 = bankRepository.save(new Bank()
+        Bank bank42 = bankRepository.save(new Bank()
                 .setAddress("г. Краснодар, ул. Красная, д. 154")
                 .setRegistrationDate("Вчера")
                 .setMaterialsDelivered(false)
