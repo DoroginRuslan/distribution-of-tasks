@@ -18,8 +18,11 @@
         <td>{{ taskLog.employee.fio }}</td>
         <td>{{ taskLog.taskType.name }}</td>
         <td>{{ taskLog.bank.address }}</td>
-        <td>{{ taskLog.taskSetDate }}</td>
-        <td>{{ taskLog.completed }}</td>
+        <td>{{ taskLog.taskSetDate | slice:0:10 }}</td>
+        <td>
+          <p class = "text-success" [hidden]="taskLog.completed.toString()=='false'">Выполнено</p>
+          <p class = "text-danger" [hidden]="taskLog.completed.toString()=='true'">Не выполнено</p>
+        </td>
         <td>{{ taskLog.commentary }}</td>
       </tr>
       </tbody>
