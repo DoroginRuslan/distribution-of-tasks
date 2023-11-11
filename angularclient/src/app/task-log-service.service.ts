@@ -11,9 +11,9 @@ export class TaskLogService {
   private tasksLogForEmployeeUrl: string;
   private formTasksUrl: string;
   constructor(private http: HttpClient) {
-    this.tasksLogUrl = 'http://localhost:8080/api/task-logs';
+    this.tasksLogUrl = 'https://distribution-of-tasks.onrender.com/api/task-logs';
     // fix later!!
-    this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/task-logs/daily/employee';
+    this.tasksLogForEmployeeUrl = 'https://distribution-of-tasks.onrender.com/api/task-logs/daily/employee';
     this.formTasksUrl = 'input url here';
   }
 

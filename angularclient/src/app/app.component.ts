@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
         });
   }
 
-  MenuButton(){
-    $("#wrapper").toggleClass("toggled");
-  }
+  // MenuButton(){
+  //   $("#wrapper").toggleClass("toggled");
+  // }
 }

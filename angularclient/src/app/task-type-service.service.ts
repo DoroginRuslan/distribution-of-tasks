@@ -10,7 +10,7 @@ export class TaskTypeService {
   private tasksTypeUrl: string;
 
   constructor(private http: HttpClient) {
-    this.tasksTypeUrl = 'http://localhost:8080/api/task-types';
+    this.tasksTypeUrl = 'https://distribution-of-tasks.onrender.com/api/task-types';
   }
 
   public findAll(): Observable<TaskType[]> {
