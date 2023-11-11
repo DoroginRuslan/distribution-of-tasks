@@ -3,14 +3,14 @@
 
 
 <div class="containder-fluid header bg-light">
-  <nav class="navbar bg-light px-4 d-flex">
+  <nav class="navbar bg-light px-3 d-flex">
       <img src="https://kreditkin.su/wp-content/uploads/2022/12/sovcom.png" style="height: 25px;" alt="brand">
       <!-- <a class="d-block d-md-none btn btn-default" (click)="MenuButton()">
         <i class="bi bi-list" style="color: black;"></i>
       </a> -->
 
-      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">      
-        <i class="bi bi-list" style="color: black;"></i>
+      <button class="btn btn_pro d-md-none d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">      
+        <i class="bi bi-list" style="color: rgb(255, 255, 255);"></i>
       </button>
 
   </nav>
@@ -18,8 +18,8 @@
 
 <div id="wrapper" class="row">
   <!-- Sidebar -->
-  <div class="sidebar_nav_area col-1 d-none d-md-block" id="sidebar-wrapper">
-    <ul class="sidebar-nav">
+  <div class="sidebar_nav_area d-none d-md-block" id="sidebar-wrapper">
+    <ul class="sidebar-nav list-group" >
       <li>
         <a href="#" routerLink="/taskLogList" class="gap-2">
           <i class="bi bi-house-fill"></i>
@@ -45,7 +45,7 @@
           <i class="bi bi-geo-alt-fill"></i>
           <span>Точки</span></a>
       </li>
-  </ul>
+    </ul>
       
   </div>
   <!-- Page Content -->
@@ -63,7 +63,7 @@
 
 <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="staticBackdropLabel">Меню</h5>
+    <img src="https://kreditkin.su/wp-content/uploads/2022/12/sovcom.png" style="height: 25px; padding-left: 7px;" alt="brand">
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
   </div>
   <div class="offcanvas-body">

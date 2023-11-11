@@ -1,18 +1,19 @@
 <div class="card">
-  <div class="card-body">
+  <div class="card-body table-responsive">
     <h4>Точки</h4>
+    
     <table class="table table-hover table-bordered">
       <thead class="thead-dark">
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">Адрес</th>
-        <th scope="col">Регистрация</th>
-        <th scope="col">Материалы карт</th>
-        <th scope="col">Последняя карта</th>
-        <th scope="col">Кол-во заявок</th>
-        <th scope="col">Выдано карт</th>
-        <th scope="col">Изменить</th>
-        <th scope="col">Удалить</th>
+        <th>#</th>
+        <th>Адрес</th>
+        <th>Регистрация</th>
+        <th>Материалы карт</th>
+        <th>Последняя карта</th>
+        <th>Кол-во заявок</th>
+        <th>Выдано карт</th>
+        <th>Изменить</th>
+        <th>Удалить</th>
       </tr>
       </thead>
       <tbody>
@@ -33,8 +34,11 @@
       </tr>
       </tbody>
     </table>
-    <a routerLink="/addbank">
-      <span class="nav-text">Добавить банк</span>
-    </a>
+    <div class="add_bank_button">
+      <button class="btn btn_pro" routerLink="/addbank"><span class="nav-text">Добавить банк</span></button>
+    </div>
   </div>
+  
+  
+    
 </div>

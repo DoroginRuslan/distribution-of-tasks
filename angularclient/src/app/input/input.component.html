@@ -1,25 +1,18 @@
 <div class="card">
   <div class="card-body" [hidden]="!(is_login==false)">
 
-    <td class="td_form">
+    <td class="td_form row gap-3">
       <button type="button" (click)="onManagerBtnClick()" class="btn btn_pro">Войти как менеджер</button>
       <button type="button" (click)="onEmployeeBtnClick()" class="btn btn_pro">Войти как сотрудник</button>
-
-    </td>
-    <td class="td_form">
-    <select name="employee"  [(ngModel)]="currentEmployeeId"
+      <select name="employee"  [(ngModel)]="currentEmployeeId"
             class="form-control"
             id="employee"
             placeholder="Выберите сотрудника"
             (change)="currentEmployeeCHanged($event)">
       <option *ngFor="let employee of employees" value="{{ employee.id }}">{{ employee.fio }}</option>
     </select>
-  </td>
-    <td>
-    <a class="btn btn_pro"(click)="updateRepo()">Обновить базу данных</a>
+    <a class="btn btn_pro"(click)="updateRepo()"><i class="bi bi-arrow-clockwise"></i> Обновить базу данных</a>
     </td>
-
-
-
+ 
   </div>
 </div>
