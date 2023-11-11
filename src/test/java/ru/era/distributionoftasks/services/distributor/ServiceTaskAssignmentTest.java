@@ -58,9 +58,9 @@ class ServiceTaskAssignmentTest {
                 new AgencyPoint(14,"вчера",false,0,5,0),
                 new AgencyPoint(15,"давно",true,7,14,3),
                 new AgencyPoint(16,"вчера",false,0,0,0),
-                new AgencyPoint(19,"давно",true,6,32,9)
-//                new AgencyPoint(20,"давно",true,4,35,15),
-//                new AgencyPoint(21,"вчера",false,0,6,0),
+                new AgencyPoint(19,"давно",true,6,32,9),
+                new AgencyPoint(20,"давно",true,4,35,15),
+                new AgencyPoint(21,"вчера",false,0,6,0)
 //                new AgencyPoint(22,"давно",true,6,18,6),
 //                new AgencyPoint(23,"давно",true,0,15,5),
 //                new AgencyPoint(24,"давно",true,2,96,20),

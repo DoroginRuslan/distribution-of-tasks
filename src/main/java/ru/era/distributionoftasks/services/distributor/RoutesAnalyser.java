@@ -1,5 +1,6 @@
 package ru.era.distributionoftasks.services.distributor;
 
+import ru.era.distributionoftasks.entities.Employee;
 import ru.era.distributionoftasks.services.distributor.entity.AlgEmployee;
 import ru.era.distributionoftasks.services.distributor.entity.EmployeeRoute;
 import ru.era.distributionoftasks.services.distributor.entity.Route;
@@ -15,23 +16,30 @@ public class RoutesAnalyser {
     private Map<AlgEmployee, List<Route>> employeeRoutesMap;
     private Map<AlgEmployee, Integer> linksMap;
     private Set<AlgEmployee> moveDownSet;
+    private List<EmployeeRoute> employeeRouteList;
 
     public Map<AlgEmployee, Route> removeDuplicate(List<EmployeeRoute> employeeRouteList) {
         resultRoutes = new HashMap<>();
         flowIds = new HashMap<>();
         employeeRoutesMap = new HashMap<>();
+        this.employeeRouteList = employeeRouteList;
         for(EmployeeRoute employeeRoute : employeeRouteList) {
             employeeRoutesMap.put(employeeRoute.getAlgEmployee(), employeeRoute.getRoutes());
             resultRoutes.put(employeeRoute.getAlgEmployee(), null);
             flowIds.put(employeeRoute.getAlgEmployee(), 0);
         }
-        List<AlgEmployee> notFilledEmployees = employeeRoutesMap.keySet().stream().toList();
 
         while (!checkResultRoutesFill(resultRoutes)) {
             moveDownSet = new HashSet<>();
+            for(Employee employee : notFilledEmployees())
             // проверка на конфликты с фиксированными маршрутами
-            for(AlgEmployee employee : notFilledEmployees) {
-                Route checkingRoute = employeeRoutesMap.get(employee).get(flowIds.get(employee));
+            for(AlgEmployee employee : notFilledEmployees()) {
+                Route checkingRoute = null;
+                try {
+                    checkingRoute = employeeRoutesMap.get(employee).get(flowIds.get(employee));
+                } catch(Exception e) {
+                    System.out.println("");
+                }
                 if(isConflictWithFixed(resultRoutes.values(), checkingRoute)) {
                     moveDownSet.add(employee);
                 }
@@ -40,13 +48,13 @@ public class RoutesAnalyser {
             List<Entry<AlgEmployee, Integer>> conflicts;
             do {
                 linksMap = new HashMap<>();
-                for(AlgEmployee employee : notFilledEmployees) {
+                for(AlgEmployee employee : notFilledEmployees()) {
                     if(!moveDownSet.contains(employee)) {
                         linksMap.put(employee, 0);
                     }
                 }
                 List<AlgEmployee> linksKeys = linksMap.keySet().stream().toList();
-                for(int i = 0; i < linksKeys.size(); i++) {
+                for(int i = 0; i < linksKeys.size()-1; i++) {
                     AlgEmployee employee1 = linksKeys.get(i);
                     Route route1 = getFlowRouteByEmployee(employee1);
                     for(int j = i+1; j < linksKeys.size(); j++) {
@@ -59,18 +67,21 @@ public class RoutesAnalyser {
                     }
                 }
                 conflicts = linksMap.entrySet().stream().sorted((e1,e2) -> e2.getValue() - e1.getValue()).toList();
-                if(!conflicts.isEmpty()) {
+                if(!conflicts.isEmpty() && conflicts.get(0).getValue() != 0) {
                     moveDownSet.add(conflicts.get(0).getKey());
                 }
             } while (!conflicts.isEmpty() && conflicts.get(0).getValue() != 0);
-            linksMap.keySet().forEach(e -> resultRoutes.put(e, getFlowRouteByEmployee(e)));
+            for (AlgEmployee employee : linksMap.keySet()) {
+                resultRoutes.put(employee, getFlowRouteByEmployee(employee));
+            }
             moveDownSet.forEach(e -> flowIds.put(e, flowIds.get(e) + 1));
+            moveDownSet.clear();
         }
         return resultRoutes;
     }
 
     private Route getFlowRouteByEmployee(AlgEmployee employee) {
-        return employeeRoutesMap.get(employee).get(linksMap.get(employee));
+        return employeeRoutesMap.get(employee).get(flowIds.get(employee));
     }
 
     private boolean checkResultRoutesFill(Map<AlgEmployee, Route> map) {
@@ -89,5 +100,15 @@ public class RoutesAnalyser {
             }
         }
         return false;
+    }
+
+    private List<AlgEmployee> notFilledEmployees() {
+        List<AlgEmployee> res = new ArrayList<>();
+        for(EmployeeRoute employeeRoute : employeeRouteList) {
+            if(resultRoutes.get(employeeRoute.getAlgEmployee()) == null) {
+                res.add(employeeRoute.getAlgEmployee());
+            }
+        }
+        return res;
     }
 }
