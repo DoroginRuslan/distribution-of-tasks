@@ -5,17 +5,13 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class TasksAgencyPoints {
-    private List<AgencyPoint> agencyPointList;
-    @Getter
-    private List<AgencyPoint> agencyPointListHighPriority = new ArrayList<>();
-    @Getter
-    private List<AgencyPoint> agencyPointListMediumPriority = new ArrayList<>();
-    @Getter
-    private List<AgencyPoint> agencyPointListLowPriority = new ArrayList<>();
+    private final List<AgencyPoint> agencyPointListHighPriority = new ArrayList<>();
+    private final List<AgencyPoint> agencyPointListMediumPriority = new ArrayList<>();
+    private final List<AgencyPoint> agencyPointListLowPriority = new ArrayList<>();
 
     public TasksAgencyPoints(List<AgencyPoint> agencyPointList) {
-        this.agencyPointList = agencyPointList;
         getTasksWithPriority(agencyPointList);
     }
 
@@ -35,30 +31,6 @@ public class TasksAgencyPoints {
             }
         }
 
-    }
-
-    //todo перепроверить по правильности условия
-    private boolean getTasksWithHighPriority(AgencyPoint agencyPoint) {
-        if (agencyPoint.getNumberOfDaysOfIssue() > 14) {
-            return true;
-        } else if (agencyPoint.getNumberOfDaysOfIssue() > 7 && agencyPoint.getNumberOfApproved() > 0) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean getTasksWithMediumPriority(AgencyPoint agencyPoint) {
-        if (agencyPoint.getNumberOfIssued() > 0 && (agencyPoint.getNumberOfIssued() / agencyPoint.getNumberOfApproved()) * 100 < 50) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean getTasksWithLowPriority(AgencyPoint agencyPoint) {
-        if (agencyPoint.getPointsConnected().equals("вчера") || !agencyPoint.isDelivered()) {
-            return true;
-        }
-        return false;
     }
 
 }

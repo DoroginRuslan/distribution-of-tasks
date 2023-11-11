@@ -1,34 +1,35 @@
 package ru.era.distributionoftasks.services.distributor.entity;
 
 import lombok.Getter;
-import lombok.Setter;
+import ru.era.distributionoftasks.entities.Employee;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Office implements AddressInterface {
 
     @Getter
     private final int id;
     @Getter
-    @Setter
-    private List<IntPointPair> listRoutesSignor = new ArrayList<>();
-    @Getter
-    @Setter
-    private List<IntPointPair> listRoutesMiddle = new ArrayList<>();
-    @Getter
-    @Setter
-    private List<IntPointPair> listRoutesJunior = new ArrayList<>();
-
+    Map<AlgEmployee, List<Route>> employeeRoutesVariantsMap;
     private int addressId;
-
-    @Getter
-    private final List<AlgEmployee> employeeList;
 
 
     public Office(int id, List<AlgEmployee> employeeList) {
         this.id = id;
-        this.employeeList = employeeList;
+        employeeRoutesVariantsMap = new HashMap<>(employeeList.size());
+        for(AlgEmployee algEmployee : employeeList) {
+            employeeRoutesVariantsMap.put(algEmployee, new ArrayList<>());
+        }
+    }
+
+    public Set<AlgEmployee> getEmployees() {
+        return employeeRoutesVariantsMap.keySet();
+    }
+
+    public long getCountEmployees(Rang rang) {
+        return getEmployees().stream()
+                .filter(r -> r.getRang() == rang)
+                .count();
     }
 
     @Override
@@ -39,12 +40,5 @@ public class Office implements AddressInterface {
     @Override
     public void setAddressId(int addressId) {
         this.addressId = addressId;
-    }
-
-    public long getCountEmployees(Rang rang) {
-        return employeeList.stream()
-                .map(AlgEmployee::getRang)
-                .filter(r -> r == rang)
-                .count();
     }
 }

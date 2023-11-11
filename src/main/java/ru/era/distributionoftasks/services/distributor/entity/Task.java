@@ -1,9 +1,17 @@
 package ru.era.distributionoftasks.services.distributor.entity;
 
-public class Task {
-    public static final int TIME_MAX_TASK = 480;
-    public static final int TIME_HIGH_TASK = 240;
-    public static final int TIME_MEDIUM_TASK = 120;
-    public static final int TIME_LOW_TASK = 90;
+import lombok.Data;
 
+import java.util.List;
+
+@Data
+public class Task {
+    private final int timeInMinutes;
+    private final Priority priority;
+    private final List<Rang> rangList;
+    private final int profit;
+
+    private boolean checkAvailableForRank(Rang rang) {
+        return rangList.contains(rang);
+    }
 }

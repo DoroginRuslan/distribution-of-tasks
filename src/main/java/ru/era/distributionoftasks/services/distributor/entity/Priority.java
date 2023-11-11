@@ -8,7 +8,7 @@ public enum Priority {
     MEDIUM_PRIORITY(1),
     LOW_PRIORITY(2)
     ;
-    private final int priority;
+    private final Integer priority;
 
     Priority(int priority) {
         this.priority = priority;

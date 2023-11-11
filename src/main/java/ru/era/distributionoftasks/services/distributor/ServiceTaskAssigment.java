@@ -23,7 +23,13 @@ public class ServiceTaskAssigment {
 
     // Основной метод для получения маршрутов
     public List<EmployeeRoute> calcEmployeeRoutes() {
-        TasksAgencyPoints tasksAgencyPoints = new TasksAgencyPoints(agencyPointList);
+//        TasksAgencyPoints tasksAgencyPoints = new TasksAgencyPoints(agencyPointList);
+        // Назначаем все варианты маршрутов для всех сотрудников
+        for(Office office : officeList) {
+            for(AlgEmployee algEmployee : office.getEmployees()) {
+                office.getEmployeeRoutesVariantsMap().put(algEmployee, calcRoutesForEmployee(algEmployee, office));
+            }
+        }
 
         addRouteOffice(tasksAgencyPoints); // распределение маршрутов по офисам
 
@@ -61,11 +67,19 @@ public class ServiceTaskAssigment {
         return employeeRouteList;
     }
 
+    private List<Route> calcRoutesForEmployee(AlgEmployee employee, Office employeeOffice) {
+        int startPoint = employeeOffice.getAddressId();
+        for
+        return null;
+    }
+
+    private List<Route> calcRouteRecursion(int startPoint, int lastTime, Route flowRoute)
+
     private void addRouteOffice(TasksAgencyPoints tasksAgencyPoints) {
         /****** Проверка на дублирование *****/
         for (Office office : officeList) {
             for (AlgEmployee algEmployee : office.getEmployeeList()) {
-                List<IntPointPair> employeeRoutes;
+                List<Route> employeeRoutes;
                 switch (algEmployee.getRang()){
                     case SENIOR_RANG ->  {
                         fixRoutesForSenior(office, tasksAgencyPoints);
@@ -94,7 +108,7 @@ public class ServiceTaskAssigment {
     }
 
     private void fixRoutesForJune( Office office, TasksAgencyPoints tasksAgencyPoints) {
-        List<IntPointPair> routesJunior = getRoutesFromOfficeToFourPoints(
+        List<Route> routesJunior = getRoutesFromOfficeToFourPoints(
                 office,
                 addressTimesMatrix,
                 new int[]{TIME_LOW_TASK, TIME_LOW_TASK, TIME_LOW_TASK, TIME_LOW_TASK},
@@ -112,7 +126,7 @@ public class ServiceTaskAssigment {
     }
 
     private void fixRoutesForMiddle(Office office, TasksAgencyPoints tasksAgencyPoints) {
-        List<IntPointPair> routesMiddle = getRoutesFromOfficeToThreePoints(
+        List<Route> routesMiddle = getRoutesFromOfficeToThreePoints(
                 office,
                 addressTimesMatrix,
                 new int[]{TIME_MEDIUM_TASK, TIME_MEDIUM_TASK, TIME_MEDIUM_TASK},
@@ -137,7 +151,7 @@ public class ServiceTaskAssigment {
     }
 
     private void fixRoutesForSenior(Office office, TasksAgencyPoints tasksAgencyPoints) {
-        List<IntPointPair> routesSignor = getRoutesFromOfficeToThreePoints(
+        List<Route> routesSignor = getRoutesFromOfficeToThreePoints(
                 office,
                 addressTimesMatrix,
                 new int[]{TIME_HIGH_TASK, TIME_MEDIUM_TASK, TIME_LOW_TASK},
@@ -187,19 +201,19 @@ public class ServiceTaskAssigment {
         return mapRoutes;
     }
 
-    private static List<IntPointPair> getRoutesFromOfficeToTwoPoints(Office office,
-                                                                     AddressTimesMatrix addressTimesMatrix,
-                                                                     int[] timeTask,
-                                                                     TasksAgencyPoints tasksAgencyPoints) {
+    private static List<Route> getRoutesFromOfficeToTwoPoints(Office office,
+                                                              AddressTimesMatrix addressTimesMatrix,
+                                                              int[] timeTask,
+                                                              TasksAgencyPoints tasksAgencyPoints) {
         return buildingRouteFromOfficeToPointToPoint(office, addressTimesMatrix,
                 new int[]{timeTask[0], timeTask[1]}, 0, tasksAgencyPoints);
     }
 
-    private static List<IntPointPair> getRoutesFromOfficeToThreePoints(Office office,
-                                                                       AddressTimesMatrix addressTimesMatrix,
-                                                                       int[] timeTask,
-                                                                       TasksAgencyPoints tasksAgencyPoints) {
-        List<IntPointPair> routesFromOfficeToPointToPoint = buildingRouteFromOfficeToPointToPoint(office,
+    private static List<Route> getRoutesFromOfficeToThreePoints(Office office,
+                                                                AddressTimesMatrix addressTimesMatrix,
+                                                                int[] timeTask,
+                                                                TasksAgencyPoints tasksAgencyPoints) {
+        List<Route> routesFromOfficeToPointToPoint = buildingRouteFromOfficeToPointToPoint(office,
                 addressTimesMatrix, new int[]{timeTask[0], timeTask[1]}, timeTask[0] + TIME_ROUTE[0], tasksAgencyPoints);
 
         if (!routesFromOfficeToPointToPoint.isEmpty()) {
@@ -208,14 +222,14 @@ public class ServiceTaskAssigment {
         return null;
     }
 
-    private static List<IntPointPair> getRoutesFromOfficeToFourPoints(Office office,
-                                                                      AddressTimesMatrix addressTimesMatrix,
-                                                                      int[] timeTask,
-                                                                      TasksAgencyPoints tasksAgencyPoints) {
-        List<IntPointPair> routesFromOfficeToPointToPoint = buildingRouteFromOfficeToPointToPoint(office,
+    private static List<Route> getRoutesFromOfficeToFourPoints(Office office,
+                                                               AddressTimesMatrix addressTimesMatrix,
+                                                               int[] timeTask,
+                                                               TasksAgencyPoints tasksAgencyPoints) {
+        List<Route> routesFromOfficeToPointToPoint = buildingRouteFromOfficeToPointToPoint(office,
                 addressTimesMatrix, new int[]{timeTask[0], timeTask[1]}, timeTask[0] + TIME_ROUTE[0], tasksAgencyPoints);
 
-        List<IntPointPair> routesFromOfficeToPointToPointToPoint = buildingRouteFromPointToPoint(routesFromOfficeToPointToPoint, addressTimesMatrix, timeTask[2], tasksAgencyPoints);
+        List<Route> routesFromOfficeToPointToPointToPoint = buildingRouteFromPointToPoint(routesFromOfficeToPointToPoint, addressTimesMatrix, timeTask[2], tasksAgencyPoints);
         if (!routesFromOfficeToPointToPoint.isEmpty()) {
             return buildingRouteFromPointToPoint(routesFromOfficeToPointToPointToPoint, addressTimesMatrix, timeTask[3], tasksAgencyPoints);
         }
