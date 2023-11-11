@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { finalize } from "rxjs/operators";
 import { InputService } from './input-service.service';
-import * as $ from "jquery";
+//import * as $ from "jquery";
 
 @Component({
   selector: 'app-root',

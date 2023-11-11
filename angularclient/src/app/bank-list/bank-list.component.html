@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body">
     <h4>Точки</h4>
-    <table class="table table-sm">
+    <table class="table table-hover table-bordered">
       <thead class="thead-dark">
       <tr>
         <th scope="col">#</th>
@@ -25,10 +25,10 @@
         <td>{{ bank.approvedApplicationsNum }}</td>
         <td>{{ bank.issuanceCardsNum }}</td>
         <td>
-          <button class="nav-text" routerLink="/editBank/{{bank.id}}"> Изменить </button>
+          <button class="btn btn-info" routerLink="/editBank/{{bank.id}}"> Изменить </button>
         </td>
         <td>
-          <button class="nav-text" (click)="removeBank(bank.id)"> Удалить</button>
+          <button class="btn btn-danger" (click)="removeBank(bank.id)"> Удалить</button>
         </td>
       </tr>
       </tbody>

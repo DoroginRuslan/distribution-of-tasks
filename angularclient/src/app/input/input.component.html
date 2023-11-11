@@ -3,9 +3,10 @@
 
     <td class="td_form">
       <button type="button" (click)="onManagerBtnClick()" class="btn btn_pro">Войти как менеджер</button>
-      <button type="button" (click)="onEmployeeBtnClick()" class="btn btn_base">Войти как сотрудник</button>
+      <button type="button" (click)="onEmployeeBtnClick()" class="btn btn_pro">Войти как сотрудник</button>
 
     </td>
+    <td class="td_form">
     <select name="employee"  [(ngModel)]="currentEmployeeId"
             class="form-control"
             id="employee"
@@ -15,15 +16,10 @@
     </select>
   </td>
     <td>
-    <a class="form-control"(click)="updateRepo()">Обновить базу данных</a>
+    <a class="btn btn_pro"(click)="updateRepo()">Обновить базу данных</a>
     </td>
 
 
-              class="form-control"
-              id="employee"
-              placeholder="Выберите сотрудника"
-              (change)="currentEmployeeCHanged($event)">
-        <option *ngFor="let employee of employees" value="{{ employee.id }}">{{ employee.fio }}</option>
-      </select>
+
   </div>
 </div>
