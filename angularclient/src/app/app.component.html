@@ -9,7 +9,7 @@
         <i class="bi bi-list" style="color: black;"></i>
       </a> -->
 
-      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">      
+      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
         <i class="bi bi-list" style="color: black;"></i>
       </button>
 
@@ -21,32 +21,38 @@
   <div class="sidebar_nav_area col-1 d-none d-md-block" id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li>
-        <a href="#" routerLink="/taskLogList" class="gap-2">
+        <a href="#" routerLink="/taskLogList" class="gap-2" [hidden]="!(is_login==1)">
           <i class="bi bi-house-fill"></i>
           <span>Эффективность сотрудников</span></a>
       </li>
       <li>
-        <a href="#" routerLink="/employeeTracker" class="gap-2">
+        <a href="#" routerLink="/employeeTracker" class="gap-2" [hidden]="(is_login==0)">
           <i class="bi bi-arrow-up-right-circle-fill"></i>
           <span>Прогресс сотрудников</span></a>
       </li>
       <li>
-        <a href="#" routerLink="/employees" class="gap-2">
+        <a href="#" routerLink="/employees" class="gap-2" [hidden]="!(is_login==1)">
           <i class="bi bi-person-fill"></i>
           <span>Сотрудники</span></a>
       </li>
       <li>
-        <a href="#" routerLink="/tasksType" class="gap-2">
+        <a href="#" routerLink="/tasksType" class="gap-2" [hidden]="!(is_login==1)">
           <i class="bi bi-clipboard-fill"></i>
           <span>Задачи</span></a>
       </li>
       <li>
-        <a href="#" routerLink="/banks" class="gap-2">
+        <a href="#" routerLink="/banks" class="gap-2" [hidden]="!(is_login==1)">
           <i class="bi bi-geo-alt-fill"></i>
           <span>Точки</span></a>
       </li>
+      <li>
+        <a href="#" class="gap-2" aria-label="Close"[hidden]="(is_login==0)">
+          <i class="close"></i>
+          <span>Выйти</span></a>
+      </li>
   </ul>
-      
+
+
   </div>
   <!-- Page Content -->
   <div class="col"  id="page-content-wrapper">
@@ -55,7 +61,7 @@
         <div [hidden]="!authenticated()">
           <p>Login to see your greeting</p>
         </div>
-    </div> 
+    </div>
   </div>
 </div>
 
@@ -97,6 +103,6 @@
     </ul>
     </div>
   </div>
-</div>
+
 
 

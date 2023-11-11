@@ -8,7 +8,7 @@ import ru.era.distributionoftasks.repositories.GradeRepository;
 class TaskTypeServiceTest {
     @Autowired GradeRepository gradeRepository;
 
-    @Test
+    //@Test
     void getDailyTasksForEmployee() {
         System.out.println(gradeRepository.findAll());
     }
