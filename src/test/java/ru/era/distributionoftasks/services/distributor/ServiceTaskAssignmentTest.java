@@ -5,7 +5,6 @@ import ru.era.distributionoftasks.services.distributor.entity.*;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 class ServiceTaskAssignmentTest {
     @Test
@@ -14,14 +13,18 @@ class ServiceTaskAssignmentTest {
         List<Office> officeList = getOffices();
         AddressTimesMatrix addressTimesMatrix = getTimeMatrixAndFillAddressIds(agencyPointList, officeList);
         ServiceTaskAssigment serviceTaskAssigment = new ServiceTaskAssigment(addressTimesMatrix, agencyPointList, officeList);
-        List<EmployeeRoute>  employeeRouteList = serviceTaskAssigment.calcEmployeeRoutes();
-//        System.out.println(employeeRouteList);
-        for(EmployeeRoute employeeRoute : employeeRouteList) {
-            for(AgencyPoint agencyPoint : employeeRoute.getAgencyPointList()) {
-                try {
-                    System.out.println(agencyPoint.getDatabaseId());
-                } catch (Exception e) {
-
+        List<Office>  offices = serviceTaskAssigment.calcEmployeeRoutes();
+        for(Office office : offices) {
+            System.out.println("Office: " + office.getId());
+            for(AlgEmployee algEmployee : office.getEmployees()) {
+                System.out.println("\tEmployee: " + algEmployee.getDatabaseId());
+                List<Route> routes = office.getEmployeeRoutesVariantsMap().get(algEmployee);
+                for(Route route : routes) {
+                    route.updateProfit();
+                    System.out.println(
+                            "\t\tКол-во задач: " + route.getAgencyPointList().size() +
+                            "\tПрофит: " + route.getProfit() +
+                            "\tЗатраченное время: " + route.getTime());
                 }
             }
         }
@@ -45,27 +48,27 @@ class ServiceTaskAssignmentTest {
                 new AgencyPoint(14,"вчера",false,0,5,0),
                 new AgencyPoint(15,"давно",true,7,14,3),
                 new AgencyPoint(16,"вчера",false,0,0,0),
-                new AgencyPoint(19,"давно",true,6,32,9),
-                new AgencyPoint(20,"давно",true,4,35,15),
-                new AgencyPoint(21,"вчера",false,0,6,0),
-                new AgencyPoint(22,"давно",true,6,18,6),
-                new AgencyPoint(23,"давно",true,0,15,5),
-                new AgencyPoint(24,"давно",true,2,96,20),
-                new AgencyPoint(25,"вчера",false,0,0,0),
-                new AgencyPoint(26,"давно",true,0,16,0),
-                new AgencyPoint(27,"давно",true,3,43,29),
-                new AgencyPoint(28,"давно",true,3,13,4),
-                new AgencyPoint(29,"давно",true,6,19,5),
-                new AgencyPoint(30,"давно",true,16,45,30),
-                new AgencyPoint(31,"давно",true,1,19,4),
-                new AgencyPoint(32,"давно",true,3,20,9),
-                new AgencyPoint(33,"вчера",false,0,19,0),
-                new AgencyPoint(34,"давно",true,76,82,72),
-                new AgencyPoint(35,"давно",true,23,32,21),
-                new AgencyPoint(36,"давно",true,4,19,4),
-                new AgencyPoint(37,"давно",true,9,10,7),
-                new AgencyPoint(38,"вчера",false,0,13,0),
-                new AgencyPoint(39,"вчера",false,0,10,0)
+                new AgencyPoint(19,"давно",true,6,32,9)
+//                new AgencyPoint(20,"давно",true,4,35,15),
+//                new AgencyPoint(21,"вчера",false,0,6,0),
+//                new AgencyPoint(22,"давно",true,6,18,6),
+//                new AgencyPoint(23,"давно",true,0,15,5),
+//                new AgencyPoint(24,"давно",true,2,96,20),
+//                new AgencyPoint(25,"вчера",false,0,0,0),
+//                new AgencyPoint(26,"давно",true,0,16,0),
+//                new AgencyPoint(27,"давно",true,3,43,29),
+//                new AgencyPoint(28,"давно",true,3,13,4),
+//                new AgencyPoint(29,"давно",true,6,19,5),
+//                new AgencyPoint(30,"давно",true,16,45,30),
+//                new AgencyPoint(31,"давно",true,1,19,4),
+//                new AgencyPoint(32,"давно",true,3,20,9),
+//                new AgencyPoint(33,"вчера",false,0,19,0),
+//                new AgencyPoint(34,"давно",true,76,82,72),
+//                new AgencyPoint(35,"давно",true,23,32,21),
+//                new AgencyPoint(36,"давно",true,4,19,4),
+//                new AgencyPoint(37,"давно",true,9,10,7),
+//                new AgencyPoint(38,"вчера",false,0,13,0),
+//                new AgencyPoint(39,"вчера",false,0,10,0)
 //                new AgencyPoint(40,"давно",true,6,30,14)
 //                new AgencyPoint(41,"давно",true,6,65,12),
 //                new AgencyPoint(42,"давно",true,3,20,4)

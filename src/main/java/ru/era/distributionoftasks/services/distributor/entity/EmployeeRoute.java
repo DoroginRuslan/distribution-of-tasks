@@ -9,6 +9,5 @@ import java.util.List;
 @AllArgsConstructor
 public class EmployeeRoute {
     private final AlgEmployee algEmployee;
-    private final List<AgencyPoint> agencyPointList;
-
+    private final List<Route> routes;
 }

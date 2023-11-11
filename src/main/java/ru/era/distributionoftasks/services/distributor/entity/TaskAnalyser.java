@@ -8,8 +8,9 @@ import java.util.stream.Stream;
 
 import static ru.era.distributionoftasks.services.distributor.entity.Rang.*;
 
+// TODO: 11.11.2023 Поправить стоимость задач
 public class TaskAnalyser {
-    static Optional<Task> calcTaskForAgencyPoint(AgencyPoint agencyPoint) {
+    public static Optional<Task> calcTaskForAgencyPoint(AgencyPoint agencyPoint) {
         return Stream.of(
                         checkByStimulateIssuance(agencyPoint),
                         checkByLearningAgent(agencyPoint),
@@ -27,7 +28,8 @@ public class TaskAnalyser {
             return Optional.of(new Task(
                     240,
                     Priority.MAX_PRIORITY,
-                    List.of(SENIOR_RANG)));
+                    List.of(SENIOR_RANG),
+                    10));
         } else {
             return Optional.empty();
         }
@@ -39,7 +41,8 @@ public class TaskAnalyser {
             return Optional.of(new Task(
                     120,
                     Priority.MEDIUM_PRIORITY,
-                    List.of(SENIOR_RANG, MIDDLE_RANG)));
+                    List.of(SENIOR_RANG, MIDDLE_RANG),
+                    4));
         } else {
             return Optional.empty();
         }
@@ -50,7 +53,8 @@ public class TaskAnalyser {
             return Optional.of(new Task(
                     90,
                     Priority.LOW_PRIORITY,
-                    List.of(SENIOR_RANG, MIDDLE_RANG, JUNIOR_RANG)));
+                    List.of(SENIOR_RANG, MIDDLE_RANG, JUNIOR_RANG),
+                    1));
         } else {
             return Optional.empty();
         }
