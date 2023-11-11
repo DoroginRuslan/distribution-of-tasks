@@ -28,8 +28,9 @@ export class EmployeeTrackerComponent implements OnInit {
   is_login:   number; // not login, 1 - manager, 2 - employee
   worker_id: number;
   map: ymaps.Map;
+  geolocation :any;
   paramRoute: ymaps.control.IRoutePanelParameters;
-  //multirout : MultiRoute;
+
   constructor(private employeeService: EmployeeService,
   private taskLogService: TaskLogService,
   private yaGeocoderService: YaGeocoderService,
@@ -58,13 +59,29 @@ export class EmployeeTrackerComponent implements OnInit {
           this.updateCurrentEmployeeLogs();
           });
         }
+    //this.geolocation = ymaps.geolocation;
+
+
   }
+
+
 
   private createMap(): void {
     this.map = new ymaps.Map('map', {
       center: [45.051610, 38.979532],
       zoom: 14
     });
+    if (this.is_login == 2) {
+    ymaps.geolocation
+      .get({
+        provider: 'browser',
+        mapStateAutoApply: true,
+      })
+      .then((result) => {
+        result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
+        this.map.geoObjects.add(result.geoObjects);
+      });
+  }
     console.log(this.points);
   }
   updateRote()

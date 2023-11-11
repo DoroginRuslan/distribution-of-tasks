@@ -30,8 +30,8 @@
             <td>{{ taskLog.id }}</td>
             <td>{{ taskLog.taskType.name }}</td>
             <td>{{ taskLog.bank.address }}</td>
-            <td ><input type="checkbox" [(ngModel)]="taskLogs[rowIndex].completed" [disabled]="(((rowIndex-1>=0)&&(taskLogs[rowIndex-1].completed.toString()=='false'))||((taskLogs[rowIndex+1]!=null)&&(taskLogs[rowIndex+1].completed.toString()=='true')))" (change)="checkValue(rowIndex)" /></td >
-            <td ><input type="text" [(ngModel)]="taskLogs[rowIndex].commentary" (keyup.enter)="checkValueCommentary(rowIndex)" /></td >
+            <td><input type="checkbox" [(ngModel)]="taskLogs[rowIndex].completed" [disabled]="(((rowIndex-1>=0)&&(taskLogs[rowIndex-1].completed.toString()=='false'))||((taskLogs[rowIndex+1]!=null)&&(taskLogs[rowIndex+1].completed.toString()=='true')))" (change)="checkValue(rowIndex)" /></td >
+            <td><input type="text" [(ngModel)]="taskLogs[rowIndex].commentary" (keyup.enter)="checkValueCommentary(rowIndex)" /></td >
           </tr>
           </tbody>
         </table>
