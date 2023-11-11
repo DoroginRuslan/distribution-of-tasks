@@ -5,6 +5,7 @@ import ru.era.distributionoftasks.services.distributor.entity.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 class ServiceTaskAssignmentTest {
     @Test
@@ -13,26 +14,30 @@ class ServiceTaskAssignmentTest {
         List<Office> officeList = getOffices();
         AddressTimesMatrix addressTimesMatrix = getTimeMatrixAndFillAddressIds(agencyPointList, officeList);
         ServiceTaskAssignment serviceTaskAssignment = new ServiceTaskAssignment(addressTimesMatrix, agencyPointList, officeList);
-        List<Office>  offices = serviceTaskAssignment.calcEmployeeRoutes();
-        for(Office office : offices) {
-            System.out.println("OfficeId: " + office.getId());
-            for(AlgEmployee algEmployee : office.getEmployees()) {
-                List<Route> routes = office.getEmployeeRoutesVariantsMap().get(algEmployee);
-                int maxProfit = routes.stream().map(Route::getProfit).max(Integer::compareTo).orElse(0);
-                System.out.println(
-                        "\tEmployeeId: " + algEmployee.getDatabaseId() +
-                        "\tУровень: " + algEmployee.getRang() +
-                        "\tКол-во вариантов: " + office.getEmployeeRoutesVariantsMap().get(algEmployee).size() +
-                        "\tМаксимальный профит: " + maxProfit);
-                for(Route route : routes) {
-//                    route.updateProfit();
-                    System.out.println(
-                            "\t\tКол-во задач: " + route.getAgencyPointList().size() +
-                            "\tПрофит: " + route.getProfit() +
-                            "\tЗатраченное время: " + route.getTime());
-                }
-            }
+        Map<AlgEmployee, Route> results = serviceTaskAssignment.calcEmployeeRoutes();
+        for(var result : results.entrySet()) {
+            System.out.println(result.getKey() + "\t" + result.getValue());
         }
+//        List<Office>  offices = serviceTaskAssignment.calcEmployeeRoutes();
+//        for(Office office : offices) {
+//            System.out.println("OfficeId: " + office.getId());
+//            for(AlgEmployee algEmployee : office.getEmployees()) {
+//                List<Route> routes = office.getEmployeeRoutesVariantsMap().get(algEmployee);
+//                int maxProfit = routes.stream().map(Route::getProfit).max(Integer::compareTo).orElse(0);
+//                System.out.println(
+//                        "\tEmployeeId: " + algEmployee.getDatabaseId() +
+//                        "\tУровень: " + algEmployee.getRang() +
+//                        "\tКол-во вариантов: " + office.getEmployeeRoutesVariantsMap().get(algEmployee).size() +
+//                        "\tМаксимальный профит: " + maxProfit);
+//                for(Route route : routes) {
+////                    route.updateProfit();
+//                    System.out.println(
+//                            "\t\tКол-во задач: " + route.getAgencyPointList().size() +
+//                            "\tПрофит: " + route.getProfit() +
+//                            "\tЗатраченное время: " + route.getTime());
+//                }
+//            }
+//        }
     }
 
     private List<AgencyPoint> getAgencyPointList() {

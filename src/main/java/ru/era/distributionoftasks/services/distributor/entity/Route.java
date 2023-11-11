@@ -103,6 +103,15 @@ public class Route implements Comparable<Route> {
         }
     }
 
+    public boolean isConflict(Route route) {
+        for(AgencyPoint agencyPoint : agencyPointList) {
+            if(route.contains(agencyPoint)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Route{" +

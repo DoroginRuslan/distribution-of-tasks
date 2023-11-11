@@ -18,7 +18,7 @@ public class ServiceTaskAssignment {
     }
 
     // Основной метод для получения маршрутов
-    public List<Office> calcEmployeeRoutes() {
+    public Map<AlgEmployee, Route> calcEmployeeRoutes() {
         for(AgencyPoint agencyPoint : agencyPointList) {
             agencyPoint.setTask(TaskAnalyser.calcTaskForAgencyPoint(agencyPoint).orElse(null));
         }
@@ -28,8 +28,14 @@ public class ServiceTaskAssignment {
                 office.getEmployeeRoutesVariantsMap().put(algEmployee, employeeRoutes);
             }
         }
-
-        return officeList;
+        List<EmployeeRoute> employeeRouteList = new ArrayList<>();
+        for(Office office : officeList) {
+            for(var entries : office.getEmployeeRoutesVariantsMap().entrySet()) {
+                employeeRouteList.add(new EmployeeRoute(entries.getKey(), entries.getValue()));
+            }
+        }
+        return new RoutesAnalyser().removeDuplicate(employeeRouteList);
+//        return officeList;
     }
 
     private List<Route> calcRoutesForEmployee(AlgEmployee algEmployee, Office office) {
