@@ -31,6 +31,10 @@ export class InputComponent {
     this.is_login = true;
     this.inputService.changeWorkerId(Number(this.currentEmployeeId));
   };
+  updateRepo()
+  {
+    this.employeeService.updateRepo().subscribe(data => {});
+  }
 
   ngOnInit() {
       this.employeeService.findAll().subscribe(data => {
