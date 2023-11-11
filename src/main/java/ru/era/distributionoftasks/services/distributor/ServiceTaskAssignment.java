@@ -18,7 +18,7 @@ public class ServiceTaskAssignment {
     }
 
     // Основной метод для получения маршрутов
-    public Map<AlgEmployee, Route> calcEmployeeRoutes() {
+    public List<EmployeeRoutePair> calcEmployeeRoutes() {
         for(AgencyPoint agencyPoint : agencyPointList) {
             agencyPoint.setTask(TaskAnalyser.calcTaskForAgencyPoint(agencyPoint).orElse(null));
         }
@@ -36,14 +36,8 @@ public class ServiceTaskAssignment {
         }
         List<EmployeeRoute> sorted = employeeRouteList.stream().sorted(Comparator.comparingInt(o -> o.getRoutes().size())).toList();
         List<AlgEmployee> employeesWithoutWork = new ArrayList<>();
-        List<Route> routes = getRoutes(sorted, 0, new ArrayList<>(), employeesWithoutWork);
-        System.out.println("Size = " + routes.size());
-//        for(Route route : routes) {
-//            for()
-//        }
-//        return new RoutesAnalyser().removeDuplicate(employeeRouteList);
-//        return officeList;
-        return null;
+        List<EmployeeRoutePair> routes = getRoutes(sorted, 0, new ArrayList<>(), employeesWithoutWork);
+        return routes;
     }
 
     private List<Route> calcRoutesForEmployee(AlgEmployee algEmployee, Office office) {
@@ -80,14 +74,14 @@ public class ServiceTaskAssignment {
         return result;
     }
 
-    private List<Route> getRoutes(List<EmployeeRoute> employeeRouteList, int flowId, List<Route> tail, List<AlgEmployee> employeesWithoutWork) {
+    private List<EmployeeRoutePair> getRoutes(List<EmployeeRoute> employeeRouteList, int flowId, List<EmployeeRoutePair> tail, List<AlgEmployee> employeesWithoutWork) {
         if(flowId == employeeRouteList.size()) {
             return tail;
         } else {
             for(int i = 0; i < employeeRouteList.get(flowId).getRoutes().size(); i++) {
                 Route route = employeeRouteList.get(flowId).getRoutes().get(i);
                 if(checkScheme(tail, route)) {
-                    tail.add(route);
+                    tail.add(new EmployeeRoutePair(employeeRouteList.get(flowId).getAlgEmployee(), route));
                     return getRoutes(employeeRouteList, flowId+1, tail, employeesWithoutWork);
                 }
             }
@@ -101,9 +95,9 @@ public class ServiceTaskAssignment {
                 agencyPoint.getTask().checkAvailableForRank(rang);
     }
 
-    boolean checkScheme(List<Route> routes, Route route) {
-        for(Route r1 : routes) {
-            if(r1.isConflict(route)) {
+    boolean checkScheme(List<EmployeeRoutePair> routes, Route route) {
+        for(EmployeeRoutePair r1 : routes) {
+            if(r1.getRoute().isConflict(route)) {
                 return false;
             }
         }

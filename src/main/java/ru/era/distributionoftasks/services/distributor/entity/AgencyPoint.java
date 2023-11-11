@@ -20,7 +20,7 @@ public class AgencyPoint implements AddressInterface {
     @Setter
     private Task task;
 
-    public AgencyPoint(int databaseId, String pointsConnected, boolean isDelivered, int numberOfDaysOfIssue, int numberOfApproved, int numberOfIssued) {
+    public AgencyPoint(int databaseId, int addressId, String pointsConnected, boolean isDelivered, int numberOfDaysOfIssue, int numberOfApproved, int numberOfIssued) {
         this.databaseId = databaseId;
         //  this.address = address;
         this.pointsConnected = pointsConnected;
