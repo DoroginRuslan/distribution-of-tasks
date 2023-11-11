@@ -25,7 +25,7 @@
         <td>{{ bank.approvedApplicationsNum }}</td>
         <td>{{ bank.issuanceCardsNum }}</td>
         <td>
-          <button class="nav-text" routerLink="/editBank/bank.id"> Изменить </button>
+          <button class="nav-text" routerLink="/editBank/{{bank.id}}"> Изменить </button>
         </td>
         <td>
           <button class="nav-text" (click)="removeBank(bank.id)"> Удалить</button>

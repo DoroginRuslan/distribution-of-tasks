@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../employee-service.service';
 import { Employee } from '../employee';
+import {Grade} from "../grade";
+import {GradeService} from "../grade-service.service";
 
 @Component({
   selector: 'app-employee-edit-form',
@@ -12,16 +14,28 @@ export class EmployeeEditFormComponent implements OnInit{
   employeeId: number;
 
   employee: Employee;
+  grades: Grade[];
 
   constructor(
     private route: ActivatedRoute,
       private router: Router,
-        private employeeService: EmployeeService) {
+        private employeeService: EmployeeService,
+    private gradeService: GradeService
+
+  ) {
+    this.employee = new Employee();
+    this.employee.grade = new Grade();
   }
 
   ngOnInit(){
   this.route.params.subscribe(params => {
     this.employeeId = Number(params['id']);
+    });
+    this.employeeService.find(this.employeeId).subscribe(data => {
+      this.employee = data;
+    });
+    this.gradeService.findAll().subscribe(data => {
+      this.grades = data;
     });
   }
 

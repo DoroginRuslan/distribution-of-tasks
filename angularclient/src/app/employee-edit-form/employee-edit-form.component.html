@@ -1,4 +1,4 @@
-<div class="card my-5">
+<div class="card">
   <div class="card-body">
     <form (ngSubmit)="onSubmit()" #employeeForm="ngForm">
       <div class="form-group">
@@ -10,7 +10,6 @@
                placeholder="Введите ФИО"
                required #fio="ngModel">
       </div>
-      <div [hidden]="!fio.pristine" class="alert alert-danger">Необходимо ввести ФИО</div>
       <div class="form-group">
         <label for="address">Адрес</label>
         <input type="text" [(ngModel)]="employee.address"
@@ -20,25 +19,20 @@
                placeholder="Введите адрес"
                required #address="ngModel">
       </div>
-      <div [hidden]="!address.pristine" class="alert alert-danger">Необходимо ввести адрес</div>
       <div class="form-group">
         <label for="grade">Уровень сотрудника</label>
-        <select name="grade" [(ngModel)]="employee.grade"
+        <select name="grade" [(ngModel)]="employee.grade.id"
                 class="form-control"
                 id="grade"
-                name="grade"
                 placeholder="Выберите уровень сотрудника"
                 required #grade="ngModel">
-          <option value="Джун">Джун</option>
-          <option value="Мидл">Мидл</option>
-          <option value="Сеньор">Сеньор</option>
+          <option *ngFor="let grade of grades" value="{{ grade.id }}">{{ grade.name }}</option>
+          <!--<option *ngFor="let grade of grades" value="{{ grade.id }}">{{ grade.name }}</option>-->
         </select>
       </div>
-      <div [hidden]="!grade.pristine" class="alert alert-danger">Необходимо выбрать уровень сотрудника</div>
 
       <button type="submit" [disabled]="!employeeForm.form.valid"
-              class="btn btn-info">Изменить</button>
+              class="btn btn-info">Добавить</button>
     </form>
   </div>
 </div>
-

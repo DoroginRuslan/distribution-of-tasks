@@ -33,6 +33,9 @@ export class TaskTypeEditFormComponent implements OnInit{
     this.gradeService.findAll().subscribe(data => {
             this.grades = data;
     });
+    this.taskTypeService.find(this.taskTypeId).subscribe(data => {
+      this.taskType = data;
+    });
   }
 
   onSubmit() {

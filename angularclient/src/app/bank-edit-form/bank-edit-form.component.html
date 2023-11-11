@@ -10,8 +10,7 @@
                placeholder="Введите адрес точки"
                required #address="ngModel">
       </div>
-      <div [hidden]="!address.pristine" class="alert alert-danger">Введите адрес точки</div>
-      <div class="form-group">
+            <div class="form-group">
         <label for="registrationDate">Точка зарегистрирована</label>
         <select name="registrationDate" [(ngModel)]="bank.registrationDate"
                 class="form-control"
@@ -19,11 +18,10 @@
                 placeholder="Выберите когда зарегистрирована точка"
                 required #registrationDate="ngModel">
           <option value="Давно">Давно</option>
-          <option value="Недавно">Недавно</option>
+          <option value="Вчера">Вчера</option>
         </select>
       </div>
-      <div [hidden]="!registrationDate.pristine" class="alert alert-danger">Введите когда зарегистрирована точка</div>
-      <div class="form-group">
+            <div class="form-group">
         <label for="materialsDelivered">Материалы доставлены</label>
         <input type="checkbox" [(ngModel)]="bank.materialsDelivered"
                class="form-control"
@@ -32,8 +30,7 @@
                placeholder="Материалы доставлены"
                required #materialsDelivered="ngModel">
       </div>
-      <!--      <div [hidden]="!materialsDelivered.pristine" class="alert alert-danger">Needs to input card materials</div>-->
-      <div class="form-group">
+            <div class="form-group">
         <label for="lastCardIssuanceDays">Последняя карта доставлена</label>
         <input type="number" [(ngModel)]="bank.lastCardIssuanceDays"
                class="form-control"
@@ -42,8 +39,7 @@
                placeholder="Сколько дней назад доставлена последняя карта"
                required #lastCardIssuanceDays="ngModel">
       </div>
-      <div [hidden]="!lastCardIssuanceDays.pristine" class="alert alert-danger">Введите когда доставлена последняя карта</div>
-      <div class="form-group">
+            <div class="form-group">
         <label for="approvedApplicationsNum">Количество одобренных заявок</label>
         <input type="number" [(ngModel)]="bank.approvedApplicationsNum"
                class="form-control"
@@ -52,7 +48,6 @@
                placeholder="Введите количество одобренных заявок"
                required #approvedApplicationsNum="ngModel">
       </div>
-      <div [hidden]="!approvedApplicationsNum.pristine" class="alert alert-danger">Введите количество одобренных заявок</div>
 
       <div class="form-group">
         <label for="issuanceCardsNum">Количество выданных карт</label>
@@ -63,11 +58,9 @@
                placeholder="Введите количество выданных карт"
                required #issuanceCardsNum="ngModel">
       </div>
-      <div [hidden]="!issuanceCardsNum.pristine" class="alert alert-danger">Введите количество выданных карт</div>
 
       <button type="submit" [disabled]="!bankForm.form.valid"
-              class="btn btn-info">Изменить</button>
+              class="btn btn-info">Добавить</button>
     </form>
   </div>
 </div>
-

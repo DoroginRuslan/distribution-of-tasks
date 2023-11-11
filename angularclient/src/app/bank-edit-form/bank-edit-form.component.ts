@@ -24,6 +24,9 @@ export class BankEditFormComponent {
   this.route.params.subscribe(params => {
     this.bankId = Number(params['id']);
     });
+    this.bankService.find(this.bankId).subscribe(data => {
+      this.bank = data;
+    });
   }
 
   onSubmit() {
