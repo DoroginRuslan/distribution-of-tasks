@@ -1,6 +1,7 @@
 <div class="card">
   <div class="card-body">
-    <table class="table table-bordered table-striped">
+    <h4>Точки</h4>
+    <table class="table table-hover table-bordered table-responsive">
       <thead class="thead-dark">
       <tr>
         <th scope="col">#</th>
@@ -16,7 +17,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let bank of banks">
-        <td>{{ bank.id }}</td>
+        <td class="justify-content-center">{{ bank.id }}</td>
         <td>{{ bank.address }}</td>
         <td>{{ bank.registrationDate }}</td>
         <td>{{ bank.materialsDelivered }}</td>
@@ -24,10 +25,10 @@
         <td>{{ bank.approvedApplicationsNum }}</td>
         <td>{{ bank.issuanceCardsNum }}</td>
         <td>
-          <button class="nav-text" routerLink="/editBank/{{bank.id}}"> Изменить </button>
+          <button class="btn btn-info" routerLink="/editBank/{{bank.id}}"> Изменить </button>
         </td>
         <td>
-          <button class="nav-text" (click)="removeBank(bank.id)"> Удалить</button>
+          <button class="btn btn-danger" (click)="removeBank(bank.id)"> Удалить</button>
         </td>
       </tr>
       </tbody>

@@ -9,12 +9,12 @@ export class TaskLogService {
 
   private tasksLogUrl: string;
   private tasksLogForEmployeeUrl: string;
-
+  private formTasksUrl: string;
   constructor(private http: HttpClient) {
     this.tasksLogUrl = 'http://localhost:8080/api/task-logs';
     // fix later!!
-    //this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/employees/1/tasks/current';
     this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/task-logs/daily/employee';
+    this.formTasksUrl = 'input url here';
   }
 
   public findAll(): Observable<TaskLog[]> {
@@ -24,6 +24,10 @@ export class TaskLogService {
 
   public findCurrentForEmployee(id):Observable<TaskLog[]> {
      return this.http.get<TaskLog[]>(this.tasksLogForEmployeeUrl+"/"+id);
+  }
+
+  public formTasks(){
+    return this.http.get<TaskLog[]>(this.formTasksUrl);
   }
 
   public updateStatus(id:string, taskLog: TaskLog){

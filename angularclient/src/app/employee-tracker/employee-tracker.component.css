@@ -1,6 +1,6 @@
 .container {
-  width: 1000px;
-  height: 500px;
+
+  height: 50vh;
 }
 input[type=checkbox]
 {
@@ -11,4 +11,9 @@ input[type=checkbox]
   -o-transform: scale(2); /* Opera */
   transform: scale(2);
   padding: 10px;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
 }

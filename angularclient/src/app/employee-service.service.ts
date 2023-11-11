@@ -9,15 +9,21 @@ import {Bank} from "./bank";
 export class EmployeeService {
 
   private employeesUrl: string;
-
+  private updateRepoUrl: string;
 
   constructor(private http: HttpClient,public input: InputService) {
     this.employeesUrl = 'http://localhost:8080/api/employees';
+    this.updateRepoUrl = 'http://localhost:8080/api/test/prepare-repo';
   }
 
   public find(id): Observable<Employee> {
     return this.http.get<Employee>(this.employeesUrl+'/'+id);
   }
+
+  public updateRepo(){
+    return this.http.get(this.updateRepoUrl);
+  }
+
 
   public findAll(): Observable<Employee[]> {
     return this.http.get<Employee[]>(this.employeesUrl);

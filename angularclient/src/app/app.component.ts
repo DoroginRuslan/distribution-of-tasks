@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { finalize } from "rxjs/operators";
 import { InputService } from './input-service.service';
+//import * as $ from "jquery";
 
 @Component({
   selector: 'app-root',
@@ -44,5 +45,9 @@ export class AppComponent implements OnInit {
     this.input.worker_data$.subscribe(worker_data => {
           this.worker_id = worker_data;
         });
+  }
+
+  MenuButton(){
+    $("#wrapper").toggleClass("toggled");
   }
 }
