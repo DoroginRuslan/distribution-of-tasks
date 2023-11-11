@@ -95,7 +95,7 @@
 				<version>2.4.4</version>
 				<configuration>
 					<version>GCLOUD_CONFIG</version>
-					<projectId>GCLOUD_CONFIG</projectId>
+					<projectId>distribution-of-tasks</projectId>
 				</configuration>
 			</plugin>
 		</plugins>
