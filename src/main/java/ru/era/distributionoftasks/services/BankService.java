@@ -6,6 +6,8 @@ import ru.era.distributionoftasks.entities.Bank;
 import ru.era.distributionoftasks.graphhopper.RoutesService;
 import ru.era.distributionoftasks.graphhopper.jsonobjects.Point;
 import ru.era.distributionoftasks.repositories.BankRepository;
+import ru.era.distributionoftasks.yandexgeocoder.YandexGeocoderService;
+import ru.era.distributionoftasks.yandexgeocoder.GeoPoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,9 @@ public class BankService {
 
     @Autowired
     RoutesService routesService;
+
+    @Autowired
+    YandexGeocoderService yandexGeocoderService;
 
     public List<Bank> getAll() {
         return (List<Bank>) bankRepository.findAll();
@@ -54,9 +59,9 @@ public class BankService {
     private void fillGeoPoint(Bank bank) {
         if(bank.getAddress() != null) {
             try {
-                Point geoPont = routesService.getGeocodeFromAddress(bank.getAddress());
-                bank.setLatitude(geoPont.getLat());
-                bank.setLongitude(geoPont.getLng());
+                GeoPoint geoPont = yandexGeocoderService.sendRequestForConverting(bank.getAddress());
+                bank.setLatitude(Double.toString(geoPont.lat));
+                bank.setLongitude(Double.toString(geoPont.lon));
             } catch (Exception e) {
                 e.printStackTrace();
             }

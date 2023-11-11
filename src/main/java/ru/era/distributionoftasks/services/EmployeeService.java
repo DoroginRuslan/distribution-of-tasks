@@ -6,6 +6,8 @@ import ru.era.distributionoftasks.entities.Employee;
 import ru.era.distributionoftasks.entities.Grade;
 import ru.era.distributionoftasks.repositories.EmployeeRepository;
 import ru.era.distributionoftasks.repositories.GradeRepository;
+import ru.era.distributionoftasks.yandexgeocoder.YandexGeocoderService;
+import ru.era.distributionoftasks.yandexgeocoder.GeoPoint;
 
 import java.util.List;
 
@@ -15,6 +17,8 @@ public class EmployeeService {
     EmployeeRepository employeeRepository;
     @Autowired
     GradeRepository gradeRepository;
+    @Autowired
+    YandexGeocoderService yandexGeocoderService;
 
     public Employee getEmployee(long id) {
         return employeeRepository.findById(id).orElseThrow();
@@ -31,12 +35,22 @@ public class EmployeeService {
     public Employee addEmployer(Employee employee) {
         Grade grade = gradeRepository.findById(employee.getGrade().getId()).orElseThrow();
         employee.setGrade(grade);
+        GeoPoint geoPont = yandexGeocoderService.sendRequestForConverting(employee.getAddress());
+        employee.setLatitude(Double.toString(geoPont.lat));
+        employee.setLongitude(Double.toString(geoPont.lon));
         return employeeRepository.save(employee);
     }
 
     public Employee updateEmployer(Employee employee, Long employeeId) {
         employee.setId(employeeId);
         employee.setGrade(gradeRepository.findById(employee.getGrade().getId()).orElseThrow());
+
+        if (!employee.getAddress().equals(employeeRepository.findById(employeeId).orElseThrow().getAddress()))
+        {
+            GeoPoint geoPont = yandexGeocoderService.sendRequestForConverting(employee.getAddress());
+            employee.setLatitude(Double.toString(geoPont.lat));
+            employee.setLongitude(Double.toString(geoPont.lon));
+        }
         return employeeRepository.save(employee);
     }
 
