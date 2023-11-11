@@ -95,7 +95,7 @@
 				<version>2.5.0</version>
 				<configuration>
 					<version>GCLOUD_CONFIG</version>
-					<projectId>distribution-of-tasks</projectId>
+					<projectId>hackaton-backend</projectId>
 				</configuration>
 			</plugin>
 		</plugins>
