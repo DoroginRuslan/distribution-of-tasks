@@ -1,7 +1,8 @@
 <div class="card">
-  <div class="card-body">
+  <div class="card-body row gap-3">
     <form (ngSubmit)="onSubmit()" #employeeForm="ngForm">
-      <div class="form-group">
+
+      <div class="form-group col">
         <label for="fio">ФИО</label>
         <input type="text" [(ngModel)]="employee.fio"
                class="form-control"
@@ -10,8 +11,10 @@
                placeholder="Введите ФИО"
                required #fio="ngModel">
       </div>
-      <div [hidden]="!fio.pristine" class="alert alert-danger">Необходимо ввести ФИО</div>
-      <div class="form-group">
+      <div [hidden]="!fio.pristine" class="invalid-feedback">Необходимо ввести ФИО</div>
+
+
+      <div class="form-group-col-8-md">
         <label for="address">Адрес</label>
         <input type="text" [(ngModel)]="employee.address"
                class="form-control"
@@ -20,8 +23,9 @@
                placeholder="Введите адрес"
                required #address="ngModel">
               </div>
-      <div [hidden]="!address.pristine" class="alert alert-danger">Необходимо ввести адрес</div>
-      <div class="form-group">
+      <div [hidden]="!address.pristine" class="invalid-feedback">Необходимо ввести адрес</div>
+
+      <div class="form-group-4-md">
         <label for="grade">Уровень сотрудника</label>
         <select name="grade" [(ngModel)]="employee.grade.id"
                 class="form-control"
@@ -34,7 +38,7 @@
       </div>
 
       <button type="submit" [disabled]="!employeeForm.form.valid"
-              class="btn btn-info">Добавить</button>
+              class="btn btn_pro">Добавить</button>
     </form>
   </div>
 </div>
