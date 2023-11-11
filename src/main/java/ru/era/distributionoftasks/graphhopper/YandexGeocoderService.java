@@ -38,8 +38,8 @@ public class YandexGeocoderService {
         }
         GeoObject geoObject = response.getGeoObjects().get(0);
         List<Double> convertedResult = new ArrayList<Double>();
-        convertedResult.add(geoObject.getPoint().lon);
         convertedResult.add(geoObject.getPoint().lat);
+        convertedResult.add(geoObject.getPoint().lon);
         return convertedResult;
     }
 }
