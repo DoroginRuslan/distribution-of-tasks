@@ -92,3 +92,18 @@ body {
     color: #fff;
     background: none;
 }
+
+/* offcanvas-test */
+
+.offcanvas-body.sidebar-nav li a {
+    color: rgb(0, 0, 0);
+    padding-left: 4px;
+    display:flex;
+    text-decoration: none;
+
+
+}
+
+.offcanvas-body {
+    background: rgb(0, 55, 145);
+}
