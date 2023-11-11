@@ -1,68 +1,60 @@
-<nav class="main-menu">
-  <ul class="manager" [hidden]="!(is_login==1)">
-    <li>
-      <a routerLink="/taskLogList">
-        <i class="fa fa-home fa-2x"></i>
-        <span class="nav-text">Эффективность сотрудников</span>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/employeeTracker">
-        <i class="fa fa-home fa-2x"></i>
-        <span class="nav-text">Прогресс сотрудников</span>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/employees">
-        <i class="fa fa-users fa-2x"></i>
-        <span class="nav-text">Сотрудники</span>
-      </a>
-    </li>
+<!-- Header -->
 
-    <li>
-      <a routerLink="/tasksType">
-        <i class="fa fa-book fa-2x"></i>
-        <span class="nav-text">Задачи</span>
-      </a>
-    </li>
-    <li>
-      <a routerLink="/banks">
-        <i class="fa fa-map-marker fa-2x"></i>
-        <span class="nav-text">Точки</span>
-      </a>
-    </li>
-  </ul>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 
-  <ul class="employee" [hidden]="!(is_login==2)">
-    <li>
-      <a routerLink="/employeeTracker">
-        <i class="fa fa-home fa-2x"></i>
-        <span class="nav-text">Прогресс сотрудников</span>
+<div class="containder-fluid header bg-light">
+  <nav class="navbar bg-light px-4 d-flex">
+      <img src="https://kreditkin.su/wp-content/uploads/2022/12/sovcom.png" style="height: 25px;" alt="brand">
+      <a class="d-block d-md-none btn btn-default" (click)="MenuButton()">
+        <i class="bi bi-list" style="color: black;"></i>
       </a>
-    </li>
-  </ul>
+  </nav>
+</div>
 
-  <ul class="logout" [hidden]="(is_login==0)">
-    <li>
-      <a href="#" >
-        <i class="fa fa-power-off fa-2x"></i>
-        <span class="nav-text">Выйти</span>
-      </a>
-    </li>
+<div id="wrapper" class="row">
+  <!-- Sidebar -->
+  <div class="sidebar_nav_area col-1 d-none d-md-block" id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li>
+        <a href="#" routerLink="/taskLogList" class="gap-2">
+          <i class="bi bi-house-fill"></i>
+          <span>Эффективность сотрудников</span></a>
+      </li>
+      <li>
+        <a href="#" routerLink="/employeeTracker" class="gap-2">
+          <i class="bi bi-arrow-up-right-circle-fill"></i>
+          <span>Прогресс сотрудников</span></a>
+      </li>
+      <li>
+        <a href="#" routerLink="/employees" class="gap-2">
+          <i class="bi bi-person-fill"></i>
+          <span>Сотрудники</span></a>
+      </li>
+      <li>
+        <a href="#" routerLink="/tasksType" class="gap-2">
+          <i class="bi bi-clipboard-fill"></i>
+          <span>Задачи</span></a>
+      </li>
+      <li>
+        <a href="#" routerLink="/banks" class="gap-2">
+          <i class="bi bi-geo-alt-fill"></i>
+          <span>Точки</span></a>
+      </li>
   </ul>
-  <ul class="logout" [hidden]="!(is_login==0)">
-    <li>
-      <a routerLink="/input">
-        <i class="fa fa-power-off fa-2x"></i>
-        <span class="nav-text">Войти</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-
-<div class="main_area">
-  <router-outlet></router-outlet>
-  <div [hidden]="!authenticated()">
-    <p>Login to see your greeting</p>
+      
+  </div>
+  <!-- Page Content -->
+  <div class="col"  id="page-content-wrapper">
+    <div class="main_area">
+      <router-outlet></router-outlet>
+        <div [hidden]="!authenticated()">
+          <p>Login to see your greeting</p>
+        </div>
+    </div> 
   </div>
 </div>
+
+
+
+
