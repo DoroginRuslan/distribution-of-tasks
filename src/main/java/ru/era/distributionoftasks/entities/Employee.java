@@ -13,6 +13,8 @@ public class Employee {
     private long id;
     private String fio;
     private String address;
+    private String latitude;
+    private String longitude;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "GRADE_ID")
