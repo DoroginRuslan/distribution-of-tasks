@@ -437,8 +437,6 @@ public class TestApiController {
                 .setApprovedApplicationsNum(0)
                 .setIssuanceCardsNum(0)
         );
-//        clearAll();
-        //return Arrays.asList(senior, middle, junior, employee1, employee2);
 
         return Arrays.asList();
     }
