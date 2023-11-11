@@ -11,7 +11,7 @@ public class Task {
     private final List<Rang> rangList;
     private final int profit;
 
-    private boolean checkAvailableForRank(Rang rang) {
+    public boolean checkAvailableForRank(Rang rang) {
         return rangList.contains(rang);
     }
 }

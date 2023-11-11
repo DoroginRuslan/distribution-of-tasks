@@ -1,12 +1,13 @@
 package ru.era.distributionoftasks.services.distributor.entity;
 
 import lombok.Getter;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class Route {
+public class Route implements Comparable<Route> {
     private final Integer startPoint;
     private final AddressTimesMatrix addressTimesMatrix;
     private final List<AgencyPoint> agencyPointList;
@@ -109,5 +110,15 @@ public class Route {
                 ", agencyPointList=" + agencyPointList +
                 ", time=" + time +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NotNull Route route) {
+        int compProfit = route.getProfit() - this.profit;
+        if(compProfit == 0) {
+            return this.time - route.getTime();
+        } else {
+            return compProfit;
+        }
     }
 }

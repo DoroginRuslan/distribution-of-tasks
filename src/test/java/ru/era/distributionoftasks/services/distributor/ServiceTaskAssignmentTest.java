@@ -12,15 +12,20 @@ class ServiceTaskAssignmentTest {
         List<AgencyPoint> agencyPointList = getAgencyPointList();
         List<Office> officeList = getOffices();
         AddressTimesMatrix addressTimesMatrix = getTimeMatrixAndFillAddressIds(agencyPointList, officeList);
-        ServiceTaskAssigment serviceTaskAssigment = new ServiceTaskAssigment(addressTimesMatrix, agencyPointList, officeList);
-        List<Office>  offices = serviceTaskAssigment.calcEmployeeRoutes();
+        ServiceTaskAssignment serviceTaskAssignment = new ServiceTaskAssignment(addressTimesMatrix, agencyPointList, officeList);
+        List<Office>  offices = serviceTaskAssignment.calcEmployeeRoutes();
         for(Office office : offices) {
-            System.out.println("Office: " + office.getId());
+            System.out.println("OfficeId: " + office.getId());
             for(AlgEmployee algEmployee : office.getEmployees()) {
-                System.out.println("\tEmployee: " + algEmployee.getDatabaseId());
                 List<Route> routes = office.getEmployeeRoutesVariantsMap().get(algEmployee);
+                int maxProfit = routes.stream().map(Route::getProfit).max(Integer::compareTo).orElse(0);
+                System.out.println(
+                        "\tEmployeeId: " + algEmployee.getDatabaseId() +
+                        "\tУровень: " + algEmployee.getRang() +
+                        "\tКол-во вариантов: " + office.getEmployeeRoutesVariantsMap().get(algEmployee).size() +
+                        "\tМаксимальный профит: " + maxProfit);
                 for(Route route : routes) {
-                    route.updateProfit();
+//                    route.updateProfit();
                     System.out.println(
                             "\t\tКол-во задач: " + route.getAgencyPointList().size() +
                             "\tПрофит: " + route.getProfit() +

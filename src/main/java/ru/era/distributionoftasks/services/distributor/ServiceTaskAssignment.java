@@ -6,12 +6,12 @@ import ru.era.distributionoftasks.services.distributor.entity.*;
 import java.util.*;
 
 
-public class ServiceTaskAssigment {
+public class ServiceTaskAssignment {
     private final AddressTimesMatrix addressTimesMatrix;
     private final List<AgencyPoint> agencyPointList;
     private final List<Office> officeList;
 
-    public ServiceTaskAssigment(AddressTimesMatrix addressTimesMatrix, List<AgencyPoint> agencyPointList, List<Office> officeList) {
+    public ServiceTaskAssignment(AddressTimesMatrix addressTimesMatrix, List<AgencyPoint> agencyPointList, List<Office> officeList) {
         this.addressTimesMatrix = addressTimesMatrix;
         this.agencyPointList = agencyPointList;
         this.officeList = officeList;
@@ -24,7 +24,8 @@ public class ServiceTaskAssigment {
         }
         for(Office office : officeList) {
             for(AlgEmployee algEmployee : office.getEmployees()) {
-                office.getEmployeeRoutesVariantsMap().put(algEmployee, calcRoutesForEmployee(algEmployee, office));
+                List<Route> employeeRoutes = calcRoutesForEmployee(algEmployee, office).stream().sorted().toList();
+                office.getEmployeeRoutesVariantsMap().put(algEmployee, employeeRoutes);
             }
         }
 
@@ -32,35 +33,41 @@ public class ServiceTaskAssigment {
     }
 
     private List<Route> calcRoutesForEmployee(AlgEmployee algEmployee, Office office) {
-        return calcRoutes(new Route(office.getAddressId(), addressTimesMatrix), AlgEmployee.WORK_DAY_IN_MINUTES);
+        return calcRoutes(new Route(office.getAddressId(), addressTimesMatrix), AlgEmployee.WORK_DAY_IN_MINUTES,algEmployee.getRang());
     }
 
-    private List<Route> calcRoutes(Route flowRoute, int maxRouteTime) {
+    private List<Route> calcRoutes(Route flowRoute, int maxRouteTime, Rang rang) {
         List<Route> result = new ArrayList<>();
         if(flowRoute.isEmpty()) {
             for(AgencyPoint agencyPoint : agencyPointList) {
-                if(agencyPoint.getTask() == null) continue;
+                if(!checkPointAvailable(agencyPoint, rang)) continue;
                 if(flowRoute.getTimeWithNewPoint(agencyPoint) <= maxRouteTime) {
                     Route route = new Route(flowRoute);
                     route.addAgencyPointToEnd(agencyPoint);
-                    result.addAll(calcRoutes(route, maxRouteTime));
+                    result.addAll(calcRoutes(route, maxRouteTime, rang));
                 }
             }
         } else {
             for(AgencyPoint agencyPoint : agencyPointList) {
-                if (agencyPoint.getTask() == null) continue;
+                if (!checkPointAvailable(agencyPoint, rang)) continue;
                 if(!flowRoute.contains(agencyPoint)) {
                     if(flowRoute.getTimeWithNewPoint(agencyPoint) <= maxRouteTime) {
                         Route route = new Route(flowRoute);
                         route.addAgencyPointToEnd(agencyPoint);
-                        result.addAll(calcRoutes(route, maxRouteTime));
+                        result.addAll(calcRoutes(route, maxRouteTime, rang));
                     }
                 }
             }
             if(result.isEmpty()) {
+                flowRoute.updateProfit();
                 result.add(flowRoute);
             }
         }
         return result;
+    }
+
+    private boolean checkPointAvailable(AgencyPoint agencyPoint, Rang rang) {
+        return agencyPoint.getTask() != null &&
+                agencyPoint.getTask().checkAvailableForRank(rang);
     }
 }
