@@ -22,6 +22,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.message.BasicHeader;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.net.URLEncoder;
 
@@ -421,7 +422,7 @@ class XmlResponseParser {
 
 
 
-public class YaGeocoder {
+class YaGeocoder {
 
     private static final String GEOCODER_HOST = "https://geocode-maps.yandex.ru/1.x/";
     private static final int HTTP_OK = 200;
@@ -477,7 +478,12 @@ public class YandexGeocoderService {
     public List<Double> sendRequestForConverting(String adress)
     {
         YaGeocoder geocoder = new YaGeocoder(new DefaultHttpClient());
-        GeocoderResponse response = geocoder.directGeocode(request);
+        GeocoderResponse response = null;
+        try {
+            response = geocoder.directGeocode(adress);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         GeoObject geoObject = response.getGeoObjects().get(0);
         List<Double> convertedResult = new ArrayList<Double>();
         convertedResult.add(geoObject.getPoint().lon);
