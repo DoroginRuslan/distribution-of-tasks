@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: ru.era.distributionoftasks.DistributionOfTasksApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.751 s - in ru.era.distributionoftasks.DistributionOfTasksApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.992 s - in ru.era.distributionoftasks.DistributionOfTasksApplicationTests
