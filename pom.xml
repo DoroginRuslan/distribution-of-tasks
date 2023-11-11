@@ -95,7 +95,7 @@
 				<version>2.5.0</version>
 				<configuration>
 					<version>GCLOUD_CONFIG</version>
-					<projectId>hackaton-backend</projectId>
+					<projectId>hackaton-backend-404806</projectId>
 				</configuration>
 			</plugin>
 		</plugins>
