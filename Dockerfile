@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-#FROM maven:4.0.0-jdk-17 AS build
+#FROM maven:3.9.2-jdk-17 AS build
 #COPY . .
 #RUN mvn clean package -Pprod -DskipTests
 
