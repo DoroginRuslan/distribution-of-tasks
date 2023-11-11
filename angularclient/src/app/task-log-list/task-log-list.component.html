@@ -10,7 +10,7 @@
     </div>
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
-      <tr>
+      <tr class="align-middle text-center">
         <th scope="col">#</th>
         <th scope="col">ФИО</th>
         <th scope="col">Задача</th>
@@ -21,7 +21,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let taskLog of taskLogs">
+      <tr class="align-middle text-center" *ngFor="let taskLog of taskLogs">
         <td>{{ taskLog.id }}</td>
         <td>{{ taskLog.employee.fio }}</td>
         <td>{{ taskLog.taskType.name }}</td>
