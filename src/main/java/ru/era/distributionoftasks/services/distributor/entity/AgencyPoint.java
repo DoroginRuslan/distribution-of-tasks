@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Objects;
+
 @Getter
 @ToString
 public class AgencyPoint implements AddressInterface {
@@ -26,5 +28,18 @@ public class AgencyPoint implements AddressInterface {
         this.numberOfDaysOfIssue = numberOfDaysOfIssue;
         this.numberOfApproved = numberOfApproved;
         this.numberOfIssued = numberOfIssued;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AgencyPoint that = (AgencyPoint) o;
+        return databaseId == that.databaseId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(databaseId);
     }
 }

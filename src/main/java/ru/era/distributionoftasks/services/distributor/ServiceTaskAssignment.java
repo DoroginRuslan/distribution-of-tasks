@@ -34,8 +34,16 @@ public class ServiceTaskAssignment {
                 employeeRouteList.add(new EmployeeRoute(entries.getKey(), entries.getValue()));
             }
         }
-        return new RoutesAnalyser().removeDuplicate(employeeRouteList);
+        List<EmployeeRoute> sorted = employeeRouteList.stream().sorted(Comparator.comparingInt(o -> o.getRoutes().size())).toList();
+        List<AlgEmployee> employeesWithoutWork = new ArrayList<>();
+        List<Route> routes = getRoutes(sorted, 0, new ArrayList<>(), employeesWithoutWork);
+        System.out.println("Size = " + routes.size());
+//        for(Route route : routes) {
+//            for()
+//        }
+//        return new RoutesAnalyser().removeDuplicate(employeeRouteList);
 //        return officeList;
+        return null;
     }
 
     private List<Route> calcRoutesForEmployee(AlgEmployee algEmployee, Office office) {
@@ -72,8 +80,33 @@ public class ServiceTaskAssignment {
         return result;
     }
 
+    private List<Route> getRoutes(List<EmployeeRoute> employeeRouteList, int flowId, List<Route> tail, List<AlgEmployee> employeesWithoutWork) {
+        if(flowId == employeeRouteList.size()) {
+            return tail;
+        } else {
+            for(int i = 0; i < employeeRouteList.get(flowId).getRoutes().size(); i++) {
+                Route route = employeeRouteList.get(flowId).getRoutes().get(i);
+                if(checkScheme(tail, route)) {
+                    tail.add(route);
+                    return getRoutes(employeeRouteList, flowId+1, tail, employeesWithoutWork);
+                }
+            }
+        }
+        employeesWithoutWork.add(employeeRouteList.get(flowId).getAlgEmployee());
+        return getRoutes(employeeRouteList, flowId+1, tail, employeesWithoutWork);
+    }
+
     private boolean checkPointAvailable(AgencyPoint agencyPoint, Rang rang) {
         return agencyPoint.getTask() != null &&
                 agencyPoint.getTask().checkAvailableForRank(rang);
+    }
+
+    boolean checkScheme(List<Route> routes, Route route) {
+        for(Route r1 : routes) {
+            if(r1.isConflict(route)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
