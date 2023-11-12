@@ -42,6 +42,10 @@ public class TaskTypeService {
         return taskTypeRepository.save(taskType.setId(taskTypeId));
     }
 
+    public TaskType getTaskTypeByName(String name) {
+        return taskTypeRepository.findByName(name);
+    }
+
     public void deleteGrade(Long taskTypeId) {
         taskTypeRepository.deleteById(taskTypeId);
     }

@@ -49,7 +49,7 @@ public class TaskAnalyser {
     }
 
     private static Optional<Task> checkByDeliveryMaterials (AgencyPoint agencyPoint) {
-        if (agencyPoint.getPointsConnected().equals("вчера") || !agencyPoint.isDelivered()) {
+        if (agencyPoint.getPointsConnected().equalsIgnoreCase("ВЧЕРА") || !agencyPoint.isDelivered()) {
             return Optional.of(new Task(
                     90,
                     Priority.LOW_PRIORITY,
