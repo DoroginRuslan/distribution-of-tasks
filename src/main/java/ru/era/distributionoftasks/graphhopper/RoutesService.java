@@ -19,12 +19,12 @@ import java.util.List;
 @Service
 public class RoutesService {
 
-    @Value("${graphhopper.key}")
-    private String graphhopperApiKey;
-    @Value("${graphhopper.geocode}")
+//    @Value("${graphhopper.key}")
+    private String graphhopperApiKey = "b2d8183e-d8e3-4540-91f5-0cb44d19c827";
+//    @Value("${graphhopper.geocode}")
     private String geocodeUrl;
     @Value("${graphhopper.matrix}")
-    private String matrixRul;
+    private String matrixRul = "https://graphhopper.com/api/1/matrix";
     private final ObjectMapper objectMapper;
     private final OkHttpClient client;
 
@@ -34,7 +34,7 @@ public class RoutesService {
         client = new OkHttpClient();
     }
 
-    // TODO: 10.11.2023 Некорректно работает с некоторыми адресами
+    // 10.11.2023 Некорректно работает с некоторыми адресами
     public Point getGeocodeFromAddress(String address) {
         GeocodeAnswer geocodeAnswer = null;
         try {
