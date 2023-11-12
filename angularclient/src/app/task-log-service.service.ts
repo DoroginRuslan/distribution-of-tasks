@@ -11,10 +11,10 @@ export class TaskLogService {
   private tasksLogForEmployeeUrl: string;
   private formTasksUrl: string;
   constructor(private http: HttpClient) {
-    this.tasksLogUrl = 'https://distribution-of-tasks.onrender.com/api/task-logs';
+    this.tasksLogUrl = 'http://158.160.113.41:8080/api/task-logs';
     // fix later!!
-    this.tasksLogForEmployeeUrl = 'https://distribution-of-tasks.onrender.com/api/task-logs/daily/employee';
-    this.formTasksUrl = 'https://distribution-of-tasks.onrender.com/api/task-logs/daily/distribute';
+    this.tasksLogForEmployeeUrl = 'http://158.160.113.41:8080/api/task-logs/daily/employee';
+    this.formTasksUrl = 'http://158.160.113.41:8080/api/task-logs/daily/distribute';
   }
 
   public findAll(): Observable<TaskLog[]> {

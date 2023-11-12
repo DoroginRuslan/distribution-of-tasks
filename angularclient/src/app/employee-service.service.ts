@@ -12,8 +12,8 @@ export class EmployeeService {
   private updateRepoUrl: string;
 
   constructor(private http: HttpClient,public input: InputService) {
-    this.employeesUrl = 'https://distribution-of-tasks.onrender.com/api/employees';
-    this.updateRepoUrl = 'https://distribution-of-tasks.onrender.com/api/test/prepare-repo';
+    this.employeesUrl = 'http://158.160.113.41:8080/api/employees';
+    this.updateRepoUrl = 'http://158.160.113.41:8080/api/test/prepare-repo';
   }
 
   public find(id): Observable<Employee> {
