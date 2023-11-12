@@ -14,7 +14,7 @@ export class TaskLogService {
     this.tasksLogUrl = 'https://distribution-of-tasks.onrender.com/api/task-logs';
     // fix later!!
     this.tasksLogForEmployeeUrl = 'https://distribution-of-tasks.onrender.com/api/task-logs/daily/employee';
-    this.formTasksUrl = 'input url here';
+    this.formTasksUrl = 'https://distribution-of-tasks.onrender.com/api/task-logs/daily/distribute';
   }
 
   public findAll(): Observable<TaskLog[]> {

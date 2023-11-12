@@ -4,6 +4,7 @@ import { Employee } from '../employee';
 import { EmployeeService } from '../employee-service.service';
 import { TaskLog } from '../task-log';
 import { TaskLogService } from '../task-log-service.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-input',
@@ -11,7 +12,7 @@ import { TaskLogService } from '../task-log-service.service';
   styleUrls: ['./input.component.css']
 })
 export class InputComponent {
-  constructor(private inputService: InputService,private employeeService: EmployeeService, private taskLogService: TaskLogService) {
+  constructor(private inputService: InputService,private employeeService: EmployeeService, private taskLogService: TaskLogService, private router: Router,) {
   this.is_login = false;
   }
 
@@ -24,12 +25,14 @@ export class InputComponent {
     this.inputService.changeValueOne();
     this.is_login = true;
     this.inputService.changeWorkerId(Number(this.currentEmployeeId));
+    this.router.navigate(["employeeTracker"]);
   };
 
   onEmployeeBtnClick() {
     this.inputService.changeValueTwo();
     this.is_login = true;
     this.inputService.changeWorkerId(Number(this.currentEmployeeId));
+    this.router.navigate(["employeeTracker"]);
   };
   updateRepo()
   {

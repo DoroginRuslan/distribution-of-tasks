@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AppService } from './app-service.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -26,13 +26,18 @@ export class AppComponent implements OnInit {
   authenticated(){
     return this.app.authenticated;
   }
+  // @HostListener('window:popstate', ['$event'])
+  // onPopState(event) {
+  //   this.router.navigate(['input']);
+  // }
+
   ngOnInit() {
     this.input.data$.subscribe(data => {
       this.is_login = data;
     });
     this.input.worker_data$.subscribe(worker_data => {
           this.worker_id = worker_data;
-        });
+    });
   }
 
   // MenuButton(){
