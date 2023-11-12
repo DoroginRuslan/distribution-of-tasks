@@ -72,10 +72,10 @@ public class DistributorConnector {
         ServiceTaskAssignment serviceTaskAssignment = new ServiceTaskAssignment(addressTimeMatrix, agencyPointList, offices);
         List<EmployeeRoutePair> result = serviceTaskAssignment.calcEmployeeRoutes();
         List<TaskLog> taskLogList = new ArrayList<>();
-        Map<Rang, TaskType> stringTaskTypeMap = new HashMap<>();
-        stringTaskTypeMap.put(Rang.SENIOR_RANG, taskTypeService.getTaskTypeByName("Выезд на точку для стимулирования выдач"));
-        stringTaskTypeMap.put(Rang.MIDDLE_RANG, taskTypeService.getTaskTypeByName("Обучение агента"));
-        stringTaskTypeMap.put(Rang.JUNIOR_RANG, taskTypeService.getTaskTypeByName("Доставка карт и материалов"));
+        Map<Priority, TaskType> stringTaskTypeMap = new HashMap<>();
+        stringTaskTypeMap.put(Priority.MAX_PRIORITY, taskTypeService.getTaskTypeByName("Выезд на точку для стимулирования выдач"));
+        stringTaskTypeMap.put(Priority.MEDIUM_PRIORITY, taskTypeService.getTaskTypeByName("Обучение агента"));
+        stringTaskTypeMap.put(Priority.LOW_PRIORITY, taskTypeService.getTaskTypeByName("Доставка карт и материалов"));
         for(EmployeeRoutePair employeeRoutePair : result) {
             for(AgencyPoint agencyPoint : employeeRoutePair.getRoute().getAgencyPointList()) {
                 TaskLog taskLog = new TaskLog()
