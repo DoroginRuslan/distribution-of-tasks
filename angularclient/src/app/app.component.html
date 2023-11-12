@@ -9,8 +9,8 @@
         <i class="bi bi-list" style="color: black;"></i>
       </a> -->
 
-      <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-        <i class="bi bi-list" style="color: black;"></i>
+      <button class="btn btn_pro d-md-none d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+        <i class="bi bi-list" style="color: rgb(255, 255, 255);"></i>
       </button>
 
   </nav>
@@ -18,8 +18,8 @@
 
 <div id="wrapper" class="row">
   <!-- Sidebar -->
-  <div class="sidebar_nav_area col-1 d-none d-md-block" id="sidebar-wrapper">
-    <ul class="sidebar-nav">
+  <div class="sidebar_nav_area d-none d-md-block" id="sidebar-wrapper">
+    <ul class="sidebar-nav list-group" >
       <li>
         <a href="#" routerLink="/taskLogList" class="gap-2" [hidden]="!(is_login==1)">
           <i class="bi bi-house-fill"></i>
@@ -50,8 +50,7 @@
           <i class="close"></i>
           <span>Выйти</span></a>
       </li>
-  </ul>
-
+    </ul>
 
   </div>
   <!-- Page Content -->
@@ -69,40 +68,45 @@
 
 <div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="staticBackdropLabel">Меню</h5>
+    <img src="https://kreditkin.su/wp-content/uploads/2022/12/sovcom.png" style="height: 25px; padding-left: 7px;" alt="brand">
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
   </div>
   <div class="offcanvas-body">
     <div>
       <ul class="sidebar-nav">
         <li>
-          <a href="#" routerLink="/taskLogList" class="gap-2">
+          <a href="#" routerLink="/taskLogList" class="gap-2" data-bs-dismiss="offcanvas"  [hidden]="!(is_login==1)">
             <i class="bi bi-house-fill"></i>
             <span>Эффективность сотрудников</span></a>
         </li>
         <li>
-          <a href="#" routerLink="/employeeTracker" class="gap-2">
+          <a href="#" routerLink="/employeeTracker" class="gap-2" data-bs-dismiss="offcanvas" >
             <i class="bi bi-arrow-up-right-circle-fill"></i>
             <span>Прогресс сотрудников</span></a>
         </li>
         <li>
-          <a href="#" routerLink="/employees" class="gap-2">
+          <a href="#" routerLink="/employees" class="gap-2" data-bs-dismiss="offcanvas"  [hidden]="!(is_login==1)">
             <i class="bi bi-person-fill"></i>
             <span>Сотрудники</span></a>
         </li>
         <li>
-          <a href="#" routerLink="/tasksType" class="gap-2">
+          <a href="#" routerLink="/tasksType" class="gap-2" data-bs-dismiss="offcanvas" [hidden]="!(is_login==1)">
             <i class="bi bi-clipboard-fill"></i>
             <span>Задачи</span></a>
         </li>
         <li>
-          <a href="#" routerLink="/banks" class="gap-2">
+          <a href="#" routerLink="/banks" class="gap-2" data-bs-dismiss="offcanvas"  [hidden]="!(is_login==1)">
             <i class="bi bi-geo-alt-fill"></i>
             <span>Точки</span></a>
+        </li>
+        <li>
+          <a href="#" class="gap-2" aria-label="Close"[hidden]="(is_login==0)">
+            <i class="close"></i>
+            <span>Выйти</span></a>
         </li>
     </ul>
     </div>
   </div>
-
+</div>
 
 

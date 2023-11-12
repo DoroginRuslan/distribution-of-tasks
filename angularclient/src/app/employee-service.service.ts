@@ -12,8 +12,8 @@ export class EmployeeService {
   private updateRepoUrl: string;
 
   constructor(private http: HttpClient,public input: InputService) {
-    this.employeesUrl = 'http://localhost:8080/api/employees';
-    this.updateRepoUrl = 'http://localhost:8080/api/test/prepare-repo';
+    this.employeesUrl = 'http://158.160.113.41:8080/api/employees';
+    this.updateRepoUrl = 'http://158.160.113.41:8080/api/test/prepare-repo';
   }
 
   public find(id): Observable<Employee> {
