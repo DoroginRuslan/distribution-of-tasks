@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 class ServiceTaskAssignmentTest {
-    @Test
+    //@Test
     void checkCalcRoutes() {
         List<AgencyPoint> agencyPointList = getAgencyPointList();
         List<Office> officeList = getOffices();

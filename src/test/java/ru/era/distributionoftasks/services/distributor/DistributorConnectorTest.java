@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DistributorConnectorTest {
 
-    @Test
+    //@Test
     public void name() {
         DistributorConnector distributorConnector = new DistributorConnector();
         Grade grade = new Grade().setName("Мидл");

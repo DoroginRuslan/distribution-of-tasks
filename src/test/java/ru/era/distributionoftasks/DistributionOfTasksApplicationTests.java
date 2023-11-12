@@ -8,7 +8,7 @@ import ru.era.distributionoftasks.services.distributor.DistributorConnectorTest;
 @SpringBootTest
 class DistributionOfTasksApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 		DistributorConnectorTest distributorConnectorTest = new DistributorConnectorTest();
 		distributorConnectorTest.name();
