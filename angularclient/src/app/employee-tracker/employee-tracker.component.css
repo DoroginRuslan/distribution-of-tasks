@@ -17,3 +17,8 @@ input {
   width: 100%;
   box-sizing: border-box;
 }
+
+.table-responsive {
+  margin-top: 5px;
+  padding: 0px;
+}

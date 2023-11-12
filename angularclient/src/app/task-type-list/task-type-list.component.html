@@ -1,10 +1,10 @@
 <div class="card">
-  <div class="card-body">
+  <div class="card-body table-responsive">
     <h4>Задачи</h4>
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered  table-striped">
 
       <thead class="thead-dark" >
-      <tr>
+      <tr class="align-middle text-center">
         <th scope="col">#</th>
         <th scope="col">Название</th>
         <th scope="col">Приоритет</th>
@@ -16,7 +16,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let taskType of tasksType">
+      <tr class="align-middle text-center" *ngFor="let taskType of tasksType">
         <td>{{ taskType.id }}</td>
         <td>{{ taskType.name }}</td>
         <td>{{ taskType.priority }}</td>
@@ -24,16 +24,16 @@
         <td>{{ taskType.condition1 }}</td>
         <td>{{ taskType.condition2 }}</td>
         <td>
-          <button class="btn btn-info" routerLink="/editTaskType/{{taskType.id}}">Изменить</button>
+          <button class="btn btn_pro" routerLink="/editTaskType/{{taskType.id}}">Изменить</button>
         </td>
         <td>
-          <button class="btn btn-danger" (click)="removeTaskType(taskType.id)"> Удалить</button>
+          <button class="btn btn_base" (click)="removeTaskType(taskType.id)"> Удалить</button>
         </td>
       </tr>
       </tbody>
     </table>
-    <a routerLink="/addTaskType">
-      <span class="nav-text">Добавить тип задач</span>
-    </a>
+    <div class="add_task_button">
+      <button class="btn btn_pro" routerLink="/addTaskType"><span class="nav-text">Добавить тип задач</span></button>
+    </div>
   </div>
 </div>

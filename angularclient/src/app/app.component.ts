@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AppService } from './app-service.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -18,18 +18,6 @@ export class AppComponent implements OnInit {
   worker_id : number;
 
   constructor(private app: AppService, private http: HttpClient, private router: Router, private input : InputService) {
-//         this.app.authenticate(undefined, undefined);
-//         this.title = 'Spring Boot - Angular Application';
-//         this.is_login = 0;
-//         this.worker_id = -1;
-//       }
-//       logout() {
-//         this.http.post('logout', {}).pipe(
-//             finalize(() => {
-//             this.app.authenticated = false;
-//             this.is_login = 0;
-//             this.router.navigateByUrl('/login');
-//         })).subscribe();
       if (this.is_login != 1 && this.is_login != 2) {
           router.navigate(['input']);
 
@@ -38,16 +26,21 @@ export class AppComponent implements OnInit {
   authenticated(){
     return this.app.authenticated;
   }
+  // @HostListener('window:popstate', ['$event'])
+  // onPopState(event) {
+  //   this.router.navigate(['input']);
+  // }
+
   ngOnInit() {
     this.input.data$.subscribe(data => {
       this.is_login = data;
     });
     this.input.worker_data$.subscribe(worker_data => {
           this.worker_id = worker_data;
-        });
+    });
   }
 
-  MenuButton(){
-    $("#wrapper").toggleClass("toggled");
-  }
+  // MenuButton(){
+  //   $("#wrapper").toggleClass("toggled");
+  // }
 }

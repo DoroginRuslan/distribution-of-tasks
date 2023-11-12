@@ -1,4 +1,4 @@
-<div class="card my-5">
+<div class="card">
   <div class="card-body">
     <form (ngSubmit)="onSubmit()" #taskTypeForm="ngForm">
       <div class="form-group">
@@ -10,7 +10,7 @@
                placeholder="Введите название"
                required #name="ngModel">
       </div>
-      <div [hidden]="!name.pristine" class="alert alert-danger">Введите название</div>
+<!--      <div [hidden]="!name.pristine" class="alert alert-danger">Введите название</div>-->
       <div class="form-group">
         <label for="priority">Приоритет</label>
         <select [(ngModel)]="taskType.priority"
@@ -35,7 +35,7 @@
           <option *ngFor="let grade of grades" value="{{ grade.id }}">{{ grade.name }}</option>
         </select>
       </div>
-      <div [hidden]="!priority.pristine" class="alert alert-danger">Выберите уровень сотрудника</div>
+<!--      <div [hidden]="!priority.pristine" class="alert alert-danger">Выберите уровень сотрудника</div>-->
       <div class="form-group">
         <label for="timeReq">Требуемое время</label>
         <input type="time" [(ngModel)]="taskType.timeReq"
@@ -45,7 +45,7 @@
                placeholder="Введите требуемое время"
                required #timeReq="ngModel">
       </div>
-      <div [hidden]="!timeReq.pristine" class="alert alert-danger">Введите требуемое время</div>
+<!--      <div [hidden]="!timeReq.pristine" class="alert alert-danger">Введите требуемое время</div>-->
       <div class="form-group">
         <label for="condition1">Условие назначения</label>
         <input type="text" [(ngModel)]="taskType.condition1"
@@ -55,7 +55,7 @@
                placeholder="Введите условие назначения"
                required #condition1="ngModel">
       </div>
-      <div [hidden]="!condition1.pristine" class="alert alert-danger">Введите условие назначения</div>
+<!--      <div [hidden]="!condition1.pristine" class="alert alert-danger">Введите условие назначения</div>-->
       <div class="form-group">
         <label for="condition2">Условие назначения</label>
         <input type="text" [(ngModel)]="taskType.condition2"
@@ -65,10 +65,10 @@
                placeholder="Введите условие назначения"
                required #condition2="ngModel">
       </div>
-      <div [hidden]="!condition2.pristine" class="alert alert-danger">Введите условие назначения</div>
+<!--      <div [hidden]="!condition2.pristine" class="alert alert-danger">Введите условие назначения</div>-->
 
       <button type="submit" [disabled]="!taskTypeForm.form.valid"
-              class="btn btn-info">Добавить</button>
+              class="btn btn_pro">Добавить</button>
     </form>
   </div>
 </div>

@@ -1,8 +1,8 @@
 <div class="card">
-  <div class="card-body">
-    <table class="table table-bordered table-striped">
+  <div class="card-body table-responsive">
+    <table class="table  table-bordered table-striped">
       <thead class="thead-dark">
-      <tr>
+      <tr class="align-middle text-center">
         <th scope="col">#</th>
         <th scope="col">ФИО</th>
         <th scope="col">Адрес</th>
@@ -12,22 +12,22 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let employee of employees">
+      <tr class="align-middle text-center" *ngFor="let employee of employees">
         <td>{{ employee.id }}</td>
         <td>{{ employee.fio }}</td>
         <td>{{ employee.address }}</td>
         <td>{{ employee.grade.name }}</td>
         <td>
-          <button class="btn btn-info" routerLink="/editemployee/employee.id">Изменить</button>
+          <button class="btn btn_pro" routerLink="/editemployee/{{employee.id}}">Изменить</button>
         </td>
         <td>
-          <button class="btn btn-danger" (click)="removeEmployee(employee.id)"> Удалить</button>
+          <button class="btn btn_base" (click)="removeEmployee(employee.id)"> Удалить</button>
         </td>
       </tr>
       </tbody>
     </table>
-    <a routerLink="/addemployee">
-      <span class="nav-text">Добавить сотрудника</span>
-    </a>
+    <div class="add_task_button">
+      <button class="btn btn_pro" routerLink="/addemployee"><span class="nav-text">Добавить сотрудника</span></button>
+    </div>
   </div>
 </div>
