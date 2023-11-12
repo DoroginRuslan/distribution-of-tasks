@@ -10,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import ru.era.distributionoftasks.entities.*;
 import ru.era.distributionoftasks.repositories.*;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -109,7 +108,7 @@ public class HelloWorldController {
     public String getTaskLog() {
         return getDataFromRepoByLines(taskLogRepository);
     }
-
+    
     private static String getDataFromRepoByLines(CrudRepository<?, ?> repo) {
         StringBuilder sb = new StringBuilder();
         for(Object o : repo.findAll()) {

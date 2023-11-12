@@ -22,4 +22,6 @@ public class Bank {
     private int lastCardIssuanceDays;
     private int approvedApplicationsNum;
     private int issuanceCardsNum;
+    private String latitude;
+    private String longitude;
 }

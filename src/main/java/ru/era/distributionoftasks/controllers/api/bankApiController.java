@@ -20,8 +20,13 @@ public class bankApiController {
     }
 
     @PostMapping("")
-    public Bank getBank(@RequestBody Bank bank) {
+    public Bank addBank(@RequestBody Bank bank) {
         return bankService.addBank(bank);
+    }
+
+    @PostMapping("/list")
+    public List<Bank> addBankList(@RequestBody List<Bank> banks) {
+        return bankService.addBankList(banks);
     }
 
     @PutMapping("")
