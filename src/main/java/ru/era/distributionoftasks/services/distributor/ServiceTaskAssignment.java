@@ -41,7 +41,7 @@ public class ServiceTaskAssignment {
     }
 
     private List<Route> calcRoutesForEmployee(AlgEmployee algEmployee, Office office) {
-        return calcRoutes(new Route(office.getAddressId(), addressTimesMatrix), AlgEmployee.WORK_DAY_IN_MINUTES,algEmployee.getRang());
+        return calcRoutes(new Route(office.getAddressId(), addressTimesMatrix), AlgEmployee.WORK_DAY_IN_MINUTES, algEmployee.getRang());
     }
 
     private List<Route> calcRoutes(Route flowRoute, int maxRouteTime, Rang rang) {
