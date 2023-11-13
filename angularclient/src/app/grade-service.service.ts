@@ -8,7 +8,7 @@ export class GradeService {
   private gradeUrl: string;
 
    constructor(private http: HttpClient) {
-       this.gradeUrl = 'https://158.160.113.41:8080/api/grades';
+       this.gradeUrl = 'http://localhost:8080/api/grades';
 //        this.tasksLogForEmployeeUrl = 'http://localhost:8080/api/employees/1/tasks/current';
      }
    public findAll(): Observable<Grade[]> {

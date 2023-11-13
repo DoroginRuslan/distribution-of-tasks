@@ -12,13 +12,13 @@
       <button class="btn btn_pro d-md-none d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
         <i class="bi bi-list" style="color: rgb(255, 255, 255);"></i>
       </button>
-
   </nav>
 </div>
 
-<div id="wrapper" class="row">
+<div id="wrapper">
   <!-- Sidebar -->
-  <div class="sidebar_nav_area d-none d-md-block" id="sidebar-wrapper">
+
+  <div class="sidebar_nav_area d-none d-md-block" id="sidebar-wrapper" >
     <ul class="sidebar-nav list-group" >
       <li>
         <a href="#" routerLink="/taskLogList" class="gap-2" [hidden]="!(is_login==1)">
@@ -47,14 +47,13 @@
       </li>
       <li>
         <a href="#" class="gap-2" aria-label="Close"[hidden]="(is_login==0)">
-          <i class="close"></i>
+          <i class="bi bi-x-circle-fill"></i>
           <span>Выйти</span></a>
       </li>
     </ul>
-
   </div>
   <!-- Page Content -->
-  <div class="col"  id="page-content-wrapper">
+  <div class=""  id="page-content-wrapper">
     <div class="main_area">
       <router-outlet></router-outlet>
         <div [hidden]="!authenticated()">
@@ -62,6 +61,7 @@
         </div>
     </div>
   </div>
+
 </div>
 
 
@@ -99,12 +99,16 @@
             <i class="bi bi-geo-alt-fill"></i>
             <span>Точки</span></a>
         </li>
+    </ul>
+    </div>
+    <div>
+      <ul class="sidebar-nav">
         <li>
           <a href="#" class="gap-2" aria-label="Close"[hidden]="(is_login==0)">
-            <i class="close"></i>
+            <i class="bi bi-x-circle-fill"></i>
             <span>Выйти</span></a>
         </li>
-    </ul>
+      </ul>
     </div>
   </div>
 </div>
