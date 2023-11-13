@@ -4,9 +4,11 @@
       <button class="btn btn_pro" (click)="formTasks()" [disabled]="tasksFormed">
         Сформировать задачи на сегодня
       </button>
+
       <div class="spinner-border" role="status" [hidden]="!loading">
         <span class="visually-hidden" >Loading...</span>
       </div>
+      <p [hidden]="!tasksFormed">Задачи на сегодня сформированы (обновите базу данных для повторного тестирования)</p>
     </div>
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
