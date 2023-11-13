@@ -10,7 +10,7 @@ export class TaskTypeService {
   private tasksTypeUrl: string;
 
   constructor(private http: HttpClient) {
-    this.tasksTypeUrl = 'https://158.160.113.41:8080/api/task-types';
+    this.tasksTypeUrl = 'https://localhost:8080/api/task-types';
   }
 
   public findAll(): Observable<TaskType[]> {
