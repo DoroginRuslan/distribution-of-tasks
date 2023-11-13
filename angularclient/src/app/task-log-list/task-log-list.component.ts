@@ -11,6 +11,7 @@ import { TaskLogService } from '../task-log-service.service';
 export class TaskLogListComponent implements OnInit {
   taskLogs: TaskLog[];
   tasksFormed: boolean = false;
+  loading: boolean = false;
   constructor(private taskLogService: TaskLogService) {
     }
 
@@ -31,7 +32,10 @@ export class TaskLogListComponent implements OnInit {
       });
     }
   formTasks(){
+    this.loading = true;
+    this.tasksFormed = true;
     this.taskLogService.formTasks().subscribe(data => {
+      this.loading = false;
       this.taskLogService.findAll().subscribe(data => {
         this.taskLogs = data;
       });

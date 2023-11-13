@@ -18,8 +18,8 @@ body {
 
 #sidebar-wrapper {
     padding: 0;
-    min-width: 265px;
-    height: 100vh;
+    min-width: 290px;
+    height: 95vh;
     background: rgb(0, 55, 145);
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -29,14 +29,11 @@ body {
 
 
 #page-content-wrapper {
-    padding:20px;
-    height: 100vh;
+
+    height: 95vh;
     width: 100%;
     max-width: 100%;
 }
-
-
-
 
 /* Sidebar Styles */
 

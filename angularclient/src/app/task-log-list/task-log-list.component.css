@@ -2,3 +2,6 @@
 .table-responsive {
   max-height:95vh;
 }
+.spinner-border{
+  color: rgb(0, 55, 145);
+}
