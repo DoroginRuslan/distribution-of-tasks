@@ -58,13 +58,9 @@ public class BankService {
 
     private void fillGeoPoint(Bank bank) {
         if(bank.getAddress() != null) {
-            try {
-                GeoPoint geoPont = yandexGeocoderService.sendRequestForConverting(bank.getAddress());
-                bank.setLatitude(Double.toString(geoPont.lat));
-                bank.setLongitude(Double.toString(geoPont.lon));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            GeoPoint geoPont = yandexGeocoderService.sendRequestForConverting(bank.getAddress());
+            bank.setLatitude(Double.toString(geoPont.lat));
+            bank.setLongitude(Double.toString(geoPont.lon));
         }
     }
 
