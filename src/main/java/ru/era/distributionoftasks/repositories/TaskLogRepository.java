@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface TaskLogRepository extends CrudRepository<TaskLog, Long> {
 
-    @Query("select t from TaskLog t where t.employee = :employee and DATE_TRUNC('day', t.taskSetDate) = :localDate")
+    @Query("select t from TaskLog t where t.employee = :employee and DATE_TRUNC('day', t.taskSetDate) = :localDate order by t.id")
     List<TaskLog> findDateTasksForEmployee(Employee employee, LocalDateTime localDate);
 }

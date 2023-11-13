@@ -8,7 +8,8 @@ body {
 /* Toggle Styles */
 
 #wrapper {
-    padding-left: 0;
+    display: flex;
+    padding: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -30,6 +31,8 @@ body {
 #page-content-wrapper {
     padding:20px;
     height: 100vh;
+    width: 100%;
+    max-width: 100%;
 }
 
 
@@ -107,7 +110,10 @@ body {
 .offcanvas-body {
     background: rgb(0, 55, 145);
     padding: 0;
-    
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
 
 }
 

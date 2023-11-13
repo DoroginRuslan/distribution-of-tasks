@@ -9,7 +9,7 @@ export class BankService {
   private banksUrl: string;
 
   constructor(private http: HttpClient) {
-    this.banksUrl = 'http://158.160.113.41:8080/api/banks';
+    this.banksUrl = 'https://158.160.113.41:8080/api/banks';
   }
 
   public findAll(): Observable<Bank[]> {

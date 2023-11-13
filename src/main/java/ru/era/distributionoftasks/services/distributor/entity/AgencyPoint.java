@@ -22,7 +22,7 @@ public class AgencyPoint implements AddressInterface {
 
     public AgencyPoint(int databaseId, int addressId, String pointsConnected, boolean isDelivered, int numberOfDaysOfIssue, int numberOfApproved, int numberOfIssued) {
         this.databaseId = databaseId;
-        //  this.address = address;
+        this.addressId = addressId;
         this.pointsConnected = pointsConnected;
         this.isDelivered = isDelivered;
         this.numberOfDaysOfIssue = numberOfDaysOfIssue;

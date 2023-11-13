@@ -48,22 +48,35 @@
 <!--      <div [hidden]="!timeReq.pristine" class="alert alert-danger">Введите требуемое время</div>-->
       <div class="form-group">
         <label for="condition1">Условие назначения</label>
-        <input type="text" [(ngModel)]="taskType.condition1"
-               class="form-control"
-               id="condition1"
-               name="condition1"
-               placeholder="Введите условие назначения"
-               required #condition1="ngModel">
+        <select [(ngModel)]="taskType.condition1"
+                class="form-control"
+                id="condition1"
+                name="condition1"
+                placeholder="Введите условие назначения"
+                required #condition1="ngModel">
+          <option value="Дата выдачи последней карты более 7 дней назад, при этом есть одобренные заявки">Дата выдачи последней карты более 7 дней назад, при этом есть одобренные заявки</option>
+          <option value="Отношение кол-ва выданных карт к одобренным заявкам менее 50%, если выдано больше 0 карт">Отношение кол-ва выданных карт к одобренным заявкам менее 50%, если выдано больше 0 карт</option>
+          <option value="Точка подключена вчера">Точка подключена вчера</option>
+          <option value="Дата выдачи последней карты более 14 дней назад">Дата выдачи последней карты более 14 дней назад</option>
+          <option value="Карты и материалы не доставлялись">Карты и материалы не доставлялись</option>
+          <option value=""></option>
+        </select>
       </div>
-<!--      <div [hidden]="!condition1.pristine" class="alert alert-danger">Введите условие назначения</div>-->
       <div class="form-group">
         <label for="condition2">Условие назначения</label>
-        <input type="text" [(ngModel)]="taskType.condition2"
-               class="form-control"
-               id="condition2"
-               name="condition2"
-               placeholder="Введите условие назначения"
-               required #condition2="ngModel">
+        <select [(ngModel)]="taskType.condition2"
+                class="form-control"
+                id="condition2"
+                name="condition2"
+                placeholder="Введите условие назначения"
+                required #condition2="ngModel">
+          <option value="Дата выдачи последней карты более 7 дней назад, при этом есть одобренные заявки">Дата выдачи последней карты более 7 дней назад, при этом есть одобренные заявки</option>
+          <option value="Отношение кол-ва выданных карт к одобренным заявкам менее 50%, если выдано больше 0 карт">Отношение кол-ва выданных карт к одобренным заявкам менее 50%, если выдано больше 0 карт</option>
+          <option value="Точка подключена вчера">Точка подключена вчера</option>
+          <option value="Дата выдачи последней карты более 14 дней назад">Дата выдачи последней карты более 14 дней назад</option>
+          <option value="Карты и материалы не доставлялись">Карты и материалы не доставлялись</option>
+          <option value=""></option>
+        </select>
       </div>
 <!--      <div [hidden]="!condition2.pristine" class="alert alert-danger">Введите условие назначения</div>-->
 

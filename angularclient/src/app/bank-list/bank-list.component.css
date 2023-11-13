@@ -9,3 +9,6 @@
     color: white;
     transition: 0.5s;
 }
+.table-responsive {
+  max-height:95vh;
+}
