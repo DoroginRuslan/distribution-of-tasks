@@ -34,7 +34,7 @@ public class YaGeocoder {
     public GeocoderResponse directGeocode(String geocode) throws IOException {
         String url = GEOCODER_HOST +
 //                "?apikey=" + "61f5780b-ee71-47a9-93a5-6ac5fd5262e2" +
-                "?apikey=" + "5c822cbe-26e7-454a-9e8f-f61626e86dc3" +
+                "?apikey=" + "8ee06d8a-22a3-4e86-a1dd-4bf8f869ef33" +
                 "&geocode=" + URLEncoder.encode(geocode, "UTF-8");
         HttpUriRequest request = new HttpGet(url);
         request.addHeader(refererHeader);
