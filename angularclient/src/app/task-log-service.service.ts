@@ -11,10 +11,10 @@ export class TaskLogService {
   private tasksLogForEmployeeUrl: string;
   private formTasksUrl: string;
   constructor(private http: HttpClient) {
-    this.tasksLogUrl = 'http://158.160.113.41:8080/api/task-logs';
+    this.tasksLogUrl = 'https://localhost:8080/api/task-logs';
     // fix later!!
-    this.tasksLogForEmployeeUrl = 'http://158.160.113.41:8080/api/task-logs/daily/employee';
-    this.formTasksUrl = 'http://158.160.113.41:8080/api/task-logs/daily/distribute';
+    this.tasksLogForEmployeeUrl = 'https://localhost:8080/api/task-logs/daily/employee';
+    this.formTasksUrl = 'https://localhost:8080/api/task-logs/daily/distribute';
   }
 
   public findAll(): Observable<TaskLog[]> {
