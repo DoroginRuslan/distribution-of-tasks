@@ -3,10 +3,29 @@ package ru.era.distributionoftasks.services.distributor;
 import org.junit.jupiter.api.Test;
 import ru.era.distributionoftasks.services.distributor.entity.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static ru.era.distributionoftasks.services.distributor.entity.Priority.*;
 
 class ServiceTaskAssignmentTest {
+    private String getPriority(List<AgencyPoint> agencyPointList) {
+        int high = 0;
+        int medium = 0;
+        int low = 0;
+        for(AgencyPoint agencyPoint : agencyPointList) {
+            if(agencyPoint.getTask() == null) continue;
+            switch (agencyPoint.getTask().getPriority()) {
+                case MAX_PRIORITY -> high++;
+                case MEDIUM_PRIORITY -> medium++;
+                case LOW_PRIORITY -> low++;
+            }
+        }
+        return "\n\t\tВысокий: " + high +
+                "\n\t\tСредний: " + medium +
+                "\n\t\tНизкий: " + low;
+
+    }
     @Test
     void checkCalcRoutes() {
         List<AgencyPoint> agencyPointList = getAgencyPointList();
@@ -14,29 +33,38 @@ class ServiceTaskAssignmentTest {
         AddressTimesMatrix addressTimesMatrix = getTimeMatrixAndFillAddressIds(agencyPointList, officeList);
         ServiceTaskAssignment serviceTaskAssignment = new ServiceTaskAssignment(addressTimesMatrix, agencyPointList, officeList);
         List<EmployeeRoutePair> results = serviceTaskAssignment.calcEmployeeRoutes();
-//        for(var result : results.entrySet()) {
-//            System.out.println(result.getKey() + "\t" + result.getValue());
-//        }
-//        List<Office>  offices = serviceTaskAssignment.calcEmployeeRoutes();
-//        for(Office office : offices) {
-//            System.out.println("OfficeId: " + office.getId());
-//            for(AlgEmployee algEmployee : office.getEmployees()) {
-//                List<Route> routes = office.getEmployeeRoutesVariantsMap().get(algEmployee);
-//                int maxProfit = routes.stream().map(Route::getProfit).max(Integer::compareTo).orElse(0);
-//                System.out.println(
-//                        "\tEmployeeId: " + algEmployee.getDatabaseId() +
-//                        "\tУровень: " + algEmployee.getRang() +
-//                        "\tКол-во вариантов: " + office.getEmployeeRoutesVariantsMap().get(algEmployee).size() +
-//                        "\tМаксимальный профит: " + maxProfit);
-//                for(Route route : routes) {
-////                    route.updateProfit();
-//                    System.out.println(
-//                            "\t\tКол-во задач: " + route.getAgencyPointList().size() +
-//                            "\tПрофит: " + route.getProfit() +
-//                            "\tЗатраченное время: " + route.getTime());
-//                }
-//            }
-//        }
+        List<AgencyPoint> nonDistribute = new ArrayList<>(List.copyOf(agencyPointList));
+        nonDistribute.removeAll(serviceTaskAssignment.getDistributeAgencyPoints());
+        System.out.println(
+                "Общее кол-во задач: " + agencyPointList.size() +
+                        "\nПриоритет:" + getPriority(agencyPointList) +
+                        "\nКол-во распределённых задач: " + serviceTaskAssignment.getDistributeAgencyPoints().size() +
+                        "\nПриоритет: " + getPriority(serviceTaskAssignment.getDistributeAgencyPoints()) +
+                        "\nКол-во не распределённых задач: " + (agencyPointList.size() - serviceTaskAssignment.getDistributeAgencyPoints().size()) +
+                        "\n\tПриоритет: " + getPriority(nonDistribute) +
+                        "\nКол-во сотрудников: " + results.size() +
+                        "\nКол-во сотрудников без задач: " + results.stream()
+                            .map(EmployeeRoutePair::getRoute)
+                            .filter(Route::isEmpty)
+                            .count()
+        );
+        for(var result : results) {
+            AlgEmployee algEmployee = result.getAlgEmployee();
+            Route route = result.getRoute();
+            System.out.println(
+                    "EmployeeId: " + algEmployee.getDatabaseId() +
+                    "\n\tУровень: " + algEmployee.getRang() +
+                    "\n\tДлина маршрута: " +
+                    "\n\tПрофит: " + route.getProfit() +
+                    "\n\tДлительность: " + route.getTime() +
+                    "\n\tКол-во задач: " + route.getAgencyPointList().size() +
+                    "\n\tУровни задач: " + route.getAgencyPointList().stream()
+                            .map(AgencyPoint::getTask)
+                            .map(Task::getPriority)
+                            .map(Objects::toString)
+                            .collect(Collectors.joining(",", "{", "}"))
+            );
+        }
     }
 
     private List<AgencyPoint> getAgencyPointList() {
@@ -58,8 +86,9 @@ class ServiceTaskAssignmentTest {
                 new AgencyPoint(15, 0, "давно", true, 7, 14, 3),
                 new AgencyPoint(16, 0, "вчера", false, 0, 0, 0),
                 new AgencyPoint(19, 0, "давно", true, 6, 32, 9),
-                new AgencyPoint(20, 0, "давно", true, 4, 35, 15),
-                new AgencyPoint(21, 0, "вчера", false, 0, 6, 0),
+                new AgencyPoint(20, 0, "давно", true, 4, 35, 15)
+
+                ,new AgencyPoint(21, 0, "вчера", false, 0, 6, 0),
                 new AgencyPoint(22, 0, "давно", true, 6, 18, 6),
                 new AgencyPoint(23, 0, "давно", true, 0, 15, 5),
                 new AgencyPoint(24, 0, "давно", true, 2, 96, 20),
@@ -79,10 +108,10 @@ class ServiceTaskAssignmentTest {
                 new AgencyPoint(38, 0, "вчера", false, 0, 13, 0),
                 new AgencyPoint(39, 0, "вчера", false, 0, 10, 0)
 
-//                new AgencyPoint(40,"давно",true,6,30,14)
-//                new AgencyPoint(41,"давно",true,6,65,12),
-//                new AgencyPoint(42,"давно",true,3,20,4)
-//                new AgencyPoint(43,"вчера",false,0,0,0)
+                ,new AgencyPoint(40, 0,"давно",true,6,30,14),
+                new AgencyPoint(41, 0,"давно",true,6,65,12),
+                new AgencyPoint(42, 0,"давно",true,3,20,4),
+                new AgencyPoint(43, 0,"вчера",false,0,0,0)
         );
     }
 
@@ -97,10 +126,15 @@ class ServiceTaskAssignmentTest {
 
         AlgEmployee algEmployee31 = new AlgEmployee(7L, Rang.MIDDLE_RANG);
         AlgEmployee algEmployee32 = new AlgEmployee(8L, Rang.JUNIOR_RANG);
+        AlgEmployee algEmployee33 = new AlgEmployee(9L, Rang.SENIOR_RANG);
         return Arrays.asList(
                 new Office(1, Arrays.asList(algEmployee11,algEmployee12,algEmployee13)),
                 new Office(2, Arrays.asList(algEmployee21,algEmployee22,algEmployee23)),
-                new Office(3, Arrays.asList(algEmployee31,algEmployee32))
+                new Office(3, Arrays.asList(
+                        algEmployee31
+                        ,algEmployee32
+//                        ,algEmployee33
+                ))
         );
     }
 
@@ -115,17 +149,19 @@ class ServiceTaskAssignmentTest {
             }
         }
         // random
-//        int[][] times = new int[countAddresses][countAddresses];
-//        for(int i = 0; i < times.length; i++) {
-//            for(int j = 0; j < times[i].length; j++) {
-//                if(i == j) {
-//                    times[i][j] = 0;
-//                } else {
-//                    times[i][j] = new Random().nextInt(maxTimeMinutes-minTimeMinutes) + minTimeMinutes;
-//                }
-//            }
-//        }
-        int[][] times = getRealData();
+        Random random = new Random(12345L);
+        int[][] times = new int[countAddresses][countAddresses];
+        for(int i = 0; i < times.length; i++) {
+            for(int j = 0; j < times[i].length; j++) {
+                if(i == j) {
+                    times[i][j] = 0;
+                } else {
+                    times[i][j] = random.nextInt(maxTimeMinutes-minTimeMinutes) + minTimeMinutes;
+                }
+            }
+        }
+        // real data
+//        int[][] times = getRealData();
         return new AddressTimesMatrix(times);
     }
 

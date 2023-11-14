@@ -1,6 +1,7 @@
 package ru.era.distributionoftasks.services.distributor;
 
 
+import lombok.Getter;
 import ru.era.distributionoftasks.services.distributor.entity.*;
 
 import java.util.*;
@@ -10,11 +11,17 @@ public class ServiceTaskAssignment {
     private final AddressTimesMatrix addressTimesMatrix;
     private final List<AgencyPoint> agencyPointList;
     private final List<Office> officeList;
+    @Getter
+    private final List<AgencyPoint> distributeAgencyPoints;
+    @Getter
+    private final List<AlgEmployee> distributeAlgEmployees;
 
     public ServiceTaskAssignment(AddressTimesMatrix addressTimesMatrix, List<AgencyPoint> agencyPointList, List<Office> officeList) {
         this.addressTimesMatrix = addressTimesMatrix;
         this.agencyPointList = agencyPointList;
         this.officeList = officeList;
+        distributeAgencyPoints = new ArrayList<>();
+        distributeAlgEmployees = new ArrayList<>();
     }
 
     // Основной метод для получения маршрутов
@@ -22,22 +29,84 @@ public class ServiceTaskAssignment {
         for(AgencyPoint agencyPoint : agencyPointList) {
             agencyPoint.setTask(TaskAnalyser.calcTaskForAgencyPoint(agencyPoint).orElse(null));
         }
-        for(Office office : officeList) {
-            for(AlgEmployee algEmployee : office.getEmployees()) {
-                List<Route> employeeRoutes = calcRoutesForEmployee(algEmployee, office).stream().sorted().toList();
-                office.getEmployeeRoutesVariantsMap().put(algEmployee, employeeRoutes);
+        List<EmployeeRoutePair> resultRoutes = new ArrayList<>();
+        int ammEmployees = officeList.stream().mapToInt(o -> o.getEmployees().size()).sum();
+        while (distributeAlgEmployees.size() < ammEmployees){
+            List<EmployeeRoute> employeeRoutesVariants = new ArrayList<>();
+            for (Office office : officeList) {
+                for (AlgEmployee algEmployee : office.getEmployees()) {
+                    if (distributeAlgEmployees.contains(algEmployee)) continue;
+                    List<Route> employeeRoutes = calcRoutesForEmployee(algEmployee, office).stream().sorted().toList();
+                    if (employeeRoutes.isEmpty()) {
+                        resultRoutes.add(new EmployeeRoutePair(algEmployee, new Route(office.getAddressId(), addressTimesMatrix)));
+                        distributeAlgEmployees.add(algEmployee);
+                    } else {
+                        employeeRoutesVariants.add(new EmployeeRoute(algEmployee, employeeRoutes));
+                    }
+                }
+            }
+            List<EmployeeRoutePair> iterationRoutes = calcNoConflictRoutes(employeeRoutesVariants);
+            resultRoutes.addAll(iterationRoutes);
+            for (EmployeeRoutePair employeeRoutePair : iterationRoutes) {
+                distributeAlgEmployees.add(employeeRoutePair.getAlgEmployee());
+                distributeAgencyPoints.addAll(employeeRoutePair.getRoute().getAgencyPointList());
             }
         }
-        List<EmployeeRoute> employeeRouteList = new ArrayList<>();
-        for(Office office : officeList) {
-            for(var entries : office.getEmployeeRoutesVariantsMap().entrySet()) {
-                employeeRouteList.add(new EmployeeRoute(entries.getKey(), entries.getValue()));
+        return resultRoutes;
+    }
+
+    private List<EmployeeRoutePair> calcNoConflictRoutes(List<EmployeeRoute> employeeRoutesVariants) {
+        List<EmployeeRoutePair> result = new ArrayList<>();
+        List<EmployeeRoutePair> discard = new ArrayList<>();
+        List<EmployeeRoutePair> topRoutes;
+        Map<EmployeeRoutePair, Integer> routeLinks;
+        do {
+            topRoutes = new ArrayList<>();
+            routeLinks = new HashMap<>();
+            for (EmployeeRoute employeeRoute : employeeRoutesVariants) {
+                if(isEntries(employeeRoute, result) || isEntries(employeeRoute, discard)) continue;
+                EmployeeRoutePair employeeRoutePair = new EmployeeRoutePair(employeeRoute.getAlgEmployee(), employeeRoute.getRoutes().get(0));
+                topRoutes.add(employeeRoutePair);
+                routeLinks.put(employeeRoutePair, 0);
+            }
+            calcLinks(topRoutes, routeLinks);
+            topRoutes = topRoutes.stream()
+//                    .sorted(Comparator.comparingInt(o -> o.getRoute().getProfit()))
+                    .sorted(Comparator.comparingInt(routeLinks::get).reversed())
+                    .toList();
+            for(EmployeeRoutePair employeeRoutePair : topRoutes) {
+                if(routeLinks.get(employeeRoutePair) == 0) {
+                    result.add(employeeRoutePair);
+                } else {
+                    discard.add(employeeRoutePair);
+                    break;
+                }
+            }
+        } while (result.size() + discard.size() != employeeRoutesVariants.size());
+        return result;
+    }
+
+    private static boolean isEntries(EmployeeRoute employeeRoute, List<EmployeeRoutePair> pairs) {
+        long rCount = pairs.stream()
+                .map(EmployeeRoutePair::getAlgEmployee)
+                .filter(e -> e == employeeRoute.getAlgEmployee())
+                .count();
+        return rCount != 0;
+    }
+
+    private void calcLinks(List<EmployeeRoutePair> topRoutes, Map<EmployeeRoutePair, Integer> routeLinks) {
+        for(int i = 0; i < topRoutes.size()-1; i++) {
+            for(int j = i+1; j < topRoutes.size(); j++) {
+                if(topRoutes.get(i).getRoute().isConflict(topRoutes.get(j).getRoute())) {
+                    incValue(routeLinks, topRoutes.get(i));
+                    incValue(routeLinks, topRoutes.get(j));
+                }
             }
         }
-        List<EmployeeRoute> sorted = employeeRouteList.stream().sorted(Comparator.comparingInt(o -> o.getRoutes().size())).toList();
-        List<AlgEmployee> employeesWithoutWork = new ArrayList<>();
-        List<EmployeeRoutePair> routes = getRoutes(sorted, 0, new ArrayList<>(), employeesWithoutWork);
-        return routes;
+    }
+
+    private void incValue(Map<EmployeeRoutePair, Integer> map, EmployeeRoutePair key) {
+        map.put(key, map.get(key)+1);
     }
 
     private List<Route> calcRoutesForEmployee(AlgEmployee algEmployee, Office office) {
@@ -48,6 +117,7 @@ public class ServiceTaskAssignment {
         List<Route> result = new ArrayList<>();
         if(flowRoute.isEmpty()) {
             for(AgencyPoint agencyPoint : agencyPointList) {
+                if(distributeAgencyPoints.contains(agencyPoint)) continue;
                 if(!checkPointAvailable(agencyPoint, rang)) continue;
                 if(flowRoute.getTimeWithNewPoint(agencyPoint) <= maxRouteTime) {
                     Route route = new Route(flowRoute);
@@ -57,6 +127,7 @@ public class ServiceTaskAssignment {
             }
         } else {
             for(AgencyPoint agencyPoint : agencyPointList) {
+                if(distributeAgencyPoints.contains(agencyPoint)) continue;
                 if (!checkPointAvailable(agencyPoint, rang)) continue;
                 if(!flowRoute.contains(agencyPoint)) {
                     if(flowRoute.getTimeWithNewPoint(agencyPoint) <= maxRouteTime) {
@@ -74,33 +145,8 @@ public class ServiceTaskAssignment {
         return result;
     }
 
-    private List<EmployeeRoutePair> getRoutes(List<EmployeeRoute> employeeRouteList, int flowId, List<EmployeeRoutePair> tail, List<AlgEmployee> employeesWithoutWork) {
-        if(flowId == employeeRouteList.size()) {
-            return tail;
-        } else {
-            for(int i = 0; i < employeeRouteList.get(flowId).getRoutes().size(); i++) {
-                Route route = employeeRouteList.get(flowId).getRoutes().get(i);
-                if(checkScheme(tail, route)) {
-                    tail.add(new EmployeeRoutePair(employeeRouteList.get(flowId).getAlgEmployee(), route));
-                    return getRoutes(employeeRouteList, flowId+1, tail, employeesWithoutWork);
-                }
-            }
-        }
-        employeesWithoutWork.add(employeeRouteList.get(flowId).getAlgEmployee());
-        return getRoutes(employeeRouteList, flowId+1, tail, employeesWithoutWork);
-    }
-
     private boolean checkPointAvailable(AgencyPoint agencyPoint, Rang rang) {
         return agencyPoint.getTask() != null &&
                 agencyPoint.getTask().checkAvailableForRank(rang);
-    }
-
-    boolean checkScheme(List<EmployeeRoutePair> routes, Route route) {
-        for(EmployeeRoutePair r1 : routes) {
-            if(r1.getRoute().isConflict(route)) {
-                return false;
-            }
-        }
-        return true;
     }
 }
