@@ -1,4 +1,4 @@
-package ru.era.distributionoftasks.caching.entities;
+package ru.era.distributionoftasks.yandexgeocoder.caching.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

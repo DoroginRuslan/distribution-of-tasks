@@ -22,9 +22,11 @@ import java.util.*;
 public class DistributorConnector {
     @Autowired
     TaskTypeService taskTypeService;
-
     @Autowired
     TaskLogService taskLogService;
+
+    @Autowired
+    YandexGeocoderService yandexGeocoderService;
 
     int countAddresses = 0;
     Map<String, Integer> addressIdMap = new HashMap<>();
@@ -99,7 +101,6 @@ public class DistributorConnector {
 
     private AddressTimesMatrix getAddressMatrix() {
         List<Point> points = new ArrayList<>();
-        YandexGeocoderService yandexGeocoderService = new YandexGeocoderService();
         for(String address : addressIdMap.entrySet().stream().sorted(Comparator.comparingInt(Map.Entry::getValue)).map(Map.Entry::getKey).toList()) {
             System.out.println(address);
             GeoPoint geoPoint = yandexGeocoderService.sendRequestForConverting(address);
