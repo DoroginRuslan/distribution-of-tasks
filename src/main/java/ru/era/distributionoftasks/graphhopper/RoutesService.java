@@ -20,11 +20,11 @@ import java.util.List;
 public class RoutesService {
 
     @Value("${graphhopper.key}")
-    private String graphhopperApiKey = "b2d8183e-d8e3-4540-91f5-0cb44d19c827";
-//    @Value("${graphhopper.geocode}")
+    private String graphhopperApiKey;
+    @Value("${graphhopper.geocode}")
     private String geocodeUrl;
     @Value("${graphhopper.matrix}")
-    private String matrixRul = "https://graphhopper.com/api/1/matrix";
+    private String matrixRul;
     private final ObjectMapper objectMapper;
     private final OkHttpClient client;
 
