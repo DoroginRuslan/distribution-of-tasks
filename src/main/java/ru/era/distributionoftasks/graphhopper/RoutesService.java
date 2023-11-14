@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 public class RoutesService {
 
-//    @Value("${graphhopper.key}")
+    @Value("${graphhopper.key}")
     private String graphhopperApiKey = "b2d8183e-d8e3-4540-91f5-0cb44d19c827";
 //    @Value("${graphhopper.geocode}")
     private String geocodeUrl;
