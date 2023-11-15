@@ -9,28 +9,25 @@ public class Office implements AddressInterface {
 
     @Getter
     private final int id;
+//    @Getter
+//    Map<AlgEmployee, List<Route>> employeeRoutesVariantsMap;
     @Getter
-    Map<AlgEmployee, List<Route>> employeeRoutesVariantsMap;
+    private final List<AlgEmployee> employees;
     private int addressId;
 
 
     public Office(int id, List<AlgEmployee> employeeList) {
         this.id = id;
-        employeeRoutesVariantsMap = new HashMap<>(employeeList.size());
-        for(AlgEmployee algEmployee : employeeList) {
-            employeeRoutesVariantsMap.put(algEmployee, new ArrayList<>());
-        }
+        employees = employeeList;
+//        employeeRoutesVariantsMap = new HashMap<>(employeeList.size());
+//        for(AlgEmployee algEmployee : employeeList) {
+//            employeeRoutesVariantsMap.put(algEmployee, new ArrayList<>());
+//        }
     }
 
-    public Set<AlgEmployee> getEmployees() {
-        return employeeRoutesVariantsMap.keySet();
-    }
-
-    public long getCountEmployees(Rang rang) {
-        return getEmployees().stream()
-                .filter(r -> r.getRang() == rang)
-                .count();
-    }
+//    public Set<AlgEmployee> getEmployees() {
+//        return employeeRoutesVariantsMap.keySet();
+//    }
 
     @Override
     public int getAddressId() {

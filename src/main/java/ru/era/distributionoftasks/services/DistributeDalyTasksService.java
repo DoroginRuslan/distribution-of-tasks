@@ -26,6 +26,7 @@ public class DistributeDalyTasksService {
     @Autowired
     EmployeeService employeeService;
 
+
     // outBankList - сюда записываются точки в порядке матрицы
     public MatrixWeightWithBanks getWeightRoutesMatrix() {
         MatrixWeightWithBanks result = new MatrixWeightWithBanks();

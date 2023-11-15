@@ -22,9 +22,13 @@ import java.util.*;
 public class DistributorConnector {
     @Autowired
     TaskTypeService taskTypeService;
-
     @Autowired
     TaskLogService taskLogService;
+    @Autowired
+    YandexGeocoderService yandexGeocoderService;
+    @Autowired
+    RoutesService routesService;
+
 
     int countAddresses = 0;
     Map<String, Integer> addressIdMap = new HashMap<>();
@@ -99,14 +103,13 @@ public class DistributorConnector {
 
     private AddressTimesMatrix getAddressMatrix() {
         List<Point> points = new ArrayList<>();
-        YandexGeocoderService yandexGeocoderService = new YandexGeocoderService();
         for(String address : addressIdMap.entrySet().stream().sorted(Comparator.comparingInt(Map.Entry::getValue)).map(Map.Entry::getKey).toList()) {
             System.out.println(address);
             GeoPoint geoPoint = yandexGeocoderService.sendRequestForConverting(address);
             Point point = new Point().setLat(String.valueOf(geoPoint.lat)).setLng(String.valueOf(geoPoint.lon));
             points.add(point);
         }
-        MatrixWeightsAnswer matrixWeightsAnswer = new RoutesService().getMatrixWeightsAnswers(points);
+        MatrixWeightsAnswer matrixWeightsAnswer = routesService.getMatrixWeightsAnswers(points);
         int[][] times = new int[countAddresses][countAddresses];
         for(int i = 0; i < matrixWeightsAnswer.getTimes().size(); i++) {
             for(int j = 0; j < matrixWeightsAnswer.getTimes().get(i).size(); j++) {
