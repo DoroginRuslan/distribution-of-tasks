@@ -29,7 +29,7 @@ public class TaskAnalyser {
                     240,
                     Priority.MAX_PRIORITY,
                     List.of(SENIOR_RANG),
-                    7));
+                    160));
         } else {
             return Optional.empty();
         }
@@ -42,7 +42,7 @@ public class TaskAnalyser {
                     120,
                     Priority.MEDIUM_PRIORITY,
                     List.of(SENIOR_RANG, MIDDLE_RANG),
-                    3));
+                    40));
         } else {
             return Optional.empty();
         }
@@ -54,7 +54,7 @@ public class TaskAnalyser {
                     90,
                     Priority.LOW_PRIORITY,
                     List.of(SENIOR_RANG, MIDDLE_RANG, JUNIOR_RANG),
-                    1));
+                    15));
         } else {
             return Optional.empty();
         }
