@@ -24,9 +24,11 @@ public class DistributorConnector {
     TaskTypeService taskTypeService;
     @Autowired
     TaskLogService taskLogService;
-
     @Autowired
     YandexGeocoderService yandexGeocoderService;
+    @Autowired
+    RoutesService routesService;
+
 
     int countAddresses = 0;
     Map<String, Integer> addressIdMap = new HashMap<>();
@@ -107,7 +109,7 @@ public class DistributorConnector {
             Point point = new Point().setLat(String.valueOf(geoPoint.lat)).setLng(String.valueOf(geoPoint.lon));
             points.add(point);
         }
-        MatrixWeightsAnswer matrixWeightsAnswer = new RoutesService().getMatrixWeightsAnswers(points);
+        MatrixWeightsAnswer matrixWeightsAnswer = routesService.getMatrixWeightsAnswers(points);
         int[][] times = new int[countAddresses][countAddresses];
         for(int i = 0; i < matrixWeightsAnswer.getTimes().size(); i++) {
             for(int j = 0; j < matrixWeightsAnswer.getTimes().get(i).size(); j++) {
