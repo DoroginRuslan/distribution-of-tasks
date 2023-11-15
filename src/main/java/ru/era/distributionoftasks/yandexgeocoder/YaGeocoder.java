@@ -5,14 +5,23 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 import java.net.URLEncoder;
+
+@Service
 public class YaGeocoder {
 
-    private static final String GEOCODER_HOST = "https://geocode-maps.yandex.ru/1.x/";
+    @Value("${yandex.geocoder.host}")
+    private String geocoderHost;
+    @Value("${yandex.geocoder.key}")
+    private String geocodeKey;
+
     private static final int HTTP_OK = 200;
 
     private XmlResponseParser responseParser = new XmlResponseParser();
@@ -22,8 +31,8 @@ public class YaGeocoder {
 
 
 
-    public YaGeocoder(HttpClient httpClient) {
-        this.httpClient = httpClient;
+    public YaGeocoder() {
+        this.httpClient = new DefaultHttpClient();
     }
 
     public YaGeocoder(HttpClient httpClient, String referer) {
@@ -32,9 +41,8 @@ public class YaGeocoder {
     }
 
     public GeocoderResponse directGeocode(String geocode) throws IOException {
-        String url = GEOCODER_HOST +
-//                "?apikey=" + "61f5780b-ee71-47a9-93a5-6ac5fd5262e2" +
-                "?apikey=" + "5c822cbe-26e7-454a-9e8f-f61626e86dc3" +
+        String url = geocoderHost + "/" +
+                "?apikey=" + geocodeKey +
                 "&geocode=" + URLEncoder.encode(geocode, "UTF-8");
         HttpUriRequest request = new HttpGet(url);
         request.addHeader(refererHeader);
