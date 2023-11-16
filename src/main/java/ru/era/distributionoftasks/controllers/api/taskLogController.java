@@ -1,6 +1,7 @@
 package ru.era.distributionoftasks.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import ru.era.distributionoftasks.entities.TaskLog;
 import ru.era.distributionoftasks.services.DistributeDalyTasksService;
@@ -65,7 +66,7 @@ public class taskLogController {
     }
 
     @GetMapping("/daily/distribute")
-    public List<TaskLog> distributeDailyTasks() {
-        return distributeDalyTasksService.distribute(LocalDate.now());
+    public List<TaskLog> distributeDailyTasks(@RequestParam("today") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate today) {
+        return distributeDalyTasksService.distribute((today == null) ? LocalDate.now() : today);
     }
 }

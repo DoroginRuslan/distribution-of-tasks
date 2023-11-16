@@ -43,4 +43,9 @@ public class AgencyPoint implements AddressInterface {
     public int hashCode() {
         return Objects.hash(databaseId);
     }
+
+    @Override
+    public void setAddressIdImpl(int addressId) {
+        this.addressId = addressId;
+    }
 }

@@ -13,6 +13,7 @@ import ru.era.distributionoftasks.services.distributor.OverdueTasksService;
 import ru.era.distributionoftasks.services.entities.MatrixWeightWithBanks;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +31,6 @@ public class DistributeDalyTasksService {
     OverdueTasksService overdueTasksService;
 
 
-    // outBankList - сюда записываются точки в порядке матрицы
     public MatrixWeightWithBanks getWeightRoutesMatrix() {
         MatrixWeightWithBanks result = new MatrixWeightWithBanks();
         result.setBanksOrder((List<Bank>) bankRepository.findAll());
@@ -46,6 +46,14 @@ public class DistributeDalyTasksService {
         List<Employee> employees = employeeService.getAllEmployers();
         List<Bank> banks = (List<Bank>) bankRepository.findAll();
         Map<Bank, Integer> overdueBanks = overdueTasksService.getOverdueTasks(today);
-        return distributorConnector.getData(employees, banks, overdueBanks);
+
+        List<Long> nonDistributed = new ArrayList<>();
+        List<TaskLog> taskLogList = distributorConnector.getData(employees, banks, overdueBanks, nonDistributed);
+        List<Long> distributed = taskLogList.stream()
+                .map(TaskLog::getBank)
+                .map(Bank::getId)
+                .toList();
+        overdueTasksService.updateOverdueTasks(nonDistributed, distributed, today);
+        return taskLogList;
     }
 }

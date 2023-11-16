@@ -35,7 +35,7 @@ public class Office implements AddressInterface {
     }
 
     @Override
-    public void setAddressId(int addressId) {
+    public void setAddressIdImpl(int addressId) {
         this.addressId = addressId;
     }
 }

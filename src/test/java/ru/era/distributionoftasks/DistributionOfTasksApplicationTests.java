@@ -10,8 +10,6 @@ class DistributionOfTasksApplicationTests {
 
 	//@Test
 	void contextLoads() {
-		DistributorConnectorTest distributorConnectorTest = new DistributorConnectorTest();
-		distributorConnectorTest.name();
 	}
 
 }
