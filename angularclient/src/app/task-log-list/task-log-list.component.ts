@@ -1,8 +1,8 @@
 import { Component, OnInit  } from '@angular/core';
 import { TaskLog } from '../task-log';
 import { TaskLogService } from '../task-log-service.service';
-import * as XLSX from 'xlsx';
-import * as FileSaver from 'file-saver';
+import * as ExcelJS from 'exceljs'
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-task-log-list',
@@ -12,7 +12,7 @@ import * as FileSaver from 'file-saver';
 
 
 export class TaskLogListComponent implements OnInit {
-  fileName= 'Отчёт.xlsx';
+  fileName= 'Отчёт';
   taskLogs: TaskLog[];
   tasksFormed: boolean = false;
   loading: boolean = false;
@@ -43,18 +43,44 @@ export class TaskLogListComponent implements OnInit {
     }
   exportexcel(): void
   {
-    /* table id is passed over here */
-    let element = document.getElementById('excel-table');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Sheet1');
 
-    /* generate workbook and add the worksheet */
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    // Add headers
+    const headers = ["ФИО", "Задача", "Адрес", "Число: месяц-день", "Результат", "Доп. информация"];
+    worksheet.addRow(headers);
 
-    /* save to file */
-    XLSX.writeFile(wb, this.fileName);
+    // Add data
+    this.taskLogs.forEach((item) => {
+      const fios = item.employee.fio;
+      const types = item.taskType.name;
+      const banks = item.bank.address;
+      const times = item.taskSetDate.substring(5,10);
+      const comm = item.commentary;
+      let compl: string;
+      if(item.completed)
+      compl = "Выполнено";
+      else
+        compl = "Не выполнено";
+      const arr: string[] = [];
+      arr.push( fios, types, banks, times, compl, comm);
+      worksheet.addRow(arr);
+    });
 
+    worksheet.getColumn(1).width = 40;
+    worksheet.getColumn(2).width = 40;
+    worksheet.getColumn(3).width = 60;
+    worksheet.getColumn(4).width = 20;
+    worksheet.getColumn(5).width = 20;
+    worksheet.getColumn(6).width = 20;
+
+    // Generate Excel file
+    workbook.xlsx.writeBuffer().then((buffer: any) => {
+      const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      saveAs(blob, `${this.fileName}.xlsx`);
+    });
   }
+
   formTasks(){
     this.loading = true;
     this.tasksFormed = true;
