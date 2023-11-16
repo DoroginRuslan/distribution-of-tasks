@@ -1,0 +1,87 @@
+<div class="card">
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()" #taskTypeForm="ngForm">
+      <div class="form-group">
+        <label for="name">Название</label>
+        <input type="text" [(ngModel)]="taskType.name"
+               class="form-control"
+               id="name"
+               name="name"
+               placeholder="Введите название"
+               required #name="ngModel">
+      </div>
+<!--      <div [hidden]="!name.pristine" class="alert alert-danger">Введите название</div>-->
+      <div class="form-group">
+        <label for="priority">Приоритет</label>
+        <select [(ngModel)]="taskType.priority"
+               class="form-control"
+               id="priority"
+               name="priority"
+               placeholder="Выберите приоритет"
+               required #priority="ngModel">
+        <option value="2">Низкий</option>
+        <option value="1">Средний</option>
+        <option value="0">Высокий</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="priority">Уровень сотрудника</label>
+        <select [(ngModel)]="taskType.grade.id"
+                class="form-control"
+                id="grade"
+                name="grade"
+                placeholder="Выберите уровень сотрудника"
+                required #priority="ngModel">
+          <option *ngFor="let grade of grades" value="{{ grade.id }}">{{ grade.name }}</option>
+        </select>
+      </div>
+<!--      <div [hidden]="!priority.pristine" class="alert alert-danger">Выберите уровень сотрудника</div>-->
+      <div class="form-group">
+        <label for="timeReq">Требуемое время</label>
+        <input type="time" [(ngModel)]="taskType.timeReq"
+               class="form-control"
+               id="timeReq"
+               name="timeReq"
+               placeholder="Введите требуемое время"
+               required #timeReq="ngModel">
+      </div>
+<!--      <div [hidden]="!timeReq.pristine" class="alert alert-danger">Введите требуемое время</div>-->
+      <div class="form-group">
+      <label for="condition1">Условие назначения</label>
+      <select [(ngModel)]="taskType.condition1"
+              class="form-control"
+              id="condition1"
+              name="condition1"
+              placeholder="Введите условие назначения"
+              required #condition1="ngModel">
+        <option value="Дата выдачи последней карты более 7 дней назад, при этом есть одобренные заявки">Дата выдачи последней карты более 7 дней назад, при этом есть одобренные заявки</option>
+        <option value="Отношение кол-ва выданных карт к одобренным заявкам менее 50%, если выдано больше 0 карт">Отношение кол-ва выданных карт к одобренным заявкам менее 50%, если выдано больше 0 карт</option>
+        <option value="Точка подключена вчера">Точка подключена вчера</option>
+        <option value="Дата выдачи последней карты более 14 дней назад">Дата выдачи последней карты более 14 дней назад</option>
+        <option value="Карты и материалы не доставлялись">Карты и материалы не доставлялись</option>
+        <option value=""></option>
+      </select>
+  </div>
+  <div class="form-group">
+    <label for="condition2">Условие назначения</label>
+    <select [(ngModel)]="taskType.condition2"
+            class="form-control"
+            id="condition2"
+            name="condition2"
+            placeholder="Введите условие назначения"
+            required #condition2="ngModel">
+      <option value="Дата выдачи последней карты более 7 дней назад, при этом есть одобренные заявки">Дата выдачи последней карты более 7 дней назад, при этом есть одобренные заявки</option>
+      <option value="Отношение кол-ва выданных карт к одобренным заявкам менее 50%, если выдано больше 0 карт">Отношение кол-ва выданных карт к одобренным заявкам менее 50%, если выдано больше 0 карт</option>
+      <option value="Точка подключена вчера">Точка подключена вчера</option>
+      <option value="Дата выдачи последней карты более 14 дней назад">Дата выдачи последней карты более 14 дней назад</option>
+      <option value="Карты и материалы не доставлялись">Карты и материалы не доставлялись</option>
+      <option value=""></option>
+    </select>
+  </div>
+<!--      <div [hidden]="!condition2.pristine" class="alert alert-danger">Введите условие назначения</div>-->
+
+      <button type="submit" [disabled]="!taskTypeForm.form.valid"
+              class="btn btn_pro">Добавить</button>
+    </form>
+  </div>
+</div>

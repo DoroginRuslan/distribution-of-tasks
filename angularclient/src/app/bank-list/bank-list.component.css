@@ -1,0 +1,14 @@
+.btn_pro {
+    margin: 0;
+    background: rgb(0, 55, 145);
+    color: white;
+}
+
+.btn_pro:hover {
+    background: rgb(9, 42, 97);
+    color: white;
+    transition: 0.5s;
+}
+.table-responsive {
+  max-height:95vh;
+}

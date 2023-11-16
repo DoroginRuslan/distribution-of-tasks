@@ -1,0 +1,46 @@
+<div class="card">
+  <div class="card-body table-responsive"  >
+    <h4>Точки</h4>
+
+    <table class="table table-striped table-bordered ">
+      <thead class="thead-dark">
+      <tr class="align-middle text-center">
+        <th>#</th>
+        <th>Адрес</th>
+        <th>Регистрация</th>
+        <th>Материалы карт</th>
+        <th>Последняя карта</th>
+        <th>Кол-во заявок</th>
+        <th>Выдано карт</th>
+        <th>Изменить</th>
+        <th>Удалить</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let bank of banks">
+        <td class="text-center align-middle" >{{ bank.id }}</td>
+        <td class="text-center align-middle">{{ bank.address }}</td>
+        <td class="text-center align-middle">{{ bank.registrationDate }}</td>
+        <td class="text-center align-middle"><p class = "text-success" [hidden]="bank.materialsDelivered.toString()=='false'">Доставлено</p>
+        <p class = "text-danger" [hidden]="bank.materialsDelivered.toString()=='true'">Не доставлено</p>
+        </td>
+        <td class="text-center align-middle">{{ bank.lastCardIssuanceDays }}</td>
+        <td class="text-center align-middle">{{ bank.approvedApplicationsNum }}</td>
+        <td class="text-center align-middle">{{ bank.issuanceCardsNum }}</td>
+        <td class="text-center align-middle">
+          <button class="btn btn_pro" routerLink="/editBank/{{bank.id}}"> Изменить </button>
+        </td>
+        <td class="text-center align-middle">
+          <button class="btn btn_base" (click)="removeBank(bank.id)"> Удалить</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="add_bank_button">
+      <button class="btn btn_pro" routerLink="/addbank"><span class="nav-text">Добавить банк</span></button>
+    </div>
+  </div>
+
+
+
+</div>

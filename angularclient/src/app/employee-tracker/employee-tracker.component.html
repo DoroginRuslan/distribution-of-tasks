@@ -1,0 +1,43 @@
+<div class="card">
+  <div class="card-body">
+      <div class="form-group">
+        <div class="form-group my-3">
+        <label [hidden]="(is_login==2)" for="employee"><h5>Сотрудник</h5></label>
+        <select [hidden]="(is_login==2)" name="employee"  [(ngModel)]="currentEmployeeId"
+                class="form-control"
+                id="employee"
+                placeholder="Выберите сотрудника"
+                (change)="currentEmployeeChanged($event)">
+          <option *ngFor="let employee of employees" value="{{ employee.id }}">{{ employee.fio }}</option>
+        </select>
+      </div>
+        <div class="container form-control">
+          <div id='map' style="width: 100%; height: 100%" #yamaps></div>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table table-hover table-condensed col-lg-6">
+            <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Задача</th>
+              <th scope="col">Адрес</th>
+              <th scope="col">Результат</th>
+              <th scope="col">Комментарий</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let taskLog of taskLogs; let rowIndex = index">
+              <td>{{ taskLog.id }}</td>
+              <td>{{ taskLog.taskType.name }}</td>
+              <td>{{ taskLog.bank.address }}</td>
+              <td><input type="checkbox" [(ngModel)]="taskLogs[rowIndex].completed" [disabled]="(((rowIndex-1>=0)&&(taskLogs[rowIndex-1].completed.toString()=='false'))||((taskLogs[rowIndex+1]!=null)&&(taskLogs[rowIndex+1].completed.toString()=='true')))" (change)="checkValue(rowIndex)" /></td >
+              <td><input type="text" [(ngModel)]="taskLogs[rowIndex].commentary" (keyup.enter)="checkValueCommentary(rowIndex)" /></td >
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+    </div>
+  </div>
+</div>
+

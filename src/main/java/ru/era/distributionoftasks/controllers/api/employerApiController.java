@@ -8,6 +8,7 @@ import ru.era.distributionoftasks.services.EmployeeService;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/employees")
 public class employerApiController {
     @Autowired
@@ -45,6 +46,6 @@ public class employerApiController {
 
     @DeleteMapping("/{employeeId}")
     public void deleteEmployee(@PathVariable Long employeeId) {
-        employeeService.deleteEmployee(employeeId);
+        System.out.println("fsdfs"); employeeService.deleteEmployee(employeeId);
     }
 }

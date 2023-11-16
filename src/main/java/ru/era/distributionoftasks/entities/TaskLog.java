@@ -3,8 +3,6 @@ package ru.era.distributionoftasks.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
 
@@ -14,16 +12,21 @@ import java.time.LocalDateTime;
 public class TaskLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "EMPLOYEE_ID")
-    Employee employee;
+    private Employee employee;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TASK_TYPE_ID")
-    TaskType taskType;
+    private TaskType taskType;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "BANK_ID")
+    private Bank bank;
+
     LocalDateTime taskSetDate;
-    boolean isCompleted;
-    String commentary;
+    private boolean isCompleted;
+    private String commentary;
 }

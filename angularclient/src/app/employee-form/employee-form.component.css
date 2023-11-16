@@ -1,0 +1,26 @@
+
+.btn_pro {
+    background: rgb(0, 55, 145);
+    color: white;
+}
+
+.btn_pro:hover {
+    background: rgb(9, 42, 97);
+    color: white;
+    transition: 0.5s;
+}
+
+.btn_base {
+    background: rgb(155, 31, 31);
+    color: white;
+}
+
+.btn_base:hover {
+    background: rgb(110, 23, 23);
+    color: white;
+    transition: 0.5s;
+}
+
+.form-group{
+  margin-bottom: 10px;
+}

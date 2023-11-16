@@ -1,0 +1,116 @@
+<!-- Header -->
+
+
+
+<div class="containder-fluid header bg-light">
+  <nav class="navbar bg-light px-4 d-flex">
+      <img src="https://kreditkin.su/wp-content/uploads/2022/12/sovcom.png" style="height: 25px;" alt="brand">
+      <!-- <a class="d-block d-md-none btn btn-default" (click)="MenuButton()">
+        <i class="bi bi-list" style="color: black;"></i>
+      </a> -->
+
+      <button class="btn btn_pro d-md-none d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+        <i class="bi bi-list" style="color: rgb(255, 255, 255);"></i>
+      </button>
+  </nav>
+</div>
+
+<div id="wrapper">
+  <!-- Sidebar -->
+
+  <div class="sidebar_nav_area d-none d-md-block" id="sidebar-wrapper" >
+    <ul class="sidebar-nav list-group" >
+      <li>
+        <a href="#" routerLink="/taskLogList" class="gap-2" [hidden]="!(is_login==1)">
+          <i class="bi bi-house-fill"></i>
+          <span>Эффективность сотрудников</span></a>
+      </li>
+      <li>
+        <a href="#" routerLink="/employeeTracker" class="gap-2" [hidden]="(is_login==0)">
+          <i class="bi bi-arrow-up-right-circle-fill"></i>
+          <span>Прогресс сотрудников</span></a>
+      </li>
+      <li>
+        <a href="#" routerLink="/employees" class="gap-2" [hidden]="!(is_login==1)">
+          <i class="bi bi-person-fill"></i>
+          <span>Сотрудники</span></a>
+      </li>
+      <li>
+        <a href="#" routerLink="/tasksType" class="gap-2" [hidden]="!(is_login==1)">
+          <i class="bi bi-clipboard-fill"></i>
+          <span>Задачи</span></a>
+      </li>
+      <li>
+        <a href="#" routerLink="/banks" class="gap-2" [hidden]="!(is_login==1)">
+          <i class="bi bi-geo-alt-fill"></i>
+          <span>Точки</span></a>
+      </li>
+      <li>
+        <a href="#" class="gap-2" aria-label="Close"[hidden]="(is_login==0)">
+          <i class="bi bi-x-circle-fill"></i>
+          <span>Выйти</span></a>
+      </li>
+    </ul>
+  </div>
+  <!-- Page Content -->
+  <div class=""  id="page-content-wrapper">
+    <div class="main_area">
+      <router-outlet></router-outlet>
+        <div [hidden]="!authenticated()">
+          <p>Login to see your greeting</p>
+        </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div class="offcanvas offcanvas-start" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+  <div class="offcanvas-header">
+    <img src="https://kreditkin.su/wp-content/uploads/2022/12/sovcom.png" style="height: 25px; padding-left: 7px;" alt="brand">
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Закрыть"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="#" routerLink="/taskLogList" class="gap-2" data-bs-dismiss="offcanvas"  [hidden]="!(is_login==1)">
+            <i class="bi bi-house-fill"></i>
+            <span>Эффективность сотрудников</span></a>
+        </li>
+        <li>
+          <a href="#" routerLink="/employeeTracker" class="gap-2" data-bs-dismiss="offcanvas" >
+            <i class="bi bi-arrow-up-right-circle-fill"></i>
+            <span>Прогресс сотрудников</span></a>
+        </li>
+        <li>
+          <a href="#" routerLink="/employees" class="gap-2" data-bs-dismiss="offcanvas"  [hidden]="!(is_login==1)">
+            <i class="bi bi-person-fill"></i>
+            <span>Сотрудники</span></a>
+        </li>
+        <li>
+          <a href="#" routerLink="/tasksType" class="gap-2" data-bs-dismiss="offcanvas" [hidden]="!(is_login==1)">
+            <i class="bi bi-clipboard-fill"></i>
+            <span>Задачи</span></a>
+        </li>
+        <li>
+          <a href="#" routerLink="/banks" class="gap-2" data-bs-dismiss="offcanvas"  [hidden]="!(is_login==1)">
+            <i class="bi bi-geo-alt-fill"></i>
+            <span>Точки</span></a>
+        </li>
+    </ul>
+    </div>
+    <div>
+      <ul class="sidebar-nav">
+        <li>
+          <a href="#" class="gap-2" aria-label="Close"[hidden]="(is_login==0)">
+            <i class="bi bi-x-circle-fill"></i>
+            <span>Выйти</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
