@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.era.distributionoftasks.graphhopper.jsonobjects.GeocodeAnswer;
@@ -75,7 +76,33 @@ public class RoutesService {
 
     // TODO: 09.11.2023 Переделать в POST реализацию
     public MatrixWeightsAnswer getMatrixWeightsAnswers(List<Point> points) {
-        // TODO: 16.11.2023 Временное решение для тестирования
+//        return getTestMatrixWeightsAnswer(points);
+        Request request = new Request.Builder()
+                .url(matrixRul + "?" +
+                        transformPointsToParamString(points) +
+                        "&type=" + "json" +
+                        "&profile=" + "car" +
+                        // Эти параметры можно отключать, чтобы не грузить сервер
+//                        "&out_array=" + "weights" +     // Сложность пути
+                        "&out_array=" + "times" +       // Время пути (в секундах)
+//                        "&out_array=" + "distances" +   // Расстояние (в метрах)
+                        // --
+                        "&key=" + graphhopperApiKey)
+                .get()
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            String answerBody = response.body().string();
+            System.out.println(response);
+            MatrixWeightsAnswer matrixWeightsAnswer = objectMapper.readValue(answerBody, MatrixWeightsAnswer.class);
+            System.out.println(matrixWeightsAnswer);
+            return matrixWeightsAnswer;
+        } catch (IOException e) {
+            throw new GraphhopperErrorException("Ошибка при работе с сервисом graphhopper", e);
+        }
+    }
+
+    private static MatrixWeightsAnswer getTestMatrixWeightsAnswer(List<Point> points) {
         Random random = new Random(12345L);
         MatrixWeightsAnswer testMatrixWeightsAnswer = new MatrixWeightsAnswer();
         testMatrixWeightsAnswer.setTimes(new ArrayList<>(points.size()));
@@ -90,29 +117,6 @@ public class RoutesService {
             }
         }
         return testMatrixWeightsAnswer;
-//        Request request = new Request.Builder()
-//                .url(matrixRul + "?" +
-//                        transformPointsToParamString(points) +
-//                        "&type=" + "json" +
-//                        "&profile=" + "car" +
-//                        // Эти параметры можно отключать, чтобы не грузить сервер
-////                        "&out_array=" + "weights" +     // Сложность пути
-//                        "&out_array=" + "times" +       // Время пути (в секундах)
-////                        "&out_array=" + "distances" +   // Расстояние (в метрах)
-//                        // --
-//                        "&key=" + graphhopperApiKey)
-//                .get()
-//                .build();
-//        try {
-//            Response response = client.newCall(request).execute();
-//            String answerBody = response.body().string();
-//            System.out.println(response);
-//            MatrixWeightsAnswer matrixWeightsAnswer = objectMapper.readValue(answerBody, MatrixWeightsAnswer.class);
-//            System.out.println(matrixWeightsAnswer);
-//            return matrixWeightsAnswer;
-//        } catch (IOException e) {
-//            throw new GraphhopperErrorException("Ошибка при работе с сервисом graphhopper", e);
-//        }
     }
 
     private String transformPointsToParamString(List<Point> points) {
