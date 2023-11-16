@@ -28,6 +28,8 @@ public class TestApiController {
     TaskLogRepository taskLogRepository;
     @Autowired
     TaskTypeRepository taskTypeRepository;
+    @Autowired
+    UnallocatedTaskRepository unallocatedTaskRepository;
 
     @GetMapping("/prepare-repo")
     public List<TaskLog> prepareRepo() {
@@ -435,7 +437,7 @@ public class TestApiController {
     }
 
     private void clearAll() {
-        Stream.of(bankRepository, employeeRepository, gradeRepository, taskLogRepository, taskTypeRepository)
+        Stream.of(bankRepository, employeeRepository, gradeRepository, taskLogRepository, taskTypeRepository, unallocatedTaskRepository)
                 .forEach(CrudRepository::deleteAll);
     }
 

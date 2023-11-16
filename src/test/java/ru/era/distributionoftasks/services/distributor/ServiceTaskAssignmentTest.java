@@ -6,8 +6,6 @@ import ru.era.distributionoftasks.services.distributor.entity.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static ru.era.distributionoftasks.services.distributor.entity.Priority.*;
-
 class ServiceTaskAssignmentTest {
     private String getPriority(List<AgencyPoint> agencyPointList) {
         int high = 0;
@@ -32,7 +30,8 @@ class ServiceTaskAssignmentTest {
         List<Office> officeList = getOffices();
         AddressTimesMatrix addressTimesMatrix = getTimeMatrixAndFillAddressIds(agencyPointList, officeList);
         ServiceTaskAssignment serviceTaskAssignment = new ServiceTaskAssignment(addressTimesMatrix, agencyPointList, officeList);
-        List<EmployeeRoutePair> results = serviceTaskAssignment.calcEmployeeRoutes();
+        List<Long> nonDistributed = new ArrayList<>();
+        List<EmployeeRoutePair> results = serviceTaskAssignment.calcEmployeeRoutes(nonDistributed);
         List<AgencyPoint> nonDistribute = new ArrayList<>(List.copyOf(agencyPointList));
         nonDistribute.removeAll(serviceTaskAssignment.getDistributeAgencyPoints());
         System.out.println(
@@ -68,50 +67,51 @@ class ServiceTaskAssignmentTest {
     }
 
     private List<AgencyPoint> getAgencyPointList() {
+        int overdue = 0;
         return Arrays.asList(
-                new AgencyPoint(1, 0, "вчера", false, 0, 0, 0),
-                new AgencyPoint(2, 0, "давно", true, 3, 15, 3),
-                new AgencyPoint(3, 0, "давно", true, 3, 9, 1),
-                new AgencyPoint(4, 0, "давно", true, 0, 38, 23),
-                new AgencyPoint(5, 0, "давно", false, 0, 14, 0),
-                new AgencyPoint(6, 0, "давно", true, 12, 19, 1),
-                new AgencyPoint(7, 0, "давно", true, 27, 19, 12),
-                new AgencyPoint(8, 0, "давно", true, 33, 84, 63),
-                new AgencyPoint(9, 0, "давно", true, 2, 15, 1),
-                new AgencyPoint(10, 0, "давно", true, 0, 19, 0),
-                new AgencyPoint(11, 0, "давно", true, 15, 29, 15),
-                new AgencyPoint(12, 0, "вчера", false, 0, 0, 0),
-                new AgencyPoint(13, 0, "давно", true, 4, 21, 5),
-                new AgencyPoint(14, 0, "вчера", false, 0, 5, 0),
-                new AgencyPoint(15, 0, "давно", true, 7, 14, 3),
-                new AgencyPoint(16, 0, "вчера", false, 0, 0, 0),
-                new AgencyPoint(19, 0, "давно", true, 6, 32, 9),
-                new AgencyPoint(20, 0, "давно", true, 4, 35, 15)
-
-                ,new AgencyPoint(21, 0, "вчера", false, 0, 6, 0),
-                new AgencyPoint(22, 0, "давно", true, 6, 18, 6),
-                new AgencyPoint(23, 0, "давно", true, 0, 15, 5),
-                new AgencyPoint(24, 0, "давно", true, 2, 96, 20),
-                new AgencyPoint(25, 0, "вчера", false, 0, 0, 0),
-                new AgencyPoint(26, 0, "давно", true, 0, 16, 0),
-                new AgencyPoint(27, 0, "давно", true, 3, 43, 29),
-                new AgencyPoint(28, 0, "давно", true, 3, 13, 4),
-                new AgencyPoint(29, 0, "давно", true, 6, 19, 5),
-                new AgencyPoint(30, 0, "давно", true, 16, 45, 30),
-                new AgencyPoint(31, 0, "давно", true, 1, 19, 4),
-                new AgencyPoint(32, 0, "давно", true, 3, 20, 9),
-                new AgencyPoint(33, 0, "вчера", false, 0, 19, 0),
-                new AgencyPoint(34, 0, "давно", true, 76, 82, 72),
-                new AgencyPoint(35, 0, "давно", true, 23, 32, 21),
-                new AgencyPoint(36, 0, "давно", true, 4, 19, 4),
-                new AgencyPoint(37, 0, "давно", true, 9, 10, 7),
-                new AgencyPoint(38, 0, "вчера", false, 0, 13, 0),
-                new AgencyPoint(39, 0, "вчера", false, 0, 10, 0)
-
-                ,new AgencyPoint(40, 0,"давно",true,6,30,14),
-                new AgencyPoint(41, 0,"давно",true,6,65,12),
-                new AgencyPoint(42, 0,"давно",true,3,20,4),
-                new AgencyPoint(43, 0,"вчера",false,0,0,0)
+//                new AgencyPoint(1, 0, "вчера", false, 0, 0, 0, overdue),
+//                new AgencyPoint(2, 0, "давно", true, 3, 15, 3, overdue),
+//                new AgencyPoint(3, 0, "давно", true, 3, 9, 1, overdue),
+//                new AgencyPoint(4, 0, "давно", true, 0, 38, 23, overdue),
+//                new AgencyPoint(5, 0, "давно", false, 0, 14, 0, overdue),
+//                new AgencyPoint(6, 0, "давно", true, 12, 19, 1, overdue),
+//                new AgencyPoint(7, 0, "давно", true, 27, 19, 12, overdue),
+//                new AgencyPoint(8, 0, "давно", true, 33, 84, 63, overdue),
+//                new AgencyPoint(9, 0, "давно", true, 2, 15, 1, overdue),
+//                new AgencyPoint(10, 0, "давно", true, 0, 19, 0, overdue),
+//                new AgencyPoint(11, 0, "давно", true, 15, 29, 15, overdue),
+//                new AgencyPoint(12, 0, "вчера", false, 0, 0, 0, overdue),
+//                new AgencyPoint(13, 0, "давно", true, 4, 21, 5, overdue),
+//                new AgencyPoint(14, 0, "вчера", false, 0, 5, 0, overdue),
+//                new AgencyPoint(15, 0, "давно", true, 7, 14, 3, overdue),
+//                new AgencyPoint(16, 0, "вчера", false, 0, 0, 0, overdue),
+//                new AgencyPoint(19, 0, "давно", true, 6, 32, 9, overdue),
+//                new AgencyPoint(20, 0, "давно", true, 4, 35, 15, overdue)
+//
+//                ,new AgencyPoint(21, 0, "вчера", false, 0, 6, 0, overdue),
+//                new AgencyPoint(22, 0, "давно", true, 6, 18, 6, overdue),
+//                new AgencyPoint(23, 0, "давно", true, 0, 15, 5, overdue),
+//                new AgencyPoint(24, 0, "давно", true, 2, 96, 20, overdue),
+//                new AgencyPoint(25, 0, "вчера", false, 0, 0, 0, overdue),
+//                new AgencyPoint(26, 0, "давно", true, 0, 16, 0, overdue),
+//                new AgencyPoint(27, 0, "давно", true, 3, 43, 29, overdue),
+//                new AgencyPoint(28, 0, "давно", true, 3, 13, 4, overdue),
+//                new AgencyPoint(29, 0, "давно", true, 6, 19, 5, overdue),
+//                new AgencyPoint(30, 0, "давно", true, 16, 45, 30, overdue),
+//                new AgencyPoint(31, 0, "давно", true, 1, 19, 4, overdue),
+//                new AgencyPoint(32, 0, "давно", true, 3, 20, 9, overdue),
+//                new AgencyPoint(33, 0, "вчера", false, 0, 19, 0, overdue),
+//                new AgencyPoint(34, 0, "давно", true, 76, 82, 72, overdue),
+//                new AgencyPoint(35, 0, "давно", true, 23, 32, 21, overdue),
+//                new AgencyPoint(36, 0, "давно", true, 4, 19, 4, overdue),
+//                new AgencyPoint(37, 0, "давно", true, 9, 10, 7, overdue),
+//                new AgencyPoint(38, 0, "вчера", false, 0, 13, 0, overdue),
+//                new AgencyPoint(39, 0, "вчера", false, 0, 10, 0, overdue)
+//
+//                ,new AgencyPoint(40, 0,"давно",true,6,30,14, overdue),
+//                new AgencyPoint(41, 0,"давно",true,6,65,12, overdue),
+//                new AgencyPoint(42, 0,"давно",true,3,20,4, overdue),
+//                new AgencyPoint(43, 0,"вчера",false,0,0,0, overdue)
         );
     }
 
@@ -145,7 +145,7 @@ class ServiceTaskAssignmentTest {
         int countAddresses = 0;
         for(var param : addresses) {
             for(var address : param) {
-                address.setAddressId(countAddresses++);
+                address.setAddressIdImpl(countAddresses++);
             }
         }
         // random

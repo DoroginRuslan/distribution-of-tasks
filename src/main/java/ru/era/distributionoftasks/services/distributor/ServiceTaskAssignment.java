@@ -15,6 +15,8 @@ public class ServiceTaskAssignment {
     private final List<AgencyPoint> distributeAgencyPoints;
     @Getter
     private final List<AlgEmployee> distributeAlgEmployees;
+    @Getter
+    private final List<AgencyPoint> nonDistributeAgencyPoints;
 
     public ServiceTaskAssignment(AddressTimesMatrix addressTimesMatrix, List<AgencyPoint> agencyPointList, List<Office> officeList) {
         this.addressTimesMatrix = addressTimesMatrix;
@@ -22,10 +24,11 @@ public class ServiceTaskAssignment {
         this.officeList = officeList;
         distributeAgencyPoints = new ArrayList<>();
         distributeAlgEmployees = new ArrayList<>();
+        nonDistributeAgencyPoints = new ArrayList<>();
     }
 
     // Основной метод для получения маршрутов
-    public List<EmployeeRoutePair> calcEmployeeRoutes() {
+    public List<EmployeeRoutePair> calcEmployeeRoutes(List<Long> nonDistributed) {
         for(AgencyPoint agencyPoint : agencyPointList) {
             agencyPoint.setTask(TaskAnalyser.calcTaskForAgencyPoint(agencyPoint).orElse(null));
         }
@@ -50,6 +53,11 @@ public class ServiceTaskAssignment {
             for (EmployeeRoutePair employeeRoutePair : iterationRoutes) {
                 distributeAlgEmployees.add(employeeRoutePair.getAlgEmployee());
                 distributeAgencyPoints.addAll(employeeRoutePair.getRoute().getAgencyPointList());
+            }
+        }
+        for(AgencyPoint agencyPoint : agencyPointList) {
+            if(agencyPoint.getTask() != null && !distributeAgencyPoints.contains(agencyPoint)) {
+                nonDistributed.add(agencyPoint.getDatabaseId());
             }
         }
         return resultRoutes;

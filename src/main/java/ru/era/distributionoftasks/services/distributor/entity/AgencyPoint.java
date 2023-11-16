@@ -1,33 +1,34 @@
 package ru.era.distributionoftasks.services.distributor.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.Accessors;
+import ru.era.distributionoftasks.entities.Bank;
 
 import java.util.Objects;
 
-@Getter
-@ToString
+@Data
+@Accessors(chain = true)
 public class AgencyPoint implements AddressInterface {
-    private final int databaseId;           // Уникальный идентификатор
-    private final String pointsConnected; // когда подключена точка?
-    private final boolean isDelivered;// карты и материалы доставлены?
-    private final int numberOfDaysOfIssue;// кол-во дней после выдачи последней карты?
-    private final int numberOfApproved;// кол-во одобренных заявок?
-    private final int numberOfIssued;// кол-во выданных карт?
-    @Setter
+    private long databaseId;           // Уникальный идентификатор
+    private String pointsConnected; // когда подключена точка?
+    private boolean isDelivered;// карты и материалы доставлены?
+    private int numberOfDaysOfIssue;// кол-во дней после выдачи последней карты?
+    private int numberOfApproved;// кол-во одобренных заявок?
+    private int numberOfIssued;// кол-во выданных карт?
+    private int overdue;          // Кол-во просроченных дней
     private int addressId;
-    @Setter
     private Task task;
 
-    public AgencyPoint(int databaseId, int addressId, String pointsConnected, boolean isDelivered, int numberOfDaysOfIssue, int numberOfApproved, int numberOfIssued) {
-        this.databaseId = databaseId;
-        this.addressId = addressId;
-        this.pointsConnected = pointsConnected;
-        this.isDelivered = isDelivered;
-        this.numberOfDaysOfIssue = numberOfDaysOfIssue;
-        this.numberOfApproved = numberOfApproved;
-        this.numberOfIssued = numberOfIssued;
+    public static AgencyPoint of(Bank bank, int overdue, int addressId) {
+        return new AgencyPoint()
+                .setDatabaseId(bank.getId())
+                .setPointsConnected(bank.getRegistrationDate())
+                .setDelivered(bank.isMaterialsDelivered())
+                .setNumberOfDaysOfIssue(bank.getLastCardIssuanceDays())
+                .setNumberOfApproved(bank.getApprovedApplicationsNum())
+                .setNumberOfIssued(bank.getIssuanceCardsNum())
+                .setOverdue(overdue)
+                .setAddressId(addressId);
     }
 
     @Override
@@ -41,5 +42,10 @@ public class AgencyPoint implements AddressInterface {
     @Override
     public int hashCode() {
         return Objects.hash(databaseId);
+    }
+
+    @Override
+    public void setAddressIdImpl(int addressId) {
+        this.addressId = addressId;
     }
 }
