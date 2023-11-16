@@ -73,10 +73,7 @@
                required #issuanceCardsNum="ngModel">
       </div>
 <!--      <div [hidden]="!issuanceCardsNum.pristine" class="invalid-feedback">Введите количество выданных карт</div>-->
-
-
-
+      <button type="submit" [disabled]="!bankForm.form.valid" class="btn btn_pro">Добавить</button>
     </form>
-    <button type="submit" [disabled]="!bankForm.form.valid" class="btn btn-success">Добавить</button>
   </div>
 </div>

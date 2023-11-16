@@ -21,6 +21,7 @@ export class BankService {
   }
 
   public addBank(bank: Bank) {
+    console.log(124);
     return this.http.post<Bank>(this.banksUrl, bank);
   }
 
