@@ -15,7 +15,6 @@ import java.time.LocalTime;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 public class HelloWorldController {
     @Autowired private EmployeeRepository employeeRepository;
     @Autowired private GradeRepository gradeRepository;

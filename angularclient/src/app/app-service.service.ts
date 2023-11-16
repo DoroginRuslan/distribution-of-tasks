@@ -9,12 +9,15 @@ export class AppService {
 
   authenticated = false;
   loginUrl: string;
+  authData: AuthData;
+  userToken: Token;
 
   constructor(private http: HttpClient) {
     this.loginUrl = 'https://localhost:8080/api/auth/login';
   }
 
   authenticate(authData: AuthData): Observable<Token> {
+    this.authData = authData;
     return this.http.post<Token>(this.loginUrl, authData)
       .pipe(catchError((error: HttpErrorResponse) => {
       if (error.error instanceof Error) {

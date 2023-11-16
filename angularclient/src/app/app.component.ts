@@ -18,10 +18,18 @@ export class AppComponent implements OnInit {
   worker_id : number;
 
   constructor(private app: AppService, private http: HttpClient, private router: Router, private input : InputService) {
-      if (this.is_login != 1 && this.is_login != 2) {
-          router.navigate(['login']);
-
-      }
+    if (app.authenticated==true)
+    {
+      router.navigate(['employeeTracker']);
+    }
+    else
+    {
+      router.navigate(['login']);
+    }
+    // if (this.is_login != 1 && this.is_login != 2) {
+      //     router.navigate(['login']);
+      //
+      // }
   }
   authenticated(){
     return this.app.authenticated;
@@ -32,12 +40,12 @@ export class AppComponent implements OnInit {
   // }
 
   ngOnInit() {
-    this.input.data$.subscribe(data => {
-      this.is_login = data;
-    });
-    this.input.worker_data$.subscribe(worker_data => {
-          this.worker_id = worker_data;
-    });
+    // this.input.data$.subscribe(data => {
+    //   this.is_login = data;
+    // });
+    // this.input.worker_data$.subscribe(worker_data => {
+    //       this.worker_id = worker_data;
+    // });
   }
 
   // MenuButton(){
