@@ -6,8 +6,8 @@ import ru.era.distributionoftasks.entities.TaskLog;
 import ru.era.distributionoftasks.services.DistributeDalyTasksService;
 import ru.era.distributionoftasks.services.TaskLogService;
 import ru.era.distributionoftasks.services.distributor.DistributorConnector;
-import ru.era.distributionoftasks.services.entities.MatrixWeightWithBanks;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -66,6 +66,6 @@ public class taskLogController {
 
     @GetMapping("/daily/distribute")
     public List<TaskLog> distributeDailyTasks() {
-        return distributeDalyTasksService.distribute();
+        return distributeDalyTasksService.distribute(LocalDate.now());
     }
 }

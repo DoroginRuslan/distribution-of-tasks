@@ -2,6 +2,7 @@ package ru.era.distributionoftasks.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.era.distributionoftasks.entities.Bank;
 import ru.era.distributionoftasks.entities.Employee;
 import ru.era.distributionoftasks.entities.TaskLog;
 import ru.era.distributionoftasks.repositories.BankRepository;
@@ -13,7 +14,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TaskLogService {
@@ -63,5 +67,15 @@ public class TaskLogService {
     public List<TaskLog> getDailyTasksForEmployee(Long employeeId) {
         Employee employee = employeeRepository.findById(employeeId).orElseThrow();
         return taskLogRepository.findDateTasksForEmployee(employee, LocalDate.now().atStartOfDay());
+    }
+
+    public Map<Bank, Integer> getOverdueTasksWithOverdue(LocalDate today) {
+        Map<Bank, Integer> result = new HashMap<>();
+        List<TaskLog> overdueTaskList = taskLogRepository.findByIsCompleted(false);
+        for(TaskLog overdueTask : overdueTaskList) {
+            int overdue = (int) overdueTask.getTaskSetDate().toLocalDate().until(today, ChronoUnit.DAYS);
+            result.put(overdueTask.getBank(), overdue);
+        }
+        return result;
     }
 }

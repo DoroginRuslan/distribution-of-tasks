@@ -6,6 +6,7 @@ import ru.era.distributionoftasks.entities.Employee;
 import ru.era.distributionoftasks.entities.Grade;
 
 import java.lang.reflect.Array;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,6 +28,6 @@ public class DistributorConnectorTest {
                 new Bank().setId(3).setAddress("г. Краснодар, ул. Красных Партизан, д. 117"),
                 new Bank().setId(4).setAddress("г. Краснодар, ул. Северная, д. 389")
         );
-        distributorConnector.getData(employeeList, banks);
+        distributorConnector.getData(employeeList, banks, new HashMap<>());
     }
 }

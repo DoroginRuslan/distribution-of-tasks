@@ -26,10 +26,10 @@ public class TaskAnalyser {
         boolean condition2 = agencyPoint.getNumberOfDaysOfIssue() > 14;
         if(condition1 || condition2) {
             return Optional.of(new Task(
-                    240,
+                    240 * (1 + agencyPoint.getOverdue()),
                     Priority.MAX_PRIORITY,
                     List.of(SENIOR_RANG),
-                    160));
+                    160 * (1 + agencyPoint.getOverdue())));
         } else {
             return Optional.empty();
         }
@@ -42,7 +42,7 @@ public class TaskAnalyser {
                     120,
                     Priority.MEDIUM_PRIORITY,
                     List.of(SENIOR_RANG, MIDDLE_RANG),
-                    40));
+                    40 * (1 + agencyPoint.getOverdue())));
         } else {
             return Optional.empty();
         }
@@ -54,7 +54,7 @@ public class TaskAnalyser {
                     90,
                     Priority.LOW_PRIORITY,
                     List.of(SENIOR_RANG, MIDDLE_RANG, JUNIOR_RANG),
-                    15));
+                    15 * (1 + agencyPoint.getOverdue())));
         } else {
             return Optional.empty();
         }

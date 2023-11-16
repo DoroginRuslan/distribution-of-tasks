@@ -6,14 +6,15 @@ import ru.era.distributionoftasks.entities.Bank;
 import ru.era.distributionoftasks.entities.Employee;
 import ru.era.distributionoftasks.entities.TaskLog;
 import ru.era.distributionoftasks.graphhopper.RoutesService;
-import ru.era.distributionoftasks.graphhopper.jsonobjects.MatrixWeightsAnswer;
 import ru.era.distributionoftasks.graphhopper.jsonobjects.Point;
 import ru.era.distributionoftasks.repositories.BankRepository;
 import ru.era.distributionoftasks.services.distributor.DistributorConnector;
+import ru.era.distributionoftasks.services.distributor.OverdueTasksService;
 import ru.era.distributionoftasks.services.entities.MatrixWeightWithBanks;
 
-import java.util.Collection;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class DistributeDalyTasksService {
@@ -25,6 +26,8 @@ public class DistributeDalyTasksService {
     DistributorConnector distributorConnector;
     @Autowired
     EmployeeService employeeService;
+    @Autowired
+    OverdueTasksService overdueTasksService;
 
 
     // outBankList - сюда записываются точки в порядке матрицы
@@ -39,9 +42,10 @@ public class DistributeDalyTasksService {
         return result;
     }
 
-    public List<TaskLog> distribute () {
+    public List<TaskLog> distribute (LocalDate today) {
         List<Employee> employees = employeeService.getAllEmployers();
         List<Bank> banks = (List<Bank>) bankRepository.findAll();
-        return distributorConnector.getData(employees, banks);
+        Map<Bank, Integer> overdueBanks = overdueTasksService.getOverdueTasks(today);
+        return distributorConnector.getData(employees, banks, overdueBanks);
     }
 }
