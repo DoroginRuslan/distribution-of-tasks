@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
 
   constructor(private app: AppService, private http: HttpClient, private router: Router, private input : InputService) {
       if (this.is_login != 1 && this.is_login != 2) {
-          router.navigate(['input']);
+          router.navigate(['login']);
 
       }
   }

@@ -5,6 +5,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import ru.era.distributionoftasks.security.domain.JwtAuthentication;
 import ru.era.distributionoftasks.security.domain.JwtRequest;
 import ru.era.distributionoftasks.security.domain.JwtResponse;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@CrossOrigin
 public class AuthService {
 
     private final UserService userService;

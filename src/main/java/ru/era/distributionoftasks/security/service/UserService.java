@@ -3,6 +3,7 @@ package ru.era.distributionoftasks.security.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import ru.era.distributionoftasks.security.domain.Role;
 import ru.era.distributionoftasks.security.domain.User;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@CrossOrigin
 public class UserService {
 
     private final List<User> users;

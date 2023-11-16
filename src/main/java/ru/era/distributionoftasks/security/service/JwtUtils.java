@@ -3,6 +3,7 @@ package ru.era.distributionoftasks.security.service;
 import io.jsonwebtoken.Claims;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import ru.era.distributionoftasks.security.domain.JwtAuthentication;
 import ru.era.distributionoftasks.security.domain.Role;
 
@@ -11,6 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@CrossOrigin
 public final class JwtUtils {
 
     public static JwtAuthentication generate(Claims claims) {

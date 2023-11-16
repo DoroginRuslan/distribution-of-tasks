@@ -8,6 +8,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import ru.era.distributionoftasks.security.domain.User;
 
 import javax.crypto.SecretKey;
@@ -19,6 +20,7 @@ import java.util.Date;
 
 @Slf4j
 @Component
+@CrossOrigin
 public class JwtProvider {
 
     private final SecretKey jwtAccessSecret;
