@@ -1,5 +1,6 @@
 package ru.era.distributionoftasks.services.distributor;
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.era.distributionoftasks.entities.Bank;
@@ -19,22 +20,33 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
+@NoArgsConstructor
 public class DistributorConnector {
     @Autowired
-    TaskTypeService taskTypeService;
+    private TaskTypeService taskTypeService;
     @Autowired
-    TaskLogService taskLogService;
+    private TaskLogService taskLogService;
     @Autowired
-    YandexGeocoderService yandexGeocoderService;
+    private YandexGeocoderService yandexGeocoderService;
     @Autowired
-    RoutesService routesService;
+    private RoutesService routesService;
+
+    public DistributorConnector(TaskTypeService taskTypeService, TaskLogService taskLogService, YandexGeocoderService yandexGeocoderService, RoutesService routesService) {
+        this.taskTypeService = taskTypeService;
+        this.taskLogService = taskLogService;
+        this.yandexGeocoderService = yandexGeocoderService;
+        this.routesService = routesService;
+    }
+
+    int countAddresses;
+    Map<String, Integer> addressIdMap;
 
 
-    int countAddresses = 0;
-    Map<String, Integer> addressIdMap = new HashMap<>();
+    public List<TaskLog> getData(List<Employee> employees, List<Bank> bankList, Map<Bank, Integer> overdueBanks, List<Long> nonDistributed) {
+        countAddresses = 0;
+        addressIdMap = new HashMap<>();
 
-
-    public List<TaskLog> getData(List<Employee> employees, List<Bank> banks) {
+        // Предварительная настройка сотрудников
         for(Employee employee : employees) {
             addAddressInMap(employee.getAddress());
         }
@@ -52,29 +64,28 @@ public class DistributorConnector {
             AlgEmployee algEmployee = new AlgEmployee(employee.getId(), stringRangMap.get(employee.getGrade().getName()));
             algEmployees.get(id).add(algEmployee);
         }
+
+        // Предварительная настройка банков
         List<Office> offices = new ArrayList<>(countAddresses);
         for(int i = 0; i < countAddresses; i++) {
             Office office = new Office(i, algEmployees.get(i));
-            office.setAddressId(i);
+            office.setAddressIdImpl(i);
             offices.add(office);
         }
 
-        List<AgencyPoint> agencyPointList = new ArrayList<>(banks.size());
-        for(Bank bank : banks) {
+        List<AgencyPoint> agencyPointList = new ArrayList<>(bankList.size());
+        for(Bank bank : bankList) {
             int addressAgencyPointId = addAddressInMap(bank.getAddress());
-            agencyPointList.add(new AgencyPoint(
-                    (int) bank.getId(),
-                    addressAgencyPointId,
-                    bank.getRegistrationDate(),
-                    bank.isMaterialsDelivered(),
-                    bank.getLastCardIssuanceDays(),
-                    bank.getApprovedApplicationsNum(),
-                    bank.getIssuanceCardsNum()));
+            Integer overdueDays = overdueBanks.get(bank);
+            agencyPointList.add(AgencyPoint.of(bank,
+                    (overdueDays == null) ? 0 : overdueDays,
+                    addressAgencyPointId));
         }
 
         AddressTimesMatrix addressTimeMatrix = getAddressMatrix();
         ServiceTaskAssignment serviceTaskAssignment = new ServiceTaskAssignment(addressTimeMatrix, agencyPointList, offices);
-        List<EmployeeRoutePair> result = serviceTaskAssignment.calcEmployeeRoutes();
+        List<EmployeeRoutePair> result = serviceTaskAssignment.calcEmployeeRoutes(nonDistributed);
+
         List<TaskLog> taskLogList = new ArrayList<>();
         Map<Priority, TaskType> stringTaskTypeMap = new HashMap<>();
         stringTaskTypeMap.put(Priority.MAX_PRIORITY, taskTypeService.getTaskTypeByName("Выезд на точку для стимулирования выдач"));
@@ -88,6 +99,7 @@ public class DistributorConnector {
                         .setTaskSetDate(LocalDateTime.now())
                         .setBank(new Bank().setId(agencyPoint.getDatabaseId()))
                         .setCompleted(false);
+                taskLogList.add(taskLog);
                 taskLogService.addTaskLog(taskLog);
             }
         }

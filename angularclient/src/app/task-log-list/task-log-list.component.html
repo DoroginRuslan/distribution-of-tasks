@@ -1,14 +1,46 @@
 <div class="card">
   <div class="card-body table-responsive">
-    <div>
-      <button class="btn btn_pro" (click)="formTasks()" [disabled]="tasksFormed">
-        Сформировать задачи на сегодня
-      </button>
-      <p>
 
-      </p>
-    </div>
-    <table class="table table-bordered table-striped">
+    <!-- <div class="pb-2 gap-3 d-flex row">
+      <div class="d-flex col">
+        <button class="btn btn_pro" (click)="formTasks()" [disabled]="tasksFormed">
+          Сформировать задачи на сегодня
+          </button>
+        <div class="spinner-border" role="status" [hidden]="!loading">
+          <span class="visually-hidden" >Loading...</span>
+        </div>
+        <div class="col"><p [hidden]="!tasksFormed">Задачи на сегодня сформированы (обновите базу данных для повторного тестирования)</p>
+        </div>
+      </div>
+      <div class="col">
+        <button class="btn btn-success">
+          <img src="../assets/iconExcel.svg" style="width: 15px;" alt="">
+          Выгрузить отчет
+        </button>
+      </div> -->
+
+      <div class="row mb-2 ">
+        <div class="col  d-flex justify-content-start" >
+          <button class="btn btn_pro " (click)="formTasks()" [disabled]="tasksFormed">
+            Сформировать задачи на сегодня
+            </button>
+        </div>
+        <div class="col  d-flex justify-content-end">
+          <button class="btn btn-success " (click)="exportexcel()">
+            <img src="../assets/iconExcel.svg" style="width: 15px;" alt="">
+            Создать отчет
+          </button>
+        </div>
+      </div>
+      <div>
+        <div class="spinner-border" role="status" [hidden]="!loading">
+          <span class="visually-hidden" >Loading...</span>
+        </div>
+        <div class="col"><p [hidden]="!tasksFormed">Задачи на сегодня сформированы (обновите базу данных для повторного тестирования)</p>
+        </div>
+      </div>
+
+    <table id="excel-table" class="table table-bordered table-striped">
       <thead class="thead-dark">
       <tr class="align-middle text-center">
         <th scope="col">#</th>

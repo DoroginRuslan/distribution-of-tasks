@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.era.distributionoftasks.graphhopper.jsonobjects.GeocodeAnswer;
@@ -14,7 +15,9 @@ import ru.era.distributionoftasks.graphhopper.jsonobjects.Point;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class RoutesService {
@@ -73,6 +76,7 @@ public class RoutesService {
 
     // TODO: 09.11.2023 Переделать в POST реализацию
     public MatrixWeightsAnswer getMatrixWeightsAnswers(List<Point> points) {
+//        return getTestMatrixWeightsAnswer(points);
         Request request = new Request.Builder()
                 .url(matrixRul + "?" +
                         transformPointsToParamString(points) +
@@ -96,6 +100,23 @@ public class RoutesService {
         } catch (IOException e) {
             throw new GraphhopperErrorException("Ошибка при работе с сервисом graphhopper", e);
         }
+    }
+
+    private static MatrixWeightsAnswer getTestMatrixWeightsAnswer(List<Point> points) {
+        Random random = new Random(12345L);
+        MatrixWeightsAnswer testMatrixWeightsAnswer = new MatrixWeightsAnswer();
+        testMatrixWeightsAnswer.setTimes(new ArrayList<>(points.size()));
+        for(int i = 0; i < points.size(); i++) {
+            testMatrixWeightsAnswer.getTimes().add(new ArrayList<>(points.size()));
+            for(int j = 0; j < points.size(); j++) {
+                if(i == j) {
+                    testMatrixWeightsAnswer.getTimes().get(i).add(0);
+                } else {
+                    testMatrixWeightsAnswer.getTimes().get(i).add(random.nextInt(90-10) + 10);
+                }
+            }
+        }
+        return testMatrixWeightsAnswer;
     }
 
     private String transformPointsToParamString(List<Point> points) {

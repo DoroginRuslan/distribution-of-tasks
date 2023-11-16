@@ -1,13 +1,14 @@
 package ru.era.distributionoftasks.controllers.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import ru.era.distributionoftasks.entities.TaskLog;
 import ru.era.distributionoftasks.services.DistributeDalyTasksService;
 import ru.era.distributionoftasks.services.TaskLogService;
 import ru.era.distributionoftasks.services.distributor.DistributorConnector;
-import ru.era.distributionoftasks.services.entities.MatrixWeightWithBanks;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -64,8 +65,13 @@ public class taskLogController {
         return taskLogService.getDailyTasksForEmployee(employeeId);
     }
 
+//    @GetMapping("/daily/distribute")
+//    public List<TaskLog> distributeDailyTasksSetDate(@RequestParam("today") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate today) {
+//        return distributeDalyTasksService.distribute(today);
+//    }
+
     @GetMapping("/daily/distribute")
     public List<TaskLog> distributeDailyTasks() {
-        return distributeDalyTasksService.distribute();
+        return distributeDalyTasksService.distribute(LocalDate.now());
     }
 }

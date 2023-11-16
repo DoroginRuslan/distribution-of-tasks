@@ -21,6 +21,7 @@ import { TaskTypeFormComponent } from './task-type-form/task-type-form.component
 import { GradeService } from './grade-service.service';
 import { AngularYandexMapsModule, YaConfig, YaGeocoderService  } from 'angular8-yandex-maps';
 
+
 const mapConfig: YaConfig = {
   apikey: '61f5780b-ee71-47a9-93a5-6ac5fd5262e2',
   lang: 'ru_RU',
