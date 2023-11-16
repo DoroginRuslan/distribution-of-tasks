@@ -65,10 +65,10 @@ public class taskLogController {
         return taskLogService.getDailyTasksForEmployee(employeeId);
     }
 
-    @GetMapping("/daily/distribute")
-    public List<TaskLog> distributeDailyTasksSetDate(@RequestParam("today") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate today) {
-        return distributeDalyTasksService.distribute(today);
-    }
+//    @GetMapping("/daily/distribute")
+//    public List<TaskLog> distributeDailyTasksSetDate(@RequestParam("today") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate today) {
+//        return distributeDalyTasksService.distribute(today);
+//    }
 
     @GetMapping("/daily/distribute")
     public List<TaskLog> distributeDailyTasks() {
