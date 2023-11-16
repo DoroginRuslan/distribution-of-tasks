@@ -99,6 +99,7 @@ public class DistributorConnector {
                         .setTaskSetDate(LocalDateTime.now())
                         .setBank(new Bank().setId(agencyPoint.getDatabaseId()))
                         .setCompleted(false);
+                taskLogList.add(taskLog);
                 taskLogService.addTaskLog(taskLog);
             }
         }
