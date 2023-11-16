@@ -42,23 +42,23 @@ export class EmployeeTrackerComponent implements OnInit {
         this.is_login = data;
         });
 
-      if (this.is_login == 1)
-        {
+      // if (this.is_login == 1)
+      //   {
           this.employeeService.findAll().subscribe(data => {
             this.employees = data;
             this.currentEmployeeId = this.employees[0].id;
             this.updateCurrentEmployeeLogs();
           });
-        }
-      else
-        {
-        this.input.worker_data$.subscribe(worker_data => {
-          this.worker_id = worker_data;
-          this.currentEmployeeId = this.worker_id.toString();
-          console.log(this.currentEmployeeId);
-          this.updateCurrentEmployeeLogs();
-          });
-        }
+        // }
+      // else
+      //   {
+      //   this.input.worker_data$.subscribe(worker_data => {
+      //     this.worker_id = worker_data;
+      //     this.currentEmployeeId = this.worker_id.toString();
+      //     console.log(this.currentEmployeeId);
+      //     this.updateCurrentEmployeeLogs();
+      //     });
+      //   }
     //this.geolocation = ymaps.geolocation;
 
 

@@ -38,7 +38,11 @@ export class AppComponent implements OnInit {
   // onPopState(event) {
   //   this.router.navigate(['input']);
   // }
-
+  logout()
+  {
+    this.app.logout();
+    this.app.clean();
+  }
   ngOnInit() {
     // this.input.data$.subscribe(data => {
     //   this.is_login = data;

@@ -10,30 +10,46 @@ import {Token} from "../token";
     selector: 'app-login-form',
     styleUrls: ['./login-form.component.css']
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit{
+
+
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
 
   authData: AuthData;
-  userToken: Token;
 
   constructor(private app: AppService, private http: HttpClient, private router: Router) {
-    this.authData = new AuthData();
+     this.authData = new AuthData();
+  }
+
+  ngOnInit(): void {
+    if (this.app.isLoggedIn()) {
+      this.isLoggedIn = true;
+      this.roles = this.app.getUser().roles;
+      this.router.navigate(['employeeTracker']);
+    }
   }
 
   login() {
-    this.app.authenticate(this.authData).subscribe(data => {
-      if (data.accessToken=="")
-      {
-        console.log("bad data");
-      }
-      else
-      {
-        this.userToken = data;
+    this.app.login(this.authData).subscribe({
+      next: data => {
+        this.app.saveUser(data);
         console.log(data);
-        this.router.navigate(["employeeTracker"]);
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.app.getUser().roles;
+        this.router.navigate(['employeeTracker'])
+      },
+      error: err => {
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
       }
-    })
+    });
+  }
+  reloadPage(): void {
+    window.location.reload();
   }
 
 }
-
-

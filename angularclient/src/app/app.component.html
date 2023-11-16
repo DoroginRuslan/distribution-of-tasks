@@ -41,12 +41,12 @@
           <span>Задачи</span></a>
       </li>
       <li>
-        <a href="#" routerLink="/banks" class="gap-2" [hidden]="!(is_login==1)">
+      <a href="#" routerLink="/banks" class="gap-2" > <!--  [hidden]="!(is_login==1)"-->
           <i class="bi bi-geo-alt-fill"></i>
           <span>Точки</span></a>
       </li>
       <li>
-        <a href="#" class="gap-2" aria-label="Close"[hidden]="(is_login==0)">
+        <a href="#" class="gap-2" aria-label="Close" (click) = "logout()" [hidden]="(is_login==0)">
           <i class="bi bi-x-circle-fill"></i>
           <span>Выйти</span></a>
       </li>
@@ -95,7 +95,7 @@
             <span>Задачи</span></a>
         </li>
         <li>
-          <a href="#" routerLink="/banks" class="gap-2" data-bs-dismiss="offcanvas"  [hidden]="!(is_login==1)">
+         <a href="#" routerLink="/banks" class="gap-2" data-bs-dismiss="offcanvas" > <!-- [hidden]="!(is_login==1)"-->
             <i class="bi bi-geo-alt-fill"></i>
             <span>Точки</span></a>
         </li>
@@ -104,7 +104,7 @@
     <div>
       <ul class="sidebar-nav">
         <li>
-          <a href="#" class="gap-2" aria-label="Close"[hidden]="(is_login==0)">
+          <a href="#" class="gap-2" aria-label="Close" (click) = "logout()" [hidden]="(is_login==0)">
             <i class="bi bi-x-circle-fill"></i>
             <span>Выйти</span></a>
         </li>
