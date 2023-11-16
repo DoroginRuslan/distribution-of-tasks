@@ -12,3 +12,7 @@
   color: white;
   transition: 0.5s;
 }
+
+.form-check-input{
+  margin-right: 5px;
+}
